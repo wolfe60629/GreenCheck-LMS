@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 //Added for future seperate views
-const isStudent = false;
+const isStudent = true;
 
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'ejs');
