@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-var posts = [{Name: "Jeremy Wolfe", Post: "This is a test post"}, {Name: "Bob Smith", Post: "Wow! It Works!"}, {Name:"Tommy Baloon", Post: "Helloooooo out there"}];
+var posts = [{Name: "Jeremy Wolfe", Post: "This is a test post"}, {Name: "Bob Smith", Post: "Wow! It Works!"}, {Name:"Tommy Baloon", Post: "Helloooooo out there"}, {Name: 'Sam', Post: "Applejuice"}];
 
 router.get('/', (req, res, next) => {
   res.render('teacherHome', {page: 'Home', 'feed' : posts});
