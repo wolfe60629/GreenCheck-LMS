@@ -5,11 +5,7 @@ const router = express.Router();
 var posts = [{Name: "Jeremy Wolfe", Post: "This is a test post"}, {Name: "Bob Smith", Post: "Wow! It Works!"}, {Name:"Tommy Baloon", Post: "Helloooooo out there"}, {Name: 'Sam', Post: "Applejuice"}];
 
 router.get('/', (req, res, next) => {
-  res.render('teacherHome', {page: 'Home', 'feed' : posts});
-});
-
-router.get('/teacher/classes', (req, res, next) => {
-  res.render('teacherIndex', {page: 'My Classes'});
+  res.render('teacherIndex', {page: 'Home', 'feed' : posts});
 });
 
 module.exports = router;

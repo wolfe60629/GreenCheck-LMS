@@ -2,10 +2,24 @@
 <html lang="en">
   <%- include ('./partials/head') -%>
   <body>
+    <%- include ('./partials/head') -%>
     <%- include ('./partials/teacherNav') -%>
     <main>
-      <h1><%= page %></h1>
+      <h1><%= page %> <%= %></h1>
+          <%for (var post in feed)  { %>
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+               <h5 class="card-title">
+                <%= feed[post].Name %>
+               </h5>
+               <p class="card-text">
+                  <%= feed[post].Post %>
+               </p>
+              </div>
+            </div> 
+       <% } %> 
+      </script>
     </main>
     <%- include ('./partials/footer') -%>
-  </body>
+</body>
 </html>
