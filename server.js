@@ -12,7 +12,6 @@ const isStudent = false;
 
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'ejs');
-
 app.use(express.static(`${__dirname}/public`));
 
 
@@ -30,27 +29,27 @@ if (isLoggedIn) {
 
 
 
-app.use((req, res, next) => {
+ app.use((req, res, next) => {
     if (req.path != '/api') { 
         res.status(404).render('404', {page: 'Page not found'});
     }
-
     next();
-});
-
-app.listen(port, console.log(`Server is listening at port ${port}.`))
+}); 
+ 
 module.exports = app;
 
 //Start Listening For API Calls
 app.use(express.json({limit: "1mb"}));
-app.post('/api', (request,response,next) => { 
-    response.setHeader('Content-Type', 'application/json');
+app.post('/api', function(req,res) { 
+    res.setHeader('Content-Type', 'application/json');
     
-    console.log(request.body);
-    
-    response.json({
+    console.log(req.body);
+   return res.json({
         'Status' : 'SUCCESS',
-        'Timestamp' : Date.now()
+        'Timestamp' : Date.now(),
+        'Data': 'NONE'
     });
-    response.send();
 });
+
+app.listen(port, console.log(`Server is listening at port ${port}.`))
+
