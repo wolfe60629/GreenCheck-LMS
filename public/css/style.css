@@ -14,7 +14,6 @@ body {
   background: linear-gradient(to right, hsl(0, 0%, 90%), hsl(0, 0%, 95%)) fixed;
   min-height: 100%;
   overscroll-behavior: none;
-  padding: 0 20px;
   position: relative;
 }
 

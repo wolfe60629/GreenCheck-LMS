@@ -1,0 +1,50 @@
+<!-- views/login.handlebars -->
+<style>
+  body {
+  background-image: url('/img/loginbackground.gif');
+  background-size: cover;
+}
+h1,i,a { 
+     font-family: 'Roboto', sans-serif;
+}
+</style>
+    {{#if error}}
+      <p class="alert alert-warning">{{error}}</p>
+    {{/if}}
+
+    {{#if success}}
+      <p class="alert alert-success">{{success}}</p>
+    {{/if}}
+
+    {{#if notice}}
+      <p class="alert alert-info">{{notice}}</p>
+    {{/if}}
+
+       <div class="d-flex justify-content-center h-100">
+        <div class="card" style = "margin-top: 10%">
+          <div class = 'card-header'>
+            <h1>Login</h1>
+            </div>
+      <div class="card-body">
+				  <form id="local-sign-in" class="" action="/login" method="post">
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><b class="fas fa-user">Username</b></span>
+						</div>
+						<input type="text" name= "username" class="form-control" placeholder="">
+						
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><b class="fas fa-key">Password</b></span>
+						</div>
+						<input type="password" class="form-control"  name= "password" placeholder=""/>
+					</div>
+					<div class="form-group">
+            <input type="submit" class="btn btn-info" value="Log In"/>
+          </div>
+        </div>
+      </div>
+				</form>
+			</div>
+  
