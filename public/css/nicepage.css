@@ -8331,7 +8331,7 @@ section.u-image,
 }
 @media (min-width: 1200px) {
   .u-sheet {
-    width: 92%;
+    width: 1140px;
   }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
@@ -17835,7 +17835,6 @@ a.pswp__share--download:hover {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  color: white;
 }
 .u-table th,
 .u-table td {
@@ -31355,7 +31354,7 @@ a.u-link.u-text-hover-grey-90:hover {
         h1.u-title
         {
         font-weight: 400;
-        font-size: 4.5rem;
+        font-size: 3.75rem;
         line-height: 1.1;
         margin-top: 20px;
         margin-bottom: 20px;
@@ -31363,7 +31362,7 @@ a.u-link.u-text-hover-grey-90:hover {
         h2.u-subtitle
         {
         font-weight: 400;
-        font-size: 2.25rem;
+        font-size: 1.875rem;
         line-height: 1.1;
         margin-top: 20px;
         margin-bottom: 20px;
@@ -31371,7 +31370,7 @@ a.u-link.u-text-hover-grey-90:hover {
         h1:not(.u-title)
         {
         font-weight: 400;
-        font-size: 3rem;
+        font-size: 2.25rem;
         line-height: 1.1;
         margin-top: 20px;
         margin-bottom: 20px;
@@ -31379,7 +31378,7 @@ a.u-link.u-text-hover-grey-90:hover {
         h2:not(.u-subtitle)
         {
         font-weight: 400;
-        font-size: 2.25rem;
+        font-size: 1.875rem;
         line-height: 1.1;
         margin-top: 20px;
         margin-bottom: 20px;
@@ -31387,7 +31386,7 @@ a.u-link.u-text-hover-grey-90:hover {
         h3
         {
         font-weight: 400;
-        font-size: 1.875rem;
+        font-size: 1.5rem;
         line-height: 1.2;
         margin-top: 20px;
         margin-bottom: 20px;
@@ -31395,7 +31394,7 @@ a.u-link.u-text-hover-grey-90:hover {
         h4
         {
         font-weight: 400;
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         line-height: 1.2;
         margin-top: 20px;
         margin-bottom: 20px;
@@ -31403,7 +31402,7 @@ a.u-link.u-text-hover-grey-90:hover {
         h5
         {
         font-weight: 400;
-        font-size: 1.25rem;
+        font-size: 1.125rem;
         line-height: 1.2;
         margin-top: 20px;
         margin-bottom: 20px;
@@ -31411,14 +31410,14 @@ a.u-link.u-text-hover-grey-90:hover {
         h6
         {
         font-weight: 400;
-        font-size: 1.125rem;
+        font-size: 1rem;
         line-height: 1.2;
         margin-top: 20px;
         margin-bottom: 20px;
         }
         p.u-large-text
         {
-        font-size: 1.25rem;
+        font-size: 1.125rem;
         margin-top: 20px;
         margin-bottom: 20px;
         }
@@ -31432,6 +31431,7 @@ a.u-link.u-text-hover-grey-90:hover {
         {
         margin-top: 20px;
         margin-bottom: 20px;
+        font-size: 0.875rem;
         }
         .u-btn
         {
@@ -31468,7 +31468,7 @@ a.u-link.u-text-hover-grey-90:hover {
         }
         .u-body
         {
-   
+        background-image: linear-gradient(white, #478ac9);
         background-attachment: fixed;
         }
         /** common-rules **/
@@ -31639,7 +31639,7 @@ a.u-link.u-text-hover-grey-90:hover {
 }
 
 .u-header .u-image-1 {
-  margin: 24px 0 0 0px;
+  margin: 24px auto 0 -32px;
 }
 
 .u-header .u-logo-image-1 {
@@ -31648,7 +31648,7 @@ a.u-link.u-text-hover-grey-90:hover {
 }
 
 .u-header .u-menu-1 {
-  margin: -32px -2.5% 19px auto;
+  margin: -31px -68px 19px auto;
 }
 
 .u-header .u-nav-1 {
@@ -31662,20 +31662,25 @@ a.u-link.u-text-hover-grey-90:hover {
 @media (max-width: 1199px) {
   .u-header .u-image-1 {
     margin-left: -26px;
-    width: 64px;
-    height: 32px;
   }
 
   .u-header .u-menu-1 {
     width: auto;
-    margin-top: -34px;
-    margin-right: 0;
-    margin-bottom: 22px;
+    margin-top: -32px;
+    margin-right: -50px;
+    margin-bottom: 20px;
   }
 }
 @media (max-width: 991px) {
   .u-header .u-image-1 {
     margin-left: -20px;
+    width: 64px;
+    height: 32px;
+  }
+
+  .u-header .u-menu-1 {
+    margin-top: -32px;
+    margin-right: -38px;
   }
 }
 @media (max-width: 767px) {
@@ -31683,10 +31688,18 @@ a.u-link.u-text-hover-grey-90:hover {
     width: auto;
     margin-left: -15px;
   }
+
+  .u-header .u-menu-1 {
+    margin-right: -28px;
+  }
 }
 @media (max-width: 575px) {
   .u-header .u-image-1 {
     margin-left: -9px;
+  }
+
+  .u-header .u-menu-1 {
+    margin-right: -18px;
   }
 }
 .u-footer {

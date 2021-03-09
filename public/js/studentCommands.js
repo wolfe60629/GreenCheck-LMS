@@ -1,6 +1,6 @@
-async function sendLoginAsnyc(username,password) { 
+async function requestAssignmentsAsync(user_id) { 
     //Send login information over to the api
-    const sendData = {'command' : 'login', 'username' : username, 'password' : password}; 
+    const sendData = {'command' : 'assignmentRequest', 'user_id' : user_id}; 
 
     //Send to API
    let promise = new Promise((resolve, reject) => {
@@ -21,8 +21,9 @@ async function sendLoginAsnyc(username,password) {
   return result;
   }
 
-  function sendLogin (username,password){ 
-   sendLoginAsnyc(username,password).then (data => { 
+
+  function requestAssignments (user_id){ 
+    requestAssignmentsAsync(user_id).then (data => { 
     console.log(data);
     return data;
   });

@@ -96,19 +96,24 @@ var hbs = exphbs.create({
 });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+
+
 //================POST DATA =============
 app.post('/api', function(req, res, next) {
   res.setHeader('Content-Type', 'application/json');
-  console.log(req.json);
-  res.json({
-    'Status' : 'SUCCESS',
-    'Timestamp' : Date.now()
+  console.log(req.body);
+
+//SWITCH
+switch(req.body.command) { 
+  case "assignmentRequest" : 
+    res.json({
+      'Status' : 'SUCCESS',
+      'Timestamp' : Date.now(),
+      'User' :  req.user
+    });
+    break;
+}
 });
-});
-
-
-
-
 
 //===============ROUTES===============
 //displays our homepage

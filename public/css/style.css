@@ -99,10 +99,8 @@ nav a:hover,
 nav a:active,
 nav a:focus {
   border-bottom: 1px solid #006f8e;
-  font-size: 0.8rem;
   margin: 0 6px;
   padding: 8px;
-  text-transform: uppercase;
 }
 
 nav a:hover {
