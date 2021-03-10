@@ -584,7 +584,7 @@
 
 @media (max-width: 575px) {
   .progress {
-    width:83%;
+    width:100%;
   }
 
   .u-section-1 .u-layout-wrap-1 {
@@ -593,21 +593,20 @@
 
   .u-section-1 .u-image-1 {
     margin-top: 85px;
-    margin-right: 143px;
+    margin-right: auto;
     margin-left: auto;
   }
 
   .u-section-1 .u-btn-1 {
     margin-top: -189px;
     margin-right: auto;
-    margin-left: 17px;
   }
 
   .u-section-1 .u-custom-html-1 {
     margin-top: 142px;
-    margin-right: 43px;
-    margin-left: 58px;
-    width: 320px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
   }
 
   .u-section-1 .u-text-1 {
