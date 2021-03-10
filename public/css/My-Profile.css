@@ -478,6 +478,7 @@
 @media (max-width: 767px) {
   .u-section-1 {
     min-height: 200px;
+    width:115%;
   }
 
   .u-section-1 .u-layout-wrap-1 {
@@ -576,10 +577,11 @@
   }
 }
 
+
 @media (max-width: 575px) {
   .u-section-1 .u-layout-wrap-1 {
     min-height: 2545px;
-    width: calc(((100% - 340px) / 2) + 340px);
+    width: 100%;
   }
 
   .u-section-1 .u-image-1 {
@@ -633,5 +635,12 @@
     margin-top: -126px;
     margin-right: 103px;
     margin-left: 133px;
+  }
+}
+
+@media (max-width: 300px) { 
+  .u-section-1 {
+    min-height: 200px;
+    width:160%;
   }
 }
