@@ -6,6 +6,7 @@
 * [NodeJS](https://expressjs.com)
 * [EJS](https://ejs.co)
 * [Normalize.css](https://necolas.github.io/normalize.css)
+* [Handlebars-Express]
 
 ## Demo
 
