@@ -38,6 +38,7 @@ exports.localAuth = function (username, password) {
             lastname = row['Last_Name'];
             email = row['Email'];
             points =  row['Points'];
+            userID =  row['User_ID'];
 
             //Change Profile Picture To Base64
             let buff = new Buffer(profilePicture);
@@ -51,7 +52,8 @@ exports.localAuth = function (username, password) {
 
 
             if (!isvaliduser == 0) { 
-                result = {'username' : username, 
+                result = {'username' : username,
+                            'userID' : userID,
                             'isTeacher' : isTeacher, 
                             'profilepicture' : profilePicture, 
                             'firstname': firstname,
@@ -69,4 +71,52 @@ exports.localAuth = function (username, password) {
     });
     connection.end();
   return deferred.promise;
+}
+
+exports.getUserClassInformation = function (user_id) { 
+  var deferred = Q.defer();
+
+  //Connect To Database
+  const connection = mysql.createConnection( { 
+      host : databaseConfig.database.host,
+      database : databaseConfig.database.dbname,
+      user : databaseConfig.database.username,
+      password : databaseConfig.database.password
+  });
+
+  // Formulate Return Structure
+  var assignments = [];
+
+
+  //Query Database
+  sql = 'call getClassInformation(\'' + user_id +'\');'
+  query = connection.query(sql);
+  query.on('result', function(row) {
+      if(row.constructor.name == 'RowDataPacket') { 
+          //Grab the columns that get sent
+          classID = row['Class_ID'];
+          className = row['Class_Name'];
+          assignmentName = row['Assignment_Name'];
+          dueDate = row['Due_Date'];
+          maxSubmissions = row['Max_Submissions'];
+          var ampm = dueDate.getHours() >= 12 ? 'pm' : 'am';
+          let formatted_date = dueDate.getMonth() + "/" + dueDate.getDate() + "/" + dueDate.getFullYear() + " " + (dueDate.getHours()%12 == 0 ? '12' : (dueDate.getHours() === '12' ? '12' : dueDate.getHours()%12)) + ":" + (dueDate.getMinutes() < 10 ? "0" + dueDate.getMinutes() : dueDate.getMinutes()) + " " +ampm ;
+          console.log(formatted_date);
+
+              result = {  'classID' : classID,
+                          'className' : className,
+                          'assignmentName' : assignmentName, 
+                          'dueDate' : formatted_date, 
+                          'maxSubmissions': maxSubmissions
+                        }; 
+              assignments.push(result)
+
+              deferred.resolve(assignments);
+          }else { 
+              deferred.resolve(false);
+          }
+  });
+  connection.end();
+return deferred.promise;
+
 }

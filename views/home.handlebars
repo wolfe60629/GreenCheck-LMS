@@ -31,9 +31,9 @@
 <link rel="stylesheet" href="css/My-Profile.css" media="screen">
     <script class="u-script" type="text/javascript" src="js/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>
+    <script type="text/javascript" src="js/studentCommands.js"></script>
     <meta name="generator" content="Nicepage 3.7.2, nicepage.com">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
-
     <meta property="og:title" content="My Profile">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#478ac9">
@@ -41,7 +41,7 @@
     <meta property="og:url" content="index.html">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-  <body class="u-body"><header class="u-clearfix u-header u-white u-header" id="sec-8537"><div class="u-clearfix u-sheet u-sheet-1">
+  <body class="u-body" ><header class="u-clearfix u-header u-white u-header" id="sec-8537"><div class="u-clearfix u-sheet u-sheet-1">
         <a href="https://nicepage.com" class="u-image u-logo u-image-1">
           <img src="img/default-logo.png" class="u-logo-image u-logo-image-1">
         </a>
@@ -104,7 +104,7 @@
             <div class="u-container-style u-grey-15 u-layout-cell u-size-52-lg u-size-52-md u-size-52-sm u-size-52-xs u-size-54-xl u-layout-cell-2">
               <div class="u-container-layout u-container-layout-2">
                 <img src="data:image/png;base64, {{user.profilepicture}}" alt="" class="u-align-center u-image u-image-default u-preserve-proportions u-image-1" data-image-width="1280" data-image-height="1280">
-                <a href="#" class="u-border-0 u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-9 u-btn-1" data-animation-name="fadeIn" data-animation-duration="1000" data-animation-delay="0" data-animation-direction="">Reedeem Avocados</a>
+                <a href="#" class="u-border-0 u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-9 u-btn-1" data-animation-name="fadeIn" data-animation-duration="0" data-animation-delay="1000" data-animation-direction="">Reedeem Avocados</a>
                 <div class="u-align-center u-clearfix u-custom-html u-custom-html-1">
                   <div class="progress" style="margin-bottom: 0px;">
                     
@@ -114,35 +114,21 @@
                   </div>
                   <h6 class="u-text u-text-1">Level 3</h6>
                 </div>
-                
+
                 <div class="u-expanded-width-xs u-tab-links-align-center u-tabs u-tabs-1">
-                  <ul class="u-spacing-0 u-tab-list u-unstyled" role="tablist">
+                  <ul class="u-spacing-0 u-tab-list u-unstyled" role="tablist" id = "classTabs">
+                    {{#each classes}}
+                    <li class="u-tab-item u-tab-item-1" role="presentation">
+                      <a class="u-active-white u-border-6 u-border-active-palette-1-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-1" id="tabControl-{{this.classID}}" href="#tab-{{this.classID}}" role="tab" aria-controls="tab-{{this.classID}}" aria-selected="true">{{this.className}}</a>
+                    </li>
+                    {{/each}}
+
                     <li class="u-tab-item u-tab-item-1" role="presentation">
                       <a class="active u-active-white u-border-6 u-border-active-palette-1-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-1" id="link-tab-e382" href="#tab-e382" role="tab" aria-controls="tab-e382" aria-selected="true">Science</a>
                     </li>
-                    <li class="u-tab-item u-tab-item-2" role="presentation">
-                      <a class="u-active-white u-border-6 u-border-active-palette-1-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-2" id="link-tab-74ef" href="#tab-74ef" role="tab" aria-controls="tab-74ef" aria-selected="false">Health</a>
-                    </li>
-                    <li class="u-tab-item u-tab-item-3" role="presentation">
-                      <a class="u-active-white u-border-6 u-border-active-palette-1-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-3" id="link-tab-9fbf" href="#tab-9fbf" role="tab" aria-controls="tab-9fbf" aria-selected="false">Math</a>
-                    </li>
-                    <li class="u-tab-item u-tab-item-4" role="presentation">
-                      <a class="u-active-white u-border-6 u-border-active-palette-1-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-4" id="link-tab-cf25" href="#tab-cf25" role="tab" aria-controls="tab-cf25" aria-selected="false">Social Studies</a>
-                    </li>
-                    <li class="u-tab-item u-tab-item-5" role="presentation">
-                      <a class="u-active-white u-border-6 u-border-active-palette-1-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-5" id="link-tab-d4be" href="#tab-d4be" role="tab" aria-controls="tab-d4be" aria-selected="false">English</a>
-                    </li>
-                    <li class="u-tab-item u-tab-item-6" role="presentation">
-                      <a class="u-active-white u-border-6 u-border-active-palette-1-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-6" id="link-tab-408c" href="#tab-408c" role="tab" aria-controls="tab-408c" aria-selected="false">New Tab</a>
-                    </li>
-                    <li class="u-tab-item u-tab-item-7" role="presentation">
-                      <a class="u-active-white u-border-6 u-border-active-palette-1-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-7" id="link-tab-4562" href="#tab-4562" role="tab" aria-controls="tab-4562" aria-selected="false">New Tab</a>
-                    </li>
-                    <li class="u-tab-item u-tab-item-8" role="presentation">
-                      <a class="u-active-white u-border-6 u-border-active-palette-1-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-8" id="link-tab-cd00" href="#tab-cd00" role="tab" aria-controls="tab-cd00" aria-selected="false">New Tab</a>
-                    </li>
+
                   </ul>
-                  <div class="u-tab-content">
+                  <div class="u-tab-content" id = "classTabsPanel">
                     <div class="u-align-center u-container-style u-tab-active u-tab-pane u-white u-tab-pane-1" id="tab-e382" role="tabpanel" aria-labelledby="link-tab-e382">
                       <div class="u-container-layout u-container-layout-3">
                         <div class="u-container-style u-group u-palette-1-base u-radius-11 u-shape-round u-group-1">
@@ -161,30 +147,34 @@
                           </div>
                         </div>
 
-
                       </div>
                     </div>
-                    <div class="u-container-style u-tab-pane u-white u-tab-pane-2" id="tab-74ef" role="tabpanel" aria-labelledby="link-tab-74ef">
-                      <div class="u-container-layout u-container-layout-5"></div>
+                    {{#each classes}}
+                    <div class="u-container-style u-tab-pane u-white u-tab-pane-1" id="tab-{{this.classID}}" role="tabpanel" aria-labelledby="link-tab-{{this.classID}}">
+                      <div class="u-container-layout u-container-layout-3">
+
+
+                        
+                          {{#each ../assignments}}
+                           
+                          
+                          {{#if (checkAssignment ./this.classID ../this.classID)}}
+                          <div class="u-container-style u-group u-palette-1-base u-radius-11 u-shape-round u-group-1">
+                          <div class="u-container-layout u-container-layout-4">
+                            <h5 class="u-align-center u-text u-text-2">Due {{this.dueDate}} </h5>
+                            <h5 class="u-text u-text-3">{{this.assignmentName}}<br>+15 Avocados</h5>
+                             <a href="#" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-radius-9 u-white u-btn-2">Submit</a>
+                          </div>
+                          </div>
+                            {{/if}} 
+                          {{/each}}
+                      
+
+
+                          </div>
+
                     </div>
-                    <div class="u-container-style u-tab-pane u-white u-tab-pane-3" id="tab-9fbf" role="tabpanel" aria-labelledby="link-tab-9fbf">
-                      <div class="u-container-layout u-container-layout-6"></div>
-                    </div>
-                    <div class="u-container-style u-tab-pane u-white u-tab-pane-4" id="tab-cf25" role="tabpanel" aria-labelledby="link-tab-cf25">
-                      <div class="u-container-layout u-container-layout-7"></div>
-                    </div>
-                    <div class="u-container-style u-tab-pane u-white u-tab-pane-5" id="tab-d4be" role="tabpanel" aria-labelledby="link-tab-d4be">
-                      <div class="u-container-layout u-container-layout-8"></div>
-                    </div>
-                    <div class="u-container-style u-tab-pane u-white u-tab-pane-6" id="tab-408c" role="tabpanel" aria-labelledby="link-tab-408c">
-                      <div class="u-container-layout u-container-layout-9"></div>
-                    </div>
-                    <div class="u-container-style u-tab-pane u-white u-tab-pane-7" id="tab-4562" role="tabpanel" aria-labelledby="link-tab-4562">
-                      <div class="u-container-layout u-container-layout-10"></div>
-                    </div>
-                    <div class="u-container-style u-tab-pane u-white u-tab-pane-8" id="tab-cd00" role="tabpanel" aria-labelledby="link-tab-cd00">
-                      <div class="u-container-layout u-container-layout-11"></div>
-                    </div>
+                    {{/each}}
                   </div>
                 </div>
               </div>
@@ -192,8 +182,8 @@
           </div>
         </div>
       </div>
+
     </section>
-    
     
     <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-b99f"><div class="u-clearfix u-sheet u-sheet-1">
         <p class="u-small-text u-text u-text-variant u-text-1">Teacher Student APP</p>

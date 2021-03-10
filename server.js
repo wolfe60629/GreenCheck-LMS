@@ -96,29 +96,72 @@ var hbs = exphbs.create({
 });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+hbs.handlebars.registerHelper('checkAssignment', function (a, b) {
+  if (a==b) { 
+    return true;
+  }else{
+    return false;
+  }
+})
 
 
-//================POST DATA =============
+
+//================POST DATA (API) =============
+
+
 app.post('/api', function(req, res, next) {
   res.setHeader('Content-Type', 'application/json');
-  console.log(req.body);
+  //If you are authenticated
+  user = req.user;
+  if (user) { 
+    if (user.isTeacher) { 
+      //TEACHER COMMANDS 
 
-//SWITCH
-switch(req.body.command) { 
-  case "assignmentRequest" : 
+
+
+
+
+    }else if (user.isTeacher == null) { 
+      //STUDENT COMMANDS
+
+
+    }
+  } else { 
+  //Return Not Authenticated User
     res.json({
-      'Status' : 'SUCCESS',
-      'Timestamp' : Date.now(),
-      'User' :  req.user
+      'Status' : 'FAILED AUTHENTICATION',
+      'Timestamp' : Date.now()
     });
-    break;
-}
+  }
 });
+
+
 
 //===============ROUTES===============
 //displays our homepage
 app.get('/', function(req, res){
-  res.render('home', {user: req.user});
+  if (req.user) {
+    funct.getUserClassInformation(req.user.userID)
+    .then(function (classInformation) { 
+      let classes = [];
+      classInformation.forEach(element => classes.push([element.className,element.classID]));
+      let uniqueClasses = [];
+       classMap = new Map();
+       classes.forEach(item => { 
+          if(!classMap.has(item[1])){
+            classMap.set(item[1], true);    // set any value to Map
+              uniqueClasses.push({"classID" : item[1] , "className" : item[0]});
+          }
+       });
+       console.log(uniqueClasses)
+      res.render('home', {user: req.user, 'classes' : uniqueClasses , 'assignments' : classInformation});
+    });
+  }else { 
+    res.render('home', {user: req.user});
+  }
+
+  
+  
 });
 
 //displays our signup page
