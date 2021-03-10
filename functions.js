@@ -101,7 +101,6 @@ exports.getUserClassInformation = function (user_id) {
           maxSubmissions = row['Max_Submissions'];
           var ampm = dueDate.getHours() >= 12 ? 'pm' : 'am';
           let formatted_date = dueDate.getMonth() + "/" + dueDate.getDate() + "/" + dueDate.getFullYear() + " " + (dueDate.getHours()%12 == 0 ? '12' : (dueDate.getHours() === '12' ? '12' : dueDate.getHours()%12)) + ":" + (dueDate.getMinutes() < 10 ? "0" + dueDate.getMinutes() : dueDate.getMinutes()) + " " +ampm ;
-          console.log(formatted_date);
 
               result = {  'classID' : classID,
                           'className' : className,

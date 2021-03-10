@@ -153,7 +153,6 @@ app.get('/', function(req, res){
               uniqueClasses.push({"classID" : item[1] , "className" : item[0]});
           }
        });
-       console.log(uniqueClasses)
       res.render('home', {user: req.user, 'classes' : uniqueClasses , 'assignments' : classInformation});
     });
   }else { 
