@@ -13,9 +13,20 @@
 ## Installation
 
 ```
-$ git clone [repo]
-$ cd ./[foldername]
+$ git clone https://github.com/wolfe60629/TeacherStudentApp.git
+$ cd ./TeacherStudentApp-master
 $ npm install
+$ mkdir Config
+$ cd ./Config
+
+### Create database.ini file that has the configuration to your database
+[database]
+host          = {{Database IP}}
+dbname        = {{Database Name}}
+port          = {{Database Port}}
+username      = {{Database Username}}
+password      = {{Database Password}}
+
 $ npm start
 ```
 
