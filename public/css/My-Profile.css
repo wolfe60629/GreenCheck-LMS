@@ -523,12 +523,11 @@
 
   .u-section-1 .u-group-1 {
     width: 510px;
-    margin-top: -20px;
     margin-left: auto;
   }
 
   .u-section-1 .u-container-layout-4 {
-    padding: 30px 10px;
+    padding-bottom: 15px;
   }
 
   .u-section-1 .u-text-2 {
@@ -627,9 +626,8 @@
   }
 
   .u-section-1 .u-text-2 {
-    margin-top: 52px;
-    margin-right: -27px;
-    margin-left: 87px;
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .u-section-1 .u-btn-2 {
@@ -638,9 +636,10 @@
   }
 
   .u-section-1 .u-text-3 {
-    margin-top: -126px;
-    margin-right: 103px;
-    margin-left: 133px;
+    text-align: center;
+    margin-top: auto;
+    margin-right: auto;
+    margin-left: auto;
   }
 }
 
