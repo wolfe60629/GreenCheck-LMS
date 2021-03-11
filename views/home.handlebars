@@ -41,7 +41,8 @@
     <meta property="og:url" content="index.html">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-  <body class="u-body" ><header class="u-clearfix u-header u-white u-header" id="sec-8537"><div class="u-clearfix u-sheet u-sheet-1">
+  <body class="u-body" ><header class="u-clearfix u-header u-white u-header" id="sec-8537">
+    <div class="u-clearfix u-sheet u-sheet-1">
         <a href="https://nicepage.com" class="u-image u-logo u-image-1">
           <img src="img/default-logo.png" class="u-logo-image u-logo-image-1">
         </a>
@@ -59,6 +60,7 @@
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/logout" style="padding: 10px 20px;">Logout</a>
 </li></ul>
           </div>
+          
           <div class="u-custom-menu u-nav-container-collapse">
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
               <div class="u-sidenav-overflow">
@@ -74,6 +76,8 @@
         </nav>
       </div></header>
     <section class="u-clearfix u-grey-15 u-section-1" id="sec-3dd2">
+
+      
       <div class="u-clearfix u-gutter-0 u-layout-wrap u-layout-wrap-1">
         <div class="u-layout">
           <div class="u-layout-row">
@@ -118,40 +122,132 @@
                 <div class="u-expanded-width-xs u-tab-links-align-center u-tabs u-tabs-1">
                   <ul class="u-spacing-0 u-tab-list u-unstyled" role="tablist" id = "classTabs">
                     {{#each classes}}
+                    {{#if @first}} 
+                      <li class="u-tab-item u-tab-item-1" role="presentation">
+                      <a class="u-active-white u-border-6 u-border-active-palette-1-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-1 active" id="tabControl-{{this.classID}}" href="#tab-{{this.classID}}" role="tab" aria-controls="tab-{{this.classID}}" aria-selected="true">{{this.className}}</a>
+                    </li>
+                     {{else}}
                     <li class="u-tab-item u-tab-item-1" role="presentation">
                       <a class="u-active-white u-border-6 u-border-active-palette-1-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-1" id="tabControl-{{this.classID}}" href="#tab-{{this.classID}}" role="tab" aria-controls="tab-{{this.classID}}" aria-selected="true">{{this.className}}</a>
                     </li>
+                    {{/if}} 
                     {{/each}}
 
-                    <li class="u-tab-item u-tab-item-1" role="presentation">
-                      <a class="active u-active-white u-border-6 u-border-active-palette-1-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-1" id="link-tab-e382" href="#tab-e382" role="tab" aria-controls="tab-e382" aria-selected="true">Science</a>
-                    </li>
+                   
+                 
 
                   </ul>
-                  <div class="u-tab-content" id = "classTabsPanel">
-                    <div class="u-align-center u-container-style u-tab-active u-tab-pane u-white u-tab-pane-1" id="tab-e382" role="tabpanel" aria-labelledby="link-tab-e382">
-                      <div class="u-container-layout u-container-layout-3">
-                        <div class="u-container-style u-group u-palette-1-base u-radius-11 u-shape-round u-group-1">
-                          <div class="u-container-layout u-container-layout-4">
-                            <h5 class="u-align-center u-text u-text-2">Due 1/22/2021 4:00PM</h5>
-                            <h5 class="u-text u-text-3">Assignment 1<br>+15 Avocados</h5>
-                             <a href="#" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-radius-9 u-white u-btn-2">Submit</a>
+
+                    <div class="modal" id = "submitModal" tabindex="-1" role="dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class = "modal-title" id='modalAssignmentName'></h5>
+                            <button onClick="showAssignmentModal(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <!-- <p id = "modalMaxSubmissions"></p> -->
+                             <input type="file" id="file-input" />
+                             
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">Submit Assignment</button>
                           </div>
                         </div>
-
-                        <div class="u-container-style u-group u-palette-1-base u-radius-11 u-shape-round u-group-1">
-                          <div class="u-container-layout u-container-layout-4">
-                            <h5 class="u-align-center u-text u-text-2">Due 1/22/2021 4:00PM</h5>
-                            <h5 class="u-text u-text-3">Assignment 1<br>+15 Avocados</h5>
-                             <a href="#" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-radius-9 u-white u-btn-2">Submit</a>
-                          </div>
-                        </div>
-
                       </div>
-                    </div>
+
+                  
+ 
+                    
+
+                     
+                   
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (max-width:1024px) { 
+.modal-content {
+    width: 100%;
+}
+}
+</style>
+                          <script>
+                            // When the user clicks anywhere outside of the modal, close it
+                            
+                            window.onclick = function(event) {
+                              var modal = document.getElementById("submitModal");
+                              if (event.target == modal) {
+                                modal.style.display = "none";
+                              }
+                            }
+                            function showAssignmentModal(isShown,assignmentName,maxSubmissions) { 
+                              var modal = document.getElementById("submitModal");
+                              var assignmentNameElement = document.getElementById("modalAssignmentName")
+                              var maxSubmissionsElement = document.getElementById("modalMaxSubmissions");
+                                if (assignmentName && isShown) { 
+                                  modal.style.display = "block";
+                                  assignmentNameElement.innerText = (assignmentName);
+                                 // maxSubmissionsElement.innerText =  'Number of Submissions Allowed: ' + maxSubmissions;
+                                }else { 
+                                  modal.style.display = "none";
+                                }
+                              }
+
+                           
+                          </script>
+
+
+
+                  <div class="u-tab-content" id = "classTabsPanel">
                     {{#each classes}}
-                    <div class="u-container-style u-tab-pane u-white u-tab-pane-1" id="tab-{{this.classID}}" role="tabpanel" aria-labelledby="link-tab-{{this.classID}}">
+                    {{#if @first}} 
+                    <div class="u-container-style u-tab-pane u-white u-tab-pane-1 active u-tab-active" id="tab-{{this.classID}}" role="tabpanel" aria-labelledby="link-tab-{{this.classID}}">
                       <div class="u-container-layout u-container-layout-3">
+                    {{else}}
+                     <div class="u-container-style u-tab-pane u-white u-tab-pane-1" id="tab-{{this.classID}}" role="tabpanel" aria-labelledby="link-tab-{{this.classID}}">
+                      <div class="u-container-layout u-container-layout-3">
+                    {{/if}}
+
 
 
                         
@@ -163,7 +259,8 @@
                           <div class="u-container-layout u-container-layout-4">
                             <h5 class="u-align-center u-text u-text-2">Due {{this.dueDate}} </h5>
                             <h5 class="u-text u-text-3">{{this.assignmentName}}<br>+15 Avocados</h5>
-                             <a href="#" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-radius-9 u-white u-btn-2">Submit</a>
+
+                             <a onClick="showAssignmentModal(true, '{{this.assignmentName}}', '{{this.maxSubmissions}}')"  class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-radius-9 u-white u-btn-2">Submit</a>
                           </div>
                           </div>
                             {{/if}} 
