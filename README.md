@@ -12,7 +12,7 @@
 * [CSS]
 
 ## Working Demo
-* [Demo Link](76.97.25.242:3000)
+* [Demo Link](http://76.97.25.242:3000)
 
 ## Installation
 
