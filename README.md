@@ -1,26 +1,32 @@
-# Teacher Student App
+# GreenCheck Learning Management System
 
 ---
 
 ## Built With
 * [NodeJS](https://expressjs.com)
-* [EJS](https://ejs.co)
+* [HandleBars](https://handlebarsjs.com/)
+* [Passport](http://www.passportjs.org/) 
 * [Normalize.css](https://necolas.github.io/normalize.css)
-* [Handlebars-Express]
+* [HTML]
+* [Javascript]
+* [CSS]
 
-## Demo
-
+## Working Demo
+* [Demo Link](76.97.25.242:3000)
 
 ## Installation
 
-```
-$ git clone https://github.com/wolfe60629/TeacherStudentApp.git
-$ cd ./TeacherStudentApp-master
-$ npm install
-$ mkdir Config
-$ cd ./Config
 
-### Create database.ini file that has the configuration to your database
+```
+$ git clone https://github.com/wolfe60629/GreenCheck-LMS.git
+$ cd ./GreenCheck-LMS-master
+$ npm install
+$ npm start
+
+Go to `http://localhost:3000`
+```
+### A Database Configuration File Will Need To Be Created As /Config/database.ini
+```
 [database]
 host          = {{Database IP}}
 dbname        = {{Database Name}}
@@ -28,7 +34,7 @@ port          = {{Database Port}}
 username      = {{Database Username}}
 password      = {{Database Password}}
 
-$ npm start
+
 ```
 
-Go to `http://localhost:3000`.
+
