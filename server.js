@@ -107,8 +107,18 @@ hbs.handlebars.registerHelper('checkAssignment', function (a, b) {
 hbs.handlebars.registerHelper('isdefined', function (value) {
     return value != undefined && value != '';
 });
-
-
+hbs.handlebars.registerHelper('filterPriorityQueue', function(value, options) {
+  if(!hbs.handlebars.Utils.isArray(value)){
+      return [];
+  } else {
+      arr1 = value.filter(function(ele){
+          return !hbs.handlebars.Utils.isEmpty(ele.assignmentName);
+      });
+      
+      //SHOW TOP 5
+      return arr1.slice(0,5);
+  }
+});
 
 //================POST DATA (API) =============
 
@@ -147,8 +157,21 @@ app.get('/', function(req, res){
   if (req.user) {
     funct.getUserClassInformation(req.user.userID)
     .then(function (classInformation) { 
+
+      //Get all unique classes and generate 
       let classes = [];
-      classInformation.forEach(element => classes.push([element.className,element.classID]));
+      let assignmentQueue = [];
+      classInformation.forEach(element =>  { 
+        classes.push([element.className,element.classID]);
+
+        //If database pulls empty record, set it to null
+        if (element.assignmentName == '') { 
+          element.assignmentName = null;
+          element.dueDate = null;
+        }
+      });
+
+
       let uniqueClasses = [];
        classMap = new Map();
        classes.forEach(item => { 
@@ -157,6 +180,10 @@ app.get('/', function(req, res){
               uniqueClasses.push({"classID" : item[1] , "className" : item[0]});
           }
        });
+
+
+
+      //Render the Dashboard
       res.render('home', {user: req.user, 'classes' : uniqueClasses , 'assignments' : classInformation});
     });
   }else { 
