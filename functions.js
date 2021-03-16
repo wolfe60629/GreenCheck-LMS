@@ -5,15 +5,9 @@ const ini = require('ini');
 const mysql = require('mysql');
 const databaseConfig = ini.parse(fs.readFileSync('./Config/database.ini', 'utf-8'));
 
-
-// MongoDB connection information
-
-
-
-//check if user exists
-    //if user exists check if passwords match (use bcrypt.compareSync(password, hash); // true where 'hash' is password in DB)
-      //if password matches take into website
-  //if user doesn't exist or password doesn't match tell them it failed
+/**************************************************
+ * Create a local authentication method
+ **************************************************/
 exports.localAuth = function (username, password) {
   var deferred = Q.defer();
 
@@ -73,6 +67,9 @@ exports.localAuth = function (username, password) {
   return deferred.promise;
 }
 
+/**************************************************
+ * Get user classes and assignments from database
+ **************************************************/
 exports.getUserClassInformation = function (user_id) { 
   var deferred = Q.defer();
 
@@ -99,8 +96,8 @@ exports.getUserClassInformation = function (user_id) {
           assignmentName = row['Assignment_Name'];
           dueDate = row['Due_Date'];
           maxSubmissions = row['Max_Submissions'];
-          var ampm = dueDate?.getHours() >= 12 ? 'pm' : 'am';
-          let formatted_date = dueDate?.getMonth() + "/" + dueDate?.getDate() + "/" + dueDate?.getFullYear() + " " + (dueDate?.getHours()%12 == 0 ? '12' : (dueDate?.getHours() === '12' ? '12' : dueDate?.getHours()%12)) + ":" + (dueDate?.getMinutes() < 10 ? "0" + dueDate?.getMinutes() : dueDate?.getMinutes()) + " " +ampm ;
+          var ampm = dueDate?.getHours() >= 12 ? 'PM' : 'AM';
+          let formatted_date = dueDate?.getMonth() + "/" + dueDate?.getDate() + "/" + dueDate?.getFullYear() + " " + (dueDate?.getHours()%12 == 0 ? '12' : (dueDate?.getHours() === '12' ? '12' : dueDate?.getHours()%12)) + ":" + (dueDate?.getMinutes() < 10 ? "0" + dueDate?.getMinutes() : dueDate?.getMinutes()) + ampm ;
 
               result = {  'classID' : classID,
                           'className' : className,

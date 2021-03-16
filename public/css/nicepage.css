@@ -8331,7 +8331,7 @@ section.u-image,
 }
 @media (min-width: 1200px) {
   .u-sheet {
-    width: 1140px;
+    width: 90%;
   }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
@@ -9399,10 +9399,7 @@ section.u-image,
   .u-layout-col > .u-size-7-xl {
     flex: 7 0 11.66666667%;
   }
-  .u-layout-row > .u-size-6-xl {
-    flex: 0 0 10%;
-    max-width: 10%;
-  }
+
   .u-layout-col > .u-size-6-xl {
     flex: 6 0 10%;
   }
@@ -9878,7 +9875,7 @@ section.u-image,
     flex: 0 0 0%;
   }
 }
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 768px) {
   .u-layout-row > .u-size-60-md {
     flex: 0 0 100%;
     max-width: 100%;
