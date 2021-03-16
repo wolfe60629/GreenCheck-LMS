@@ -99,8 +99,8 @@ exports.getUserClassInformation = function (user_id) {
           assignmentName = row['Assignment_Name'];
           dueDate = row['Due_Date'];
           maxSubmissions = row['Max_Submissions'];
-          var ampm = dueDate.getHours() >= 12 ? 'pm' : 'am';
-          let formatted_date = dueDate.getMonth() + "/" + dueDate.getDate() + "/" + dueDate.getFullYear() + " " + (dueDate.getHours()%12 == 0 ? '12' : (dueDate.getHours() === '12' ? '12' : dueDate.getHours()%12)) + ":" + (dueDate.getMinutes() < 10 ? "0" + dueDate.getMinutes() : dueDate.getMinutes()) + " " +ampm ;
+          var ampm = dueDate?.getHours() >= 12 ? 'pm' : 'am';
+          let formatted_date = dueDate?.getMonth() + "/" + dueDate?.getDate() + "/" + dueDate?.getFullYear() + " " + (dueDate?.getHours()%12 == 0 ? '12' : (dueDate?.getHours() === '12' ? '12' : dueDate?.getHours()%12)) + ":" + (dueDate?.getMinutes() < 10 ? "0" + dueDate?.getMinutes() : dueDate?.getMinutes()) + " " +ampm ;
 
               result = {  'classID' : classID,
                           'className' : className,

@@ -102,7 +102,11 @@ hbs.handlebars.registerHelper('checkAssignment', function (a, b) {
   }else{
     return false;
   }
-})
+});
+
+hbs.handlebars.registerHelper('isdefined', function (value) {
+    return value != undefined && value != '';
+});
 
 
 

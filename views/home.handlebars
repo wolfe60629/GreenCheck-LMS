@@ -250,19 +250,19 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 
 
-                        
+                       
                           {{#each ../assignments}}
-                           
-                          
+                        
                           {{#if (checkAssignment ./this.classID ../this.classID)}}
+                           {{#if (isdefined this.assignmentName)}}
                           <div class="u-container-style u-group u-palette-1-base u-radius-11 u-shape-round u-group-1">
                           <div class="u-container-layout u-container-layout-4">
                             <h5 class="u-align-center u-text u-text-2">Due {{this.dueDate}} </h5>
                             <h5 class="u-text u-text-3">{{this.assignmentName}}<br>+15 Avocados</h5>
-
                              <a onClick="showAssignmentModal(true, '{{this.assignmentName}}', '{{this.maxSubmissions}}')"  class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-radius-9 u-white u-btn-2">Submit</a>
                           </div>
                           </div>
+                          {{/if}}
                             {{/if}} 
                           {{/each}}
                       
