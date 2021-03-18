@@ -94,16 +94,19 @@ exports.getUserClassInformation = function (user_id) {
           classID = row['Class_ID'];
           className = row['Class_Name'];
           assignmentName = row['Assignment_Name'];
+          assignmentID = row['Assignment_ID'];
           dueDate = row['Due_Date'];
           maxSubmissions = row['Max_Submissions'];
+          submissionCount = row['submission_count'];
           var ampm = dueDate?.getHours() >= 12 ? 'PM' : 'AM';
           let formatted_date = dueDate?.getMonth() + "/" + dueDate?.getDate() + "/" + dueDate?.getFullYear() + " " + (dueDate?.getHours()%12 == 0 ? '12' : (dueDate?.getHours() === '12' ? '12' : dueDate?.getHours()%12)) + ":" + (dueDate?.getMinutes() < 10 ? "0" + dueDate?.getMinutes() : dueDate?.getMinutes()) + ampm ;
-
               result = {  'classID' : classID,
                           'className' : className,
+                          'assignmentID' : assignmentID,
                           'assignmentName' : assignmentName, 
                           'dueDate' : formatted_date, 
-                          'maxSubmissions': maxSubmissions
+                          'maxSubmissions': maxSubmissions,
+                          'submissionCount' : submissionCount 
                         }; 
               assignments.push(result)
 
@@ -116,3 +119,27 @@ exports.getUserClassInformation = function (user_id) {
 return deferred.promise;
 
 }
+
+/**************************************************
+ * Submit Assignments From Student Account
+ **************************************************/
+ exports.submitAssignment = function (user_id, assignment_id, document) { 
+  //Connect To Database
+  const connection = mysql.createConnection( { 
+      host : databaseConfig.database.host,
+      database : databaseConfig.database.dbname,
+      user : databaseConfig.database.username,
+      password : databaseConfig.database.password
+  });
+
+
+  //Query Database
+  sql = 'call submitAssignment(' + user_id + ',' + assignment_id + ',\'' + document + '\');'
+  query = connection.query(sql);  
+  connection.end();
+
+}
+
+
+
+

@@ -137,7 +137,16 @@ app.post('/api', function(req, res, next) {
 
     }else if (user.isTeacher == null) { 
       //STUDENT COMMANDS
+      switch(req.body.command) { 
+        case ('submitAssignment'):
 
+        funct.submitAssignment(req.body.userID, req.body.assignmentID, req.body.document);
+          res.json({
+            'Status' : 'SUCCESS',
+            'Timestamp' : Date.now()
+          });
+          break; 
+      }
 
     }
   } else { 
