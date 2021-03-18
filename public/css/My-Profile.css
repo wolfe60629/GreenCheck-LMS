@@ -236,6 +236,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
   animation-duration: 1000ms;
   height: auto;
   margin: 15px auto 0;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 .u-section-1 .u-container-layout-4 {
@@ -244,7 +246,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 }
 
 .u-section-1 .u-text-2 {
-  margin: 17px 0 0 0;
+  margin: 0px 0 0 0;
 }
 
 .u-section-1 .u-btn-2 {
@@ -259,7 +261,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 }
 
 .u-section-1 .u-text-3 {
-  margin: -40px 0 0 0;
+  margin: -48px 0 0 0;
 }
 
 .u-section-1 .u-tab-pane-2 {
