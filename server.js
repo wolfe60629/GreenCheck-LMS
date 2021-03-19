@@ -65,12 +65,14 @@ passport.deserializeUser(function(obj, done) {
 app.use(logger('combined'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(session({secret: 'supernova', saveUninitialized: true, resave: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static('public'));
+app.use(express.json());
+//app.use(express.urlencoded({limit: '50mb'}));
 
 
 // Session-persisted message middleware

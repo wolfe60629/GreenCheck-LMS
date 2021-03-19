@@ -117,9 +117,6 @@ return 0;
 };
 
 
-
-
-
 var fileContents;
 var reader;
 var progress = document.querySelector('.percent');
