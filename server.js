@@ -8,16 +8,22 @@
     const session = require('express-session');
     const passport = require('passport');
     const LocalStrategy = require('passport-local');
-    const TwitterStrategy = require('passport-twitter');
-    const GoogleStrategy = require('passport-google');
-    const FacebookStrategy = require('passport-facebook');
+    var https = require('https');
+    var http = require('http');
     const fs = require('fs');
     const ini = require('ini');
     const mysql = require('mysql');
-    const databaseConfig = ini.parse(fs.readFileSync('./Config/database.ini', 'utf-8'));
+    const databaseConfig = ini.parse(fs.readFileSync(__dirname + '/Config/database.ini', 'utf-8'));
+    var key = fs.readFileSync(__dirname + '/Config/selfsigned.key');
+    var cert = fs.readFileSync(__dirname + '/Config/selfsigned.crt');
+    var options = {
+      key: key,
+      cert: cert
+    };
 
     const app = express();
-    const port = process.env.PORT || 3000;
+    const httpport = 80;
+    const httpsport = 443;
     const funct  = require('./functions.js');
 
 //We will be creating these two files shortly
@@ -165,6 +171,10 @@ app.post('/api', function(req, res, next) {
 //===============ROUTES===============
 //displays our homepage
 app.get('/', function(req, res){
+  if (!req.secure) {
+    res.redirect('https://' + req.headers.host + req.url);
+  }
+
   if (req.user) {
     funct.getUserClassInformation(req.user.userID)
     .then(function (classInformation) { 
@@ -207,6 +217,9 @@ app.get('/', function(req, res){
 
 //displays our signup page
 app.get('/login', function(req, res){
+  if (!req.secure) {
+    res.redirect('https://' + req.headers.host + req.url);
+  }
   res.render('login');
 });
 
@@ -226,6 +239,9 @@ app.post('/login', passport.authenticate('local-signin', {
 
 //logs user out of site, deleting them from the session, and returns to homepage
 app.get('/logout', function(req, res){
+  if (!req.secure) {
+    res.redirect('https://' + req.headers.host + req.url);
+  }
   var name = req.user.username;
   console.log("LOGGING OUT " + req.user.username)
   req.logout();
@@ -234,6 +250,7 @@ app.get('/logout', function(req, res){
 });
 
 //===============PORT=================
-app.listen(port);
-console.log("listening on " + port + "!");
+http.createServer(app).listen(httpport);
+https.createServer(options, app).listen(httpsport);
 
+console.log("listening on " + httpport + " and " + httpsport + "!");
