@@ -326,7 +326,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
   }
 
   .u-section-1 .u-layout-wrap-1 {
-    width: calc(((100% - 940px) / 2) + 940px);
+    width: 100%;
   }
 
   .u-section-1 .u-layout-cell-1 {
@@ -377,7 +377,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
   .u-section-1 .u-tabs-1 {
     min-height: 1160px;
-    width: 885px;
+    /* width: 100%; */
     margin-top: 6px;
     margin-left: -22px;
     margin-right: -22px;
@@ -466,7 +466,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
   .u-section-1 .u-layout-wrap-1 {
     position: relative;
     min-height: 1005px;
-    width: calc(((100% - 720px) / 2) + 720px);
+    width: 100%;
   }
 
   .u-section-1 .u-layout-cell-1 {

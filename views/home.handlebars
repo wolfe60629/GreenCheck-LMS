@@ -36,10 +36,67 @@
       <script class="u-script" type="text/javascript" src="js/jquery.js" defer=""></script>
       <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>
       <script type="text/javascript" src="js/studentCommands.js" defer=""></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.0/lottie.js"> </script>
       <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
    </head>
    <body class="u-body" >
+
+      <style>
+            .bodymovin-wrapper-1 { 
+               z-index: 1;
+               position: fixed;
+               height: 100%;
+               width:100%;
+               background-color: #3c3e3b;
+               opacity: 100%;
+
+            }
+
+            .bodymovin { 
+             width: 50%;
+             margin-left: auto;
+             margin-right: auto;
+
+
+            }
+            .bodymovin-wrapper-1 h1 { 
+               color:rgb(184 255 212);
+            }
+            .bodymovin-wrapper-1 h4 { 
+               color:white;
+            }
+
+@media (max-width:1024px) { 
+               .bodymovin { 
+             width: 100%;
+            }
+}
+
+      </style>
+      <div class= "bodymovin-wrapper-1 animated fadeOutRight delay-2s" id = "wrapper-div">
+         <div class = "bodymovin" id = "bodymovin"></div>
+         <div style = "margin-left:auto; margin-right:auto;text-align: center;">
+            <h1 class = "animated bounce infinite" >Welcome {{user.firstname}}!</h1>
+            <h4>GreenCheck LMS</h4> 
+         </div>
+      </div>
+      <script>
+      var loader = document.getElementsByClassName("bodymovin");
+      function loadBMAnimation(loader) {
+      var animation = bodymovin.loadAnimation({
+         container: loader,
+         renderer: "svg",
+         loop: true,
+         autoplay: true,
+         path: "/js/avocado.json"
+      });
+      }
+      for (var i = 0; i < loader.length; i++) {
+      loadBMAnimation(loader[i]);
+      }
+      </script>
+
       <header class="u-clearfix u-header u-white u-header" id="sec-8537">
          <div class="u-clearfix u-sheet u-sheet-1">
             <a href="#" class="u-image u-logo u-image-1">
@@ -121,7 +178,7 @@
             <div class="u-container-style u-grey-15 u-layout-cell u-size-52-lg u-size-52-md u-size-52-sm u-size-52-xs u-size-54-xl u-layout-cell-2">
                <div class="u-container-layout u-container-layout-2">
                   <img src="data:image/png;base64, {{user.profilepicture}}" alt="" class="u-align-center u-image u-image-default u-preserve-proportions u-image-1" data-image-width="1280" data-image-height="1280">
-                  <a href="#" class="u-border-0 u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-9 u-btn-1" data-animation-name="fadeIn" data-animation-duration="0" data-animation-delay="1000" data-animation-direction="">Reedeem Avocados</a>
+                  <a href="#" class="u-border-0 u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-9 u-btn-1">Reedeem Avocados</a>
                   <div class="u-align-center u-clearfix u-custom-html u-custom-html-1">
                      <div class="progress" style="margin-bottom: 0px;">
                         <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
