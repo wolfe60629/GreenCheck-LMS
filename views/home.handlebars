@@ -74,10 +74,10 @@
 }
 
       </style>
-      <div class= "bodymovin-wrapper-1 animated fadeOutRight delay-2s" id = "wrapper-div">
+      <div class= "bodymovin-wrapper-1 animated fadeOutRight delay-2s slow" id = "wrapper-div">
          <div class = "bodymovin" id = "bodymovin"></div>
          <div style = "margin-left:auto; margin-right:auto;text-align: center;">
-            <h1 class = "animated bounce infinite" >Welcome {{user.firstname}}!</h1>
+            <h1 class = "animated pulse infinite" >Welcome {{user.firstname}}!</h1>
             <h4>GreenCheck LMS</h4> 
          </div>
       </div>
@@ -156,12 +156,12 @@
                         <colgroup>
                            <col width="100%">
                         </colgroup>
-                        <tbody class="u-align-center u-table-body">
+                        <tbody class="u-align-center u-table-body ">
                            <tr style="height: 45px;">
                               <td class="u-table-cell u-table-cell-1">Due Soon</td>
                            </tr>
                               {{#each (filterPriorityQueue assignments) as |assignment|}}
-                            <tr style="height: 120px;" id = "assignmentQueue-{{assignment.assignmentID}}">
+                            <tr class= "" style="height: 120px;" id = "assignmentQueue-{{assignment.assignmentID}}">
                               <td class="u-border-2 u-border-grey-dark-1 u-table-cell u-table-cell-3"><b>{{assignment.assignmentName}}</b><br><i>{{assignment.className}}</i><br><i>{{assignment.dueDate}}</i>
                               </td>
                             </tr>
