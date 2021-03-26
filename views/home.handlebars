@@ -10,19 +10,306 @@
 
 <!-- IF THIS IS A USER CONTINUE, ELSE REDIRECT -->
 {{#if user}}
-
-
 <!--   *********  TEACHER PORTAL SECTION ************* -->
 {{#if user.isTeacher}}
+      <html style="font-size: 16px;">
+         <head>
+            <title>Teacher Dashboard - {{user.firstname}} {{user.lastname}}</title>
+            <link rel="stylesheet" href="css/teacher/nicepage.css" media="screen">
+            <link rel="stylesheet" href="css/teacher/My-Profile.css" media="screen">
+            <script class="u-script" type="text/javascript" src="js/teacher/jquery.js" defer=""></script>
+            <script class="u-script" type="text/javascript" src="js/teacher/nicepage.js" defer=""></script>
+            <script type="text/javascript" src="js/teacher/commands.js" defer=""></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.0/lottie.js"> </script>
+            <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+         </head>
+         <body class="u-body" >
+
+            <style>
+                  .bodymovin-wrapper-1 { 
+                     z-index: 1;
+                     position: fixed;
+                     height: 100%;
+                     width:100%;
+                     background-color: #3c3e3b;
+                     opacity: 100%;
+
+                  }
+
+                  .bodymovin { 
+                  width: 50%;
+                  margin-left: auto;
+                  margin-right: auto;
+
+
+                  }
+                  .bodymovin-wrapper-1 h1 { 
+                     color:rgb(184 255 212);
+                  }
+                  .bodymovin-wrapper-1 h4 { 
+                     color:white;
+                  }
+
+      @media (max-width:1024px) { 
+                     .bodymovin { 
+                  width: 100%;
+                  }
+      }
+
+            </style>
+            <div class= "bodymovin-wrapper-1 animated fadeOutRight delay-2s slow" id = "wrapper-div">
+               <div class = "bodymovin" id = "bodymovin"></div>
+               <div style = "margin-left:auto; margin-right:auto;text-align: center;">
+                  <h1 class = "animated pulse infinite" >Welcome {{user.firstname}}!</h1>
+                  <h4>GreenCheck LMS</h4> 
+               </div>
+            </div>
+            <script>
+            var loader = document.getElementsByClassName("bodymovin");
+            function loadBMAnimation(loader) {
+            var animation = bodymovin.loadAnimation({
+               container: loader,
+               renderer: "svg",
+               loop: true,
+               autoplay: true,
+               path: "/js/teacher/avocado.json"
+            });
+            }
+            for (var i = 0; i < loader.length; i++) {
+            loadBMAnimation(loader[i]);
+            }
+            </script>
+
+            <header class="u-clearfix u-header u-white u-header" id="sec-8537">
+               <div class="u-clearfix u-sheet u-sheet-1">
+                  <a href="#" class="u-image u-logo u-image-1">
+                  <img src="img/teacher/default-logo.png" class="u-logo-image u-logo-image-1">
+                  </a>
+                  <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
+                     <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
+                        <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
+                           <svg>
+                              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use>
+                           </svg>
+                           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                              <defs>
+                                 <symbol id="menu-hamburger" viewBox="0 0 16 16" style="width: 16px; height: 16px;">
+                                    <rect y="1" width="16" height="2"></rect>
+                                    <rect y="7" width="16" height="2"></rect>
+                                    <rect y="13" width="16" height="2"></rect>
+                                 </symbol>
+                              </defs>
+                           </svg>
+                        </a>
+                     </div>
+                     <div class="u-custom-menu u-nav-container">
+                        <ul class="u-nav u-unstyled u-nav-1">
+                           <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" style="padding: 10px 20px;">Add a Class</a></li>
+                           <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/logout" style="padding: 10px 20px;">Logout</a></li>
+                        </ul>
+                     </div>
+                     <div class="u-custom-menu u-nav-container-collapse">
+                        <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+                           <div class="u-sidenav-overflow">
+                              <div class="u-menu-close"></div>
+                              <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                                 <li class="u-nav-item"><a class="u-button-style u-nav-link" href="#" style="padding: 10px 20px;">Add a Class</a></li>
+                                 <li class="u-nav-item"><a class="u-button-style u-nav-link" href="/logout" style="padding: 10px 20px;">Logout</a></li>
+                              </ul>
+                           </div>
+                        </div>
+                        <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+                     </div>
+                  </nav>
+               </div>
+            </header>
+            
+            <section class="u-clearfix u-grey-15 u-section-1" id="sec-3dd2">
+               <div class="u-clearfix u-gutter-0 u-layout-wrap u-layout-wrap-1">
+               <div class="u-layout">
+               <div class="u-layout-row">
+
+
+
+               <!-- Star Student Sidebar-->
+                  <div class="u-container-style u-grey-60 u-layout-cell u-size-6-xl u-size-8-lg u-size-8-md u-size-8-sm u-size-8-xs u-layout-cell-1">
+                     <div class="u-container-layout u-container-layout-1">
+                        <div class="u-expanded-width u-table u-table-responsive u-table-1">
+                           <table class="u-table-entity">
+                              <colgroup>
+                                 <col width="100%">
+                              </colgroup>
+                              <tbody class="u-align-center u-table-body ">
+                                 <tr style="height: 45px;">
+                                    <td class="u-table-cell u-table-cell-1">Weekly Seeds</td>
+                                 </tr>
+
+                                    <!-- Row that needs to be added everytime -->
+                                 <tr class= "" style="height: 120px;" id = "assignmentQueue-{{assignment.assignmentID}}">
+                                    <td class="u-border-2 u-border-grey-dark-1 u-table-cell u-table-cell-3"><b>Jeremy Wolfe</b><br><i>Social Studies</i><br><i>55 Avocados</i>
+                                    </td>
+                                 </tr>
+
+                                   
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
 
 
 
 
+               
+                     <div class="u-container-layout u-container-layout-2">
+                        
+                        <!-- SUBMISSION MODAL -->
+                        <style>
+                           body {font-family: Arial, Helvetica, sans-serif;}
+                           /* The Modal (background) */
+                           .modal {
+                           display: none; /* Hidden by default */
+                           position: fixed; /* Stay in place */
+                           z-index: 1; /* Sit on top */
+                           padding-top: 100px; /* Location of the box */
+                           left: 0;
+                           top: 0;
+                           width: 100%; /* Full width */
+                           height: 100%; /* Full height */
+                           overflow: auto; /* Enable scroll if needed */
+                           background-color: rgb(0,0,0); /* Fallback color */
+                           background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                           }
+                           /* Modal Content */
+                           .modal-content {
+                           background-color: #fefefe;
+                           margin: auto;
+                           padding: 20px;
+                           border: 1px solid #888;
+                           width: 40%;
+                           }
+                           /* The Close Button */
+                           .close {
+                           color: #aaaaaa;
+                           float: right;
+                           font-size: 28px;
+                           font-weight: bold;
+                           }
+                           .close:hover,
+                           .close:focus {
+                           color: #000;
+                           text-decoration: none;
+                           cursor: pointer;
+                           }
+                           @media (max-width:1024px) { 
+                           .modal-content {
+                           width: 100%;
+                           }
+                           }
 
+                           #progress_bar {
+                              margin: 10px 0;
+                              padding: 3px;
+                              border: 1px solid #000;
+                              font-size: 14px;
+                              clear: both;
+                              opacity: 0;
+                              -moz-transition: opacity 1s linear;
+                              -o-transition: opacity 1s linear;
+                              -webkit-transition: opacity 1s linear;
+                           }
+                           #progress_bar.loading {
+                              opacity: 1.0;
+                           }
+                           #progress_bar .percent {
+                              background-color: #99ccff;
+                              height: auto;
+                              width: 0;
+                           }
+                        </style>
+                        <div class="modal" id = "submitModal" tabindex="-1" role="dialog">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <h5 class = "modal-title" id='modalAssignmentName'></h5>
+                                 <button onClick="showAssignmentModal(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                                 </button>
+                              </div>
+                              <div class="modal-body" id="assignmentModalBody">
+                                 <p id = "modalMaxSubmissions" style='display:none'></p>
+                                 <p id = "modalAssignmentSubmissions" style='display:none'></p>
+                                 <p id = "modalAssignmentID" style = 'display:none;' ></p>
+                                 <input type="file" id="file-input"/>                        
+                                 <div id="progress_bar">
+                                    <div class="percent">
+                                       0%
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="modal-footer">
+                                 <button onClick='submitStudentAssignment({{user.userID}})' class="btn btn-primary">Submit Assignment</button>
+                              </div>
+                              
+                           </div>
+                        </div>
 
-
-
-
+                        <!--ADDING CLASS TABS-->
+                        <div class="u-expanded-width-xs u-tab-links-align-center u-tabs u-tabs-1">
+                           <ul class="u-spacing-0 u-tab-list u-unstyled" role="tablist" id = "classTabs">
+                              {{#each classes}}
+                              {{#if @first}} 
+                              <li class="u-tab-item u-tab-item-1" role="presentation">
+                                 <a class="u-active-white u-border-6 u-border-active-palette-1-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-1 active" id="tabControl-{{this.classID}}" href="#tab-{{this.classID}}" role="tab" aria-controls="tab-{{this.classID}}" aria-selected="true">{{this.className}}</a>
+                              </li>
+                              {{else}}
+                              <li class="u-tab-item u-tab-item-1" role="presentation">
+                                 <a class="u-active-white u-border-6 u-border-active-palette-1-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-1" id="tabControl-{{this.classID}}" href="#tab-{{this.classID}}" role="tab" aria-controls="tab-{{this.classID}}" aria-selected="true">{{this.className}}</a>
+                              </li>
+                              {{/if}} 
+                              {{/each}}
+                           </ul>
+                           <!--ADDING TAB PAGES FOR CLASS-->
+                           <div class="u-tab-content" id = "classTabsPanel">
+                              {{#each classes}}
+                              {{#if @first}} 
+                              <div class="u-container-style u-tab-pane u-white u-tab-pane-1 active u-tab-active" id="tab-{{this.classID}}" role="tabpanel" aria-labelledby="link-tab-{{this.classID}}">
+                                 <div class="u-container-layout u-container-layout-3">
+                                    {{else}}
+                                    <div class="u-container-style u-tab-pane u-white u-tab-pane-1" id="tab-{{this.classID}}" role="tabpanel" aria-labelledby="link-tab-{{this.classID}}">
+                                       <div class="u-container-layout u-container-layout-3">
+                                          {{/if}}
+                                          <!-- ADDING ASSIGNMENTS IN CLASS TAB-->
+                                          {{#each ../assignments}}
+                                          {{#if (checkAssignment ./this.classID ../this.classID)}}
+                                          {{#if (isdefined this.assignmentName)}}
+                                          <div class="u-container-style u-group u-palette-1-base u-radius-11 u-shape-round u-group-1" id ="assignment-{{this.assignmentID}}">
+                                             <div class="u-container-layout u-container-layout-4">
+                                                <h5 class="u-align-center u-text u-text-2">Due {{this.dueDate}}</h5>
+                                                <h5 class="u-text u-text-3">{{this.assignmentName}}<br>+15 Avocados</h5>
+                                                <a></a>
+                                             </div>
+                                          </div>
+                                          {{/if}}
+                                          {{/if}} 
+                                          {{/each}}
+                                       </div>
+                                    </div>
+                                    {{/each}}
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-b99f">
+               <div class="u-clearfix u-sheet u-sheet-1">
+                  <p class="u-small-text u-text u-text-variant u-text-1">GreenCheck</p>
+               </div>
+            </footer>
+         </body>
 
 
 
@@ -31,11 +318,11 @@
 <html style="font-size: 16px;">
    <head>
       <title>Student Dashboard - {{user.firstname}} {{user.lastname}}</title>
-      <link rel="stylesheet" href="css/nicepage.css" media="screen">
-      <link rel="stylesheet" href="css/My-Profile.css" media="screen">
-      <script class="u-script" type="text/javascript" src="js/jquery.js" defer=""></script>
-      <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>
-      <script type="text/javascript" src="js/studentCommands.js" defer=""></script>
+      <link rel="stylesheet" href="css/student/nicepage.css" media="screen">
+      <link rel="stylesheet" href="css/student/My-Profile.css" media="screen">
+      <script class="u-script" type="text/javascript" src="js/student/jquery.js" defer=""></script>
+      <script class="u-script" type="text/javascript" src="js/student/nicepage.js" defer=""></script>
+      <script type="text/javascript" src="js/student/commands.js" defer=""></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.0/lottie.js"> </script>
       <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -89,7 +376,7 @@
          renderer: "svg",
          loop: true,
          autoplay: true,
-         path: "/js/avocado.json"
+         path: "/js/student/avocado.json"
       });
       }
       for (var i = 0; i < loader.length; i++) {
@@ -100,7 +387,7 @@
       <header class="u-clearfix u-header u-white u-header" id="sec-8537">
          <div class="u-clearfix u-sheet u-sheet-1">
             <a href="#" class="u-image u-logo u-image-1">
-            <img src="img/default-logo.png" class="u-logo-image u-logo-image-1">
+            <img src="img/student/default-logo.png" class="u-logo-image u-logo-image-1">
             </a>
             <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
                <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">

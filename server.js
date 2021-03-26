@@ -181,10 +181,18 @@ app.get('/', function(req, res){
       //Get all unique classes and generate 
       let classes = [];
       let assignmentQueue = [];
+      
+
+      //Check to see if no classes are returned
+      if (classInformation == null) { 
+        console.log("No Classes Were Found - Setting Null");
+        classInformation = []
+      }
+
       classInformation.forEach(element =>  { 
         classes.push([element.className,element.classID]);
 
-        //If database pulls empty record, set it to null
+        //If database pulls empty record, inialize the array to blank
         if (element.assignmentName == '') { 
           element.assignmentName = null;
           element.dueDate = null;
@@ -200,8 +208,6 @@ app.get('/', function(req, res){
               uniqueClasses.push({"classID" : item[1] , "className" : item[0]});
           }
        });
-
-
 
       //Render the Dashboard
       res.render('home', {user: req.user, 'classes' : uniqueClasses , 'assignments' : classInformation});

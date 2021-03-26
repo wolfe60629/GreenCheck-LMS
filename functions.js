@@ -21,6 +21,7 @@ exports.localAuth = function (username, password) {
 
     //Query Database
     sql = 'call verifyuser(\'' + username + '\',\'' + password +'\');'
+    console.log('Database Query - VerifyUser');
     query = connection.query(sql);
     query.on('result', function(row) {
         if(row.constructor.name == 'RowDataPacket') { 
@@ -34,10 +35,14 @@ exports.localAuth = function (username, password) {
             points =  row['Points'];
             userID =  row['User_ID'];
 
+            
             //Change Profile Picture To Base64
-            let buff = new Buffer(profilePicture);
-            profilePicture = buff.toString('base64');
-
+            if (profilePicture == null) { 
+              profilePicture = "";
+            }
+              let buff = new Buffer(profilePicture);
+              profilePicture = buff.toString('base64');
+          
             //Change isTeacher to Null if Student
             if (isTeacher == 0) { 
               isTeacher = null;
@@ -87,10 +92,13 @@ exports.getUserClassInformation = function (user_id) {
 
   //Query Database
   sql = 'call getClassInformation(\'' + user_id +'\');'
+  console.log('Database Query - getClassInformation(' + user_id + ')');
+  dataRecivedNotNull = false;
   query = connection.query(sql);
   query.on('result', function(row) {
       if(row.constructor.name == 'RowDataPacket') { 
           //Grab the columns that get sent
+          dataRecivedNotNull = true;
           classID = row['Class_ID'];
           className = row['Class_Name'];
           assignmentName = row['Assignment_Name'];
@@ -109,9 +117,12 @@ exports.getUserClassInformation = function (user_id) {
                           'submissionCount' : submissionCount 
                         }; 
               assignments.push(result)
-
               deferred.resolve(assignments);
           }else { 
+            // If no rows were returned from the database
+              if (!dataRecivedNotNull) { 
+                deferred.resolve(null);
+              }
               deferred.resolve(false);
           }
   });

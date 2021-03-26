@@ -4,6 +4,11 @@
  * Copyright 2014-2020 Froala Labs
  */
 
+ .progress-bar {
+    background-color: #6dc8c2!important;
+    }
+}
+
 .fr-clearfix::after {
   clear: both;
   display: block;
@@ -8331,7 +8336,7 @@ section.u-image,
 }
 @media (min-width: 1200px) {
   .u-sheet {
-    width: 90%;
+    width: 100%;
   }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
@@ -10241,8 +10246,8 @@ section.u-image,
     flex: 9 0 15%;
   }
   .u-layout-row > .u-size-8-md {
-    flex: 0 0 13.33333333%;
-    max-width: 13.33333333%;
+    flex: 0 0 15.333333%;
+    max-width: 15.33333333%;
   }
   .u-layout-col > .u-size-8-md {
     flex: 8 0 13.33333333%;
@@ -12124,7 +12129,7 @@ section.u-image,
 }
 .u-layout-row {
   flex-direction: row;
-  flex-wrap: wrap;
+  /* flex-wrap: inherit; */
   min-height: 100%;
   max-width: 100%;
 }
@@ -17928,6 +17933,7 @@ a.pswp__share--download:hover {
 }
 .u-tabs .u-tab-content > .u-tab-active {
   display: flex;
+  background-color: white;
 }
 .u-tabs.u-tab-links-align-left .u-tab-list {
   justify-content: flex-start;
@@ -21309,7 +21315,7 @@ a.u-button-style.u-button-style.u-active-palette-1-light-1[class*="u-border-"]:a
 a.u-button-style.u-button-style.u-active-palette-1-light-1.active,
 a.u-button-style.u-button-style.u-active-palette-1-light-1[class*="u-border-"].active {
   color: #ffffff !important;
-  background-color: #77aad9 !important;
+  background-color: #1de9dc !important;
 }
 a.u-link.u-hover-palette-1-light-1:hover {
   color: #77aad9 !important;
@@ -21405,12 +21411,12 @@ a.u-link.u-hover-palette-1-light-3:hover {
 .u-container-style.u-palette-1-base:before,
 .u-table-alt-palette-1-base tr:nth-child(even) {
   color: #ffffff;
-  background-color: #478ac9;
+  background-color: #454545;
 }
 .u-button-style.u-palette-1-base,
 .u-button-style.u-palette-1-base[class*="u-border-"] {
   color: #ffffff !important;
-  background-color: #478ac9 !important;
+  background-color: #02b8ac;
 }
 .u-button-style.u-palette-1-base:hover,
 .u-button-style.u-palette-1-base[class*="u-border-"]:hover,
@@ -23124,8 +23130,8 @@ a.u-link.u-hover-grey-light-3:hover {
 .u-body.u-white,
 .u-container-style.u-white:before,
 .u-table-alt-white tr:nth-child(even) {
-  color: #111111;
-  background-color: #ffffff;
+  color: #ffffff;
+  background-color: #41807c;
 }
 .u-button-style.u-white,
 .u-button-style.u-white[class*="u-border-"] {
@@ -25379,7 +25385,7 @@ a.u-button-style.u-border-hover-palette-1-base:focus,
 a.u-button-style.u-button-style.u-border-active-palette-1-base:active,
 a.u-button-style.u-button-style.u-border-active-palette-1-base.active {
   color: #478ac9 !important;
-  border-color: #478ac9 !important;
+  border-color: #51b7b1 !important;
 }
 .u-link.u-border-palette-1-base[class*="u-border-"] {
   border-color: #478ac9 !important;
@@ -31562,7 +31568,7 @@ a.u-link.u-text-hover-grey-90:hover {
         .u-image:not(.u-shading) > .u-container-layout > .u-btn,
         .u-btn
         {
-        background-color: #478ac9;
+        background-color: #02b8ac;
         color: #ffffff;
         }
         .u-overlap.u-overlap-transparent:not(.u-overlap-contrast) .u-header :not(.u-nav-item) > .u-btn:hover,
@@ -31632,20 +31638,23 @@ a.u-link.u-text-hover-grey-90:hover {
 }
 
 .u-header .u-sheet-1 {
-  min-height: 80px;
+  min-height: 60px;
+  display:flex;
 }
 
 .u-header .u-image-1 {
-  margin: 24px auto 0 -32px;
+  margin-right: auto;
 }
 
 .u-header .u-logo-image-1 {
-  max-width: 64px;
-  max-height: 64px;
+  max-width: 100%;
+  max-height: 100%;
+  margin-top: 8px;
+  margin-bottom: auto;
 }
 
 .u-header .u-menu-1 {
-  margin: -31px -68px 19px auto;
+  margin-left:auto;
 }
 
 .u-header .u-nav-1 {
@@ -31676,7 +31685,7 @@ a.u-link.u-text-hover-grey-90:hover {
   }
 
   .u-header .u-menu-1 {
-    margin-top: -32px;
+    margin-top: 0;
     margin-right: -38px;
   }
 }
@@ -31692,11 +31701,15 @@ a.u-link.u-text-hover-grey-90:hover {
 }
 @media (max-width: 575px) {
   .u-header .u-image-1 {
-    margin-left: -9px;
+    margin-left: -30px;
   }
 
   .u-header .u-menu-1 {
     margin-right: -18px;
+  }
+
+  .u-layout-col, .u-layout-row, .u-layout-col > * { 
+    display:unset;
   }
 }
 .u-footer {
