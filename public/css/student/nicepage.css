@@ -7,7 +7,6 @@
  .progress-bar {
     background-color: #6dc8c2!important;
     }
-}
 
 .fr-clearfix::after {
   clear: both;
@@ -8341,7 +8340,7 @@ section.u-image,
 }
 @media (min-width: 992px) and (max-width: 1199px) {
   .u-sheet {
-    width: 940px;
+    width: 89%;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
@@ -31635,6 +31634,7 @@ a.u-link.u-text-hover-grey-90:hover {
 /*end-variables sitestylecss*/
 .u-header {
   background-image: none;
+  /* width: 100%; */
 }
 
 .u-header .u-sheet-1 {
@@ -31655,6 +31655,7 @@ a.u-link.u-text-hover-grey-90:hover {
 
 .u-header .u-menu-1 {
   margin-left:auto;
+  margin-top: 11px;
 }
 
 .u-header .u-nav-1 {
@@ -31672,9 +31673,9 @@ a.u-link.u-text-hover-grey-90:hover {
 
   .u-header .u-menu-1 {
     width: auto;
-    margin-top: -32px;
+    margin-top: 19px;
     margin-right: -50px;
-    margin-bottom: 20px;
+    margin-bottom: 0;
   }
 }
 @media (max-width: 991px) {
@@ -31685,7 +31686,7 @@ a.u-link.u-text-hover-grey-90:hover {
   }
 
   .u-header .u-menu-1 {
-    margin-top: 0;
+    margin-top: 16px;
     margin-right: -38px;
   }
 }

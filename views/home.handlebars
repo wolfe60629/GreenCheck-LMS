@@ -16,13 +16,13 @@
          <head>
             <title>Teacher Dashboard - {{user.firstname}} {{user.lastname}}</title>
             <link rel="stylesheet" href="css/teacher/nicepage.css" media="screen">
-            <link rel="stylesheet" href="css/teacher/My-Profile.css" media="screen">
-            <script class="u-script" type="text/javascript" src="js/teacher/jquery.js" defer=""></script>
-            <script class="u-script" type="text/javascript" src="js/teacher/nicepage.js" defer=""></script>
-            <script type="text/javascript" src="js/teacher/commands.js" defer=""></script>
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.0/lottie.js"> </script>
-            <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link rel="stylesheet" href="css/teacher/My-Profile.css" media="screen">
+      <script class="u-script" type="text/javascript" src="js/teacher/jquery.js" defer=""></script>
+      <script class="u-script" type="text/javascript" src="js/teacher/nicepage.js" defer=""></script>
+      <script type="text/javascript" src="js/teacher/commands.js" defer=""></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.0/lottie.js"> </script>
+      <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
          </head>
          <body class="u-body" >
 
@@ -54,6 +54,12 @@
       @media (max-width:1024px) { 
                      .bodymovin { 
                   width: 100%;
+                  }
+      }
+
+       @media (max-width:2000px) { 
+            .bodymovin { 
+                  width: 30%;
                   }
       }
 
@@ -279,14 +285,23 @@
                                     <div class="u-container-style u-tab-pane u-white u-tab-pane-1" id="tab-{{this.classID}}" role="tabpanel" aria-labelledby="link-tab-{{this.classID}}">
                                        <div class="u-container-layout u-container-layout-3">
                                           {{/if}}
+                                 <div class = "tab-header">         
+                                   <div class="tControls text-right">
+                                    <a href="#"> <img src="img/teacher/plus.png" class="image-button"></a>
+                                    <a href="#" class=""> <img src="img/teacher/report.png" class="image-button"></a>
+                                    <a href="#" class=""> <img src="img/teacher/settings.png" class="image-button"></a>
+                                    <h4 class = "text-dark" style= "">Class Points: <span>0</span></h4>
+                                    </div>
+                                    </div>
+
                                           <!-- ADDING ASSIGNMENTS IN CLASS TAB-->
                                           {{#each ../assignments}}
                                           {{#if (checkAssignment ./this.classID ../this.classID)}}
                                           {{#if (isdefined this.assignmentName)}}
                                           <div class="u-container-style u-group u-palette-1-base u-radius-11 u-shape-round u-group-1" id ="assignment-{{this.assignmentID}}">
                                              <div class="u-container-layout u-container-layout-4">
+                                                <h5 class="u-text u-text-3">{{this.assignmentName}}</h5>
                                                 <h5 class="u-align-center u-text u-text-2">Due {{this.dueDate}}</h5>
-                                                <h5 class="u-text u-text-3">{{this.assignmentName}}<br>+15 Avocados</h5>
                                                 <a></a>
                                              </div>
                                           </div>
@@ -359,6 +374,12 @@
              width: 100%;
             }
 }
+
+@media (max-width:2000px) { 
+            .bodymovin { 
+                  width: 30%;
+                  }
+      }
 
       </style>
       <div class= "bodymovin-wrapper-1 animated fadeOutRight delay-2s slow" id = "wrapper-div">
