@@ -40,6 +40,13 @@ body {font-family: Arial, Helvetica, sans-serif;}
 }
 
 
+.assignment-menu { 
+	margin: -28px 0 0 0;
+}
+
+.tControls{ 
+  text-align: right!important;
+}
 
 
 @media (max-width:1024px) { 
@@ -641,6 +648,15 @@ body {font-family: Arial, Helvetica, sans-serif;}
 @media (max-width: 575px) {
   .progress {
     width:100%;
+  }
+
+  .assignment-menu { 
+		margin: 0px 0px 0 0;
+		text-align: center!important;
+	}
+
+  .tControls{ 
+    text-align: center!important;
   }
 
   .u-section-1 .u-layout-wrap-1 {

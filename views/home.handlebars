@@ -63,6 +63,12 @@
                   }
       }
 
+       @media (max-width:600px) { 
+            .bodymovin { 
+                  width: 100%;
+                  }
+      }
+
             </style>
             <div class= "bodymovin-wrapper-1 animated fadeOutRight delay-2s slow" id = "wrapper-div">
                <div class = "bodymovin" id = "bodymovin"></div>
@@ -111,7 +117,7 @@
                      </div>
                      <div class="u-custom-menu u-nav-container">
                         <ul class="u-nav u-unstyled u-nav-1">
-                           <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" style="padding: 10px 20px;">Add a Class</a></li>
+                           <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" onClick='showAddClassModal(true)' style="padding: 10px 20px;">Add a Class</a></li>
                            <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/logout" style="padding: 10px 20px;">Logout</a></li>
                         </ul>
                      </div>
@@ -120,7 +126,7 @@
                            <div class="u-sidenav-overflow">
                               <div class="u-menu-close"></div>
                               <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                                 <li class="u-nav-item"><a class="u-button-style u-nav-link" href="#" style="padding: 10px 20px;">Add a Class</a></li>
+                                 <li class="u-nav-item"><a class="u-button-style u-nav-link" href="#"  onClick='showAddClassModal(true)' style="padding: 10px 20px;">Add a Class</a></li>
                                  <li class="u-nav-item"><a class="u-button-style u-nav-link" href="/logout" style="padding: 10px 20px;">Logout</a></li>
                               </ul>
                            </div>
@@ -170,7 +176,7 @@
                
                      <div class="u-container-layout u-container-layout-2">
                         
-                        <!-- SUBMISSION MODAL -->
+                        <!-- MODAL MODAL -->
                         <style>
                            body {font-family: Arial, Helvetica, sans-serif;}
                            /* The Modal (background) */
@@ -234,31 +240,53 @@
                               width: 0;
                            }
                         </style>
-                        <div class="modal" id = "submitModal" tabindex="-1" role="dialog">
+
+                        <!-- DEFINE DIFFERENT MODALS FOR TEACHER VIEW -->
+
+                        <div class="modal" id = "addClass-Modal" tabindex="-1" role="dialog">
                            <div class="modal-content">
                               <div class="modal-header">
-                                 <h5 class = "modal-title" id='modalAssignmentName'></h5>
-                                 <button onClick="showAssignmentModal(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <h5 class = "modal-title text-center">Create a New Class</h5>
+                                 <button onClick="showAddClassModal(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
                                  <span aria-hidden="true">&times;</span>
                                  </button>
                               </div>
-                              <div class="modal-body" id="assignmentModalBody">
-                                 <p id = "modalMaxSubmissions" style='display:none'></p>
-                                 <p id = "modalAssignmentSubmissions" style='display:none'></p>
-                                 <p id = "modalAssignmentID" style = 'display:none;' ></p>
-                                 <input type="file" id="file-input"/>                        
-                                 <div id="progress_bar">
-                                    <div class="percent">
-                                       0%
-                                    </div>
-                                 </div>
+                              <div class="modal-body u-align-center">
+                                 <label for='class-name-modal'>Class Name: </label>   
+                                 <input type="text" id="class-name-modal"/>                                                 
                               </div>
                               <div class="modal-footer">
-                                 <button onClick='submitStudentAssignment({{user.userID}})' class="btn btn-primary">Submit Assignment</button>
+                                 <button onClick='' class="btn btn-primary">Create a New Class</button>
                               </div>
                               
                            </div>
                         </div>
+
+
+                        <div class="modal" id = "addAssignment-Modal" tabindex="-1" role="dialog">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <h5 class = "modal-title text-center">Add an Assignment</h5>
+                                 <button onClick="showAddAssignmentModal(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                                 </button>
+                              </div>
+                              <div class="modal-body u-align-center">
+                                 <label for='assignment-name-modal'>What is the assignment name? </label><br>
+                                 <input class = "u-align-center" type="text" id="assignment-name-modal"/><br><br> 
+                                 <label for='assignment-date-modal'>What is the due date of the assignment?</label> <br>
+                                 <input type="date" id="assignment-date-modal"/><br><br>
+                                 <label for='assignment-submissions-modal'>How many submissions are students allowed? </label><br>  
+                                 <input type="number" id="assignment-submissions-modal"/><br>                                                 
+                              </div>
+                              <div class="modal-footer">
+                                 <button onClick='' class="btn btn-primary">Add Assignment</button>
+                              </div>
+                              
+                           </div>
+                        </div>
+
+
 
                         <!--ADDING CLASS TABS-->
                         <div class="u-expanded-width-xs u-tab-links-align-center u-tabs u-tabs-1">
@@ -286,8 +314,8 @@
                                        <div class="u-container-layout u-container-layout-3">
                                           {{/if}}
                                  <div class = "tab-header">         
-                                   <div class="tControls text-right">
-                                    <a href="#"> <img src="img/teacher/plus.png" class="image-button"></a>
+                                   <div class="tControls">
+                                    <a href="#" onclick="showAddAssignmentModal(true)"> <img src="img/teacher/plus.png" class="image-button"></a>
                                     <a href="#" class=""> <img src="img/teacher/report.png" class="image-button"></a>
                                     <a href="#" class=""> <img src="img/teacher/settings.png" class="image-button"></a>
                                     <h4 class = "text-dark" style= "">Class Points: <span>0</span></h4>
@@ -302,7 +330,10 @@
                                              <div class="u-container-layout u-container-layout-4">
                                                 <h5 class="u-text u-text-3">{{this.assignmentName}}</h5>
                                                 <h5 class="u-align-center u-text u-text-2">Due {{this.dueDate}}</h5>
-                                                <a></a>
+                                                <div class="assignment-menu u-align-right">
+                                                   <a href= "#" class= ""><img src="/img/teacher/viewAssignment.png"></a>
+                                                   <a href= "#" class = ""><img src="/img/teacher/assignmentSettings.png"></a>
+                                                </div>
                                              </div>
                                           </div>
                                           {{/if}}
@@ -438,7 +469,7 @@
                      <div class="u-sidenav-overflow">
                         <div class="u-menu-close"></div>
                         <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                           <li class="u-nav-item"><a class="u-button-style u-nav-link" href="#" style="padding: 10px 20px;">Add a Class</a></li>
+                           <li class="u-nav-item"><a class="u-button-style u-nav-link" href="" onclick='showAddClassModal()' style="padding: 10px 20px;">Add a Class</a></li>
                            <li class="u-nav-item"><a class="u-button-style u-nav-link" href="/logout" style="padding: 10px 20px;">Logout</a></li>
                         </ul>
                      </div>
