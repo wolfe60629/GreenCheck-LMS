@@ -1,5 +1,9 @@
 # GreenCheck Learning Management System
 
+## About This Program
+
+This project will allow students in the virtual and traditional classroom to become engaged while rewarding the timely submissions of class assignments. Proposed as an add-on to other commonly used learning management systems, GreenCheck LMS allows students to collect virtual avocados when participating in class.
+
 ---
 
 ## Built With
@@ -7,34 +11,19 @@
 * [HandleBars](https://handlebarsjs.com/)
 * [Passport](http://www.passportjs.org/) 
 * [Normalize.css](https://necolas.github.io/normalize.css)
-* [HTML]
-* [Javascript]
-* [CSS]
 
 ## Working Demo
-* [Demo Link](http://76.97.25.242:3000)
+* [Demo Link](https://76.97.25.242)
 
 ## Installation
-
 
 ```
 $ git clone https://github.com/wolfe60629/GreenCheck-LMS.git
 $ cd ./GreenCheck-LMS-master
 $ npm install
-$ npm start
+$ ./firstRun.sh
+$ sudo npm start
 
-Go to `http://localhost:3000`
+Go to `http://localhost:80`
 ```
-### A Database Configuration File Will Need To Be Created As /Config/database.ini
-```
-[database]
-host          = {{Database IP}}
-dbname        = {{Database Name}}
-port          = {{Database Port}}
-username      = {{Database Username}}
-password      = {{Database Password}}
-
-
-```
-
 
