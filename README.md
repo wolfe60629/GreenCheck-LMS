@@ -1,5 +1,8 @@
 # GreenCheck Learning Management System
 
+![alt text](https://i.ibb.co/m65kj8c/Capture.png)
+
+
 ## About This Program
 
 This project will allow students in the virtual and traditional classroom to become engaged while rewarding the timely submissions of class assignments. Proposed as an add-on to other commonly used learning management systems, GreenCheck LMS allows students to collect virtual avocados when participating in class.
