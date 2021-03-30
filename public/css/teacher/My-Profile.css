@@ -1,4 +1,4 @@
-body {font-family: Arial, Helvetica, sans-serif;}
+body {font-family: 'Montserrat', sans-serif;}
 
 /* The Modal (background) */
 .modal {
@@ -88,8 +88,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 }
 
 .u-section-1 .u-table-cell-1 {
-  font-family: 'Lato', sans-serif;
-  text-decoration-line: underline;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bolder;
   font-size: 20px;
 }

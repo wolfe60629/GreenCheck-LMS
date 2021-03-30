@@ -117,7 +117,7 @@
                      </div>
                      <div class="u-custom-menu u-nav-container">
                         <ul class="u-nav u-unstyled u-nav-1">
-                           <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" onClick='showAddClassModal(true)' style="padding: 10px 20px;">Add a Class</a></li>
+                           <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" onClick='showAddClassModal(true)' style="padding: 10px 20px;">Create New Class</a></li>
                            <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/logout" style="padding: 10px 20px;">Logout</a></li>
                         </ul>
                      </div>
@@ -126,7 +126,7 @@
                            <div class="u-sidenav-overflow">
                               <div class="u-menu-close"></div>
                               <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                                 <li class="u-nav-item"><a class="u-button-style u-nav-link" href="#"  onClick='showAddClassModal(true)' style="padding: 10px 20px;">Add a Class</a></li>
+                                 <li class="u-nav-item"><a class="u-button-style u-nav-link" href="#"  onClick='showAddClassModal(true)' style="padding: 10px 20px;">Create New Class</a></li>
                                  <li class="u-nav-item"><a class="u-button-style u-nav-link" href="/logout" style="padding: 10px 20px;">Logout</a></li>
                               </ul>
                            </div>
@@ -160,6 +160,11 @@
                                     <!-- Row that needs to be added everytime -->
                                  <tr class= "" style="height: 120px;" id = "assignmentQueue-{{assignment.assignmentID}}">
                                     <td class="u-border-2 u-border-grey-dark-1 u-table-cell u-table-cell-3"><b>Jeremy Wolfe</b><br><i>Social Studies</i><br><i>55 Avocados</i>
+                                    </td>
+                                 </tr>
+                                 
+                                  <tr class= "" style="height: 120px;" id = "assignmentQueue-{{assignment.assignmentID}}">
+                                    <td class="u-border-2 u-border-grey-dark-1 u-table-cell u-table-cell-3"><b>Mark Shake</b><br><i>Science</i><br><i>45 Avocados</i>
                                     </td>
                                  </tr>
 
@@ -199,7 +204,7 @@
                            margin: auto;
                            padding: 20px;
                            border: 1px solid #888;
-                           width: 40%;
+                           width: 22%;
                            }
                            /* The Close Button */
                            .close {
@@ -245,42 +250,45 @@
 
                         <div class="modal" id = "addClass-Modal" tabindex="-1" role="dialog">
                            <div class="modal-content">
-                              <div class="modal-header">
-                                 <h5 class = "modal-title text-center">Create a New Class</h5>
-                                 <button onClick="showAddClassModal(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                 <span aria-hidden="true">&times;</span>
-                                 </button>
-                              </div>
+         
                               <div class="modal-body u-align-center">
                                  <label for='class-name-modal'>Class Name: </label>   
-                                 <input type="text" id="class-name-modal"/>                                                 
-                              </div>
-                              <div class="modal-footer">
-                                 <button onClick='' class="btn btn-primary">Create a New Class</button>
-                              </div>
-                              
+                                 <input type="text" id="class-name-modal"/>   <br> <br>
+                                 <button onClick='showAddClassModal(false)' class="btn btn-danger">Close</button>  
+                                 <button onClick='' class="btn btn-secondary">Create Class</button>                                              
+                              </div>       
                            </div>
                         </div>
 
 
                         <div class="modal" id = "addAssignment-Modal" tabindex="-1" role="dialog">
                            <div class="modal-content">
-                              <div class="modal-header">
-                                 <h5 class = "modal-title text-center">Add an Assignment</h5>
-                                 <button onClick="showAddAssignmentModal(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                 <span aria-hidden="true">&times;</span>
-                                 </button>
-                              </div>
                               <div class="modal-body u-align-center">
-                                 <label for='assignment-name-modal'>What is the assignment name? </label><br>
-                                 <input class = "u-align-center" type="text" id="assignment-name-modal"/><br><br> 
-                                 <label for='assignment-date-modal'>What is the due date of the assignment?</label> <br>
-                                 <input type="date" id="assignment-date-modal"/><br><br>
-                                 <label for='assignment-submissions-modal'>How many submissions are students allowed? </label><br>  
-                                 <input type="number" id="assignment-submissions-modal"/><br>                                                 
+                                 <label for='assignment-name-modal'>Assignment Name</label><br>
+                                 <input class = "u-align-center" type="text" id="assignment-name-modal"/><br> <br>
+                                 <label for='assignment-date-modal'>Due Date</label> <br>
+                                 <input type="date" id="assignment-date-modal"/><br> <br>
+                                 <label for='assignment-submissions-modal'>Max # of Submissions</label><br>  
+                                 <input type="number" id="assignment-submissions-modal"/><br> <br>
+                                 <button onClick='showAddAssignmentModal(false)' class="btn btn-danger">Close</button>       
+                                 <button onClick='' class="btn btn-secondary">Add Assignment</button>                                                  
                               </div>
-                              <div class="modal-footer">
-                                 <button onClick='' class="btn btn-primary">Add Assignment</button>
+                              
+                           </div>
+                        </div>
+
+
+                         <div class="modal" id = "classSettings-Modal" tabindex="-1" role="dialog">
+                           <div class="modal-content">
+                              <div class="modal-body u-align-center">
+                                 <label for='assignment-name-modal'>Assignment Name</label><br>
+                                 <input class = "u-align-center" type="text" id="assignment-name-modal"/><br> <br>
+                                 <label for='assignment-date-modal'>Due Date</label> <br>
+                                 <input type="date" id="assignment-date-modal"/><br> <br>
+                                 <label for='assignment-submissions-modal'>Max # of Submissions</label><br>  
+                                 <input type="number" id="assignment-submissions-modal"/><br> <br>
+                                 <button onClick='showAddAssignmentModal(false)' class="btn btn-danger">Close</button>       
+                                 <button onClick='' class="btn btn-secondary">Add Assignment</button>                                                  
                               </div>
                               
                            </div>
@@ -313,13 +321,15 @@
                                     <div class="u-container-style u-tab-pane u-white u-tab-pane-1" id="tab-{{this.classID}}" role="tabpanel" aria-labelledby="link-tab-{{this.classID}}">
                                        <div class="u-container-layout u-container-layout-3">
                                           {{/if}}
-                                 <div class = "tab-header">         
-                                   <div class="tControls">
-                                    <a href="#" onclick="showAddAssignmentModal(true)"> <img src="img/teacher/plus.png" class="image-button"></a>
-                                    <a href="#" class=""> <img src="img/teacher/report.png" class="image-button"></a>
-                                    <a href="#" class=""> <img src="img/teacher/settings.png" class="image-button"></a>
-                                    <h4 class = "text-dark" style= "">Class Points: <span>0</span></h4>
+                                 <div class = "tab-header"> 
+                                   <div class="tControls">  
+                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Add an Assignment" onclick="showAddAssignmentModal(true)"> <img style="height:30px;width:30px;" src="img/teacher/plus.png" class="image-button"></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Class Reports" class=""> <img style="height:30px;width:30px;" src="img/teacher/report.png" class="image-button"></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Class Settings" class=""> <img style="height:30px;width:30px;" src="img/teacher/settings.png" class="image-button"></a>
+                                    <h5 class = "text-dark" style= "">Class Points: <span>0</span></h5>
+                                    
                                     </div>
+                                    
                                     </div>
 
                                           <!-- ADDING ASSIGNMENTS IN CLASS TAB-->

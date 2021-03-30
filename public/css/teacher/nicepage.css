@@ -3991,7 +3991,7 @@ span.fr-img-caption.fr-view {
 }
 /*end-commonstyles library*//*! normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css */
 html {
-  font-family: sans-serif;
+  font-family: 'Montserrat', sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -4083,7 +4083,7 @@ code,
 kbd,
 pre,
 samp {
-  font-family: monospace,monospace;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1em;
 }
 hr {
@@ -19318,7 +19318,7 @@ a.u-button-style.u-border-20 {
 }
 /*begin-variables font-family*/
 .u-body {
-  font-family: 'Open Sans',sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 h1,
 h2,
@@ -19326,7 +19326,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Roboto,sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 /*end-variables font-family*/
 /*begin-variables color*/
@@ -19349,7 +19349,7 @@ h6 {
   font-family: 'Open Sans',sans-serif !important;
 }
 .u-custom-font.u-heading-font {
-  font-family: Roboto,sans-serif !important;
+  font-family: 'Montserrat', sans-serif;
 }
 /*end-variables font*/
 /*begin-variables colors*/
@@ -29139,10 +29139,10 @@ a.u-button-style.u-button-style.u-button-style.u-text-active-palette-2-dark-3[cl
   fill: #332929;
 }
 .u-link.u-text-palette-2-dark-3:hover {
-  color: #2e2525 !important;
+  color: #000000 !important;
 }
 a.u-link.u-text-hover-palette-2-dark-3:hover {
-  color: #332929 !important;
+  color: #000000 !important;
 }
 .u-text-palette-2-dark-2,
 a.u-button-style.u-text-palette-2-dark-2,
