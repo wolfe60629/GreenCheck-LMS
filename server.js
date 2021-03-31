@@ -137,10 +137,19 @@ app.post('/api', function(req, res, next) {
   if (user) { 
     if (user.isTeacher) { 
       //TEACHER COMMANDS 
+      switch(req.body.command) { 
+      case ("createClass"): 
+          funct.createNewClass(user.userID,req.body.className)
+          .then(dbRes => { 
+            res.json({
+              'Status' : 'SUCCESS',
+              'Timestamp' : Date.now(),
+              'Class' : JSON.stringify(dbRes)
+            });
+          });
+        break;
 
-
-
-
+      }
 
     }else if (user.isTeacher == null) { 
       //STUDENT COMMANDS

@@ -152,5 +152,54 @@ return deferred.promise;
 }
 
 
+/**************************************************
+ * Create a new Class
+ **************************************************/
+ exports.createNewClass = function (user_id,className) { 
+  var deferred = Q.defer();
+
+  //Connect To Database
+  const connection = mysql.createConnection( { 
+      host : databaseConfig.database.host,
+      database : databaseConfig.database.dbname,
+      user : databaseConfig.database.username,
+      password : databaseConfig.database.password
+  });
+
+  // Formulate Return Structure
+  var newClass = [];
+
+
+  //Query Database
+  sql = 'call createClass(\'' + user_id +'\', \'' + className + '\');'
+  console.log('Database Query - getClassInformation(' + user_id + ')');
+  dataRecivedNotNull = false;
+  query = connection.query(sql);
+  query.on('result', function(row) {
+      if(row.constructor.name == 'RowDataPacket') { 
+          //Grab the columns that get sent
+          dataRecivedNotNull = true;
+          classID = row['Class_ID'];
+          className = row['Class_Name'];
+          classCode = row['Class_Code'];
+    
+              result = {  'classID' : classID,
+                          'className' : className,
+                          'classCode' : classCode
+                        }; 
+              newClass.push(result)
+              deferred.resolve(newClass);
+          }else { 
+            // If no rows were returned from the database
+              if (!dataRecivedNotNull) { 
+                deferred.resolve(null);
+              }
+              deferred.resolve(false);
+          }
+  });
+  connection.end();
+return deferred.promise;
+
+}
 
 
