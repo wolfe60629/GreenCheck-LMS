@@ -37,6 +37,7 @@
     "passport-twitter": "^1.0.4",
     "prompt": "^1.1.0",
     "q": "^1.5.1",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.4",
+    "winston": "^3.3.0"
   }
 }
