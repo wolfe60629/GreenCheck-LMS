@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "test": "",
-    "configure": "node configure"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -35,8 +34,6 @@
     "passport-google": "^0.3.0",
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
-    "prompt": "^1.1.0",
-    "q": "^1.5.1",
-    "shelljs": "^0.8.4"
+    "q": "^1.5.1"
   }
 }
