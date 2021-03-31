@@ -1,3 +1,3 @@
 public/css/teacher/* linguist-vendored
 public/css/student/* linguist-vendored
-views/*.handlebars linguist-vendored
+*.handlebars linguist-vendored
