@@ -22,10 +22,10 @@ This project will allow students in the virtual and traditional classroom to bec
 
 ```
 $ git clone https://github.com/wolfe60629/GreenCheck-LMS.git
-$ cd ./GreenCheck-LMS-master
+$ cd ./GreenCheck-LMS
 $ npm install
-$ ./firstRun.sh
-$ sudo npm start
+$ node configure
+$ npm start
 
 Go to `http://localhost:80`
 ```
