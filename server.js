@@ -148,6 +148,17 @@ app.post('/api', function(req, res, next) {
             });
           });
         break;
+      case ("getAttendees") : 
+      
+      funct.getClassAttendees(req.body.classID)
+      .then(dbRes => { 
+        res.json({
+          'Status' : 'SUCCESS',
+          'Timestamp' : Date.now(),
+          'Students' : JSON.stringify(dbRes)
+        });
+      });
+          break;
 
       }
 
@@ -199,7 +210,7 @@ app.get('/', function(req, res){
       }
 
       classInformation.forEach(element =>  { 
-        classes.push([element.className,element.classID]);
+        classes.push([element.className,element.classID,element.classCode]);
 
         //If database pulls empty record, inialize the array to blank
         if (element.assignmentName == '') { 
@@ -214,7 +225,7 @@ app.get('/', function(req, res){
        classes.forEach(item => { 
           if(!classMap.has(item[1])){
             classMap.set(item[1], true);    // set any value to Map
-              uniqueClasses.push({"classID" : item[1] , "className" : item[0]});
+              uniqueClasses.push({"classID" : item[1] , "className" : item[0], "classCode" : item[2]});
           }
        });
 

@@ -101,6 +101,7 @@ exports.getUserClassInformation = function (user_id) {
           dataRecivedNotNull = true;
           classID = row['Class_ID'];
           className = row['Class_Name'];
+          classCode = row['Class_Code'];
           assignmentName = row['Assignment_Name'];
           assignmentID = row['Assignment_ID'];
           dueDate = row['Due_Date'];
@@ -110,6 +111,7 @@ exports.getUserClassInformation = function (user_id) {
           let formatted_date = dueDate?.getMonth() + "/" + dueDate?.getDate() + "/" + dueDate?.getFullYear() + " " + (dueDate?.getHours()%12 == 0 ? '12' : (dueDate?.getHours() === '12' ? '12' : dueDate?.getHours()%12)) + ":" + (dueDate?.getMinutes() < 10 ? "0" + dueDate?.getMinutes() : dueDate?.getMinutes()) + ampm ;
               result = {  'classID' : classID,
                           'className' : className,
+                          'classCode' : classCode,
                           'assignmentID' : assignmentID,
                           'assignmentName' : assignmentName, 
                           'dueDate' : formatted_date, 
@@ -172,7 +174,7 @@ return deferred.promise;
 
   //Query Database
   sql = 'call createClass(\'' + user_id +'\', \'' + className + '\');'
-  console.log('Database Query - getClassInformation(' + user_id + ')');
+  console.log('Database Query - CreateNewClass(' + className + ')');
   dataRecivedNotNull = false;
   query = connection.query(sql);
   query.on('result', function(row) {
@@ -203,3 +205,52 @@ return deferred.promise;
 }
 
 
+/**************************************************
+ * Get Attendees Inside of a Class
+ **************************************************/
+ exports.getClassAttendees = function (classID) { 
+  var deferred = Q.defer();
+
+  //Connect To Database
+  const connection = mysql.createConnection( { 
+      host : databaseConfig.database.host,
+      database : databaseConfig.database.dbname,
+      user : databaseConfig.database.username,
+      password : databaseConfig.database.password
+  });
+
+  // Formulate Return Structure
+  var students = [];
+
+
+  //Query Database
+  sql = 'call getClassUsers(\'' + classID +'\');'
+  console.log('Database Query - getClassUsers(' + classID + ')');
+  dataRecivedNotNull = false;
+  query = connection.query(sql);
+  query.on('result', function(row) {
+      if(row.constructor.name == 'RowDataPacket') { 
+          //Grab the columns that get sent
+          dataRecivedNotNull = true;
+          userID = row['User_ID'];
+          fullName = row['Full Name'];
+          isPending = row['isPending'];
+    
+              result = {  'userID' : userID,
+                          'fullName' : fullName,
+                          'isPending' : isPending
+                        }; 
+              students.push(result)
+              deferred.resolve(students);
+          }else { 
+            // If no rows were returned from the database
+              if (!dataRecivedNotNull) { 
+                deferred.resolve(null);
+              }
+              deferred.resolve(false);
+          }
+  });
+  connection.end();
+return deferred.promise;
+
+}

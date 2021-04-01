@@ -204,7 +204,7 @@
                            margin: auto;
                            padding: 20px;
                            border: 1px solid #888;
-                           width: 22%;
+                           width: 30%;
                            }
                            /* The Close Button */
                            .close {
@@ -254,8 +254,13 @@
                               <div class="modal-body u-align-center">
                                  <label for='class-name-modal'>Class Name: </label>   
                                  <input type="text" id="class-name-modal"/>   <br> <br>
+
+                                 
+                               <div class= "text-center modal-footer" style= "display:block;">
                                  <button onClick='showAddClassModal(false)' class="btn btn-danger">Close</button>  
-                                 <button onClick='createNewClass()' class="btn btn-secondary">Create Class</button>                                              
+                                 <button onClick='createNewClass()' class="btn btn-dark">Create Class</button>                                           
+                              </div> 
+                                                                             
                               </div>       
                            </div>
                         </div>
@@ -265,15 +270,54 @@
                            <div class="modal-content">
                               <div class="modal-body u-align-center">
                                  <label for='assignment-name-modal'>Assignment Name</label><br>
-                                 <input class = "u-align-center" type="text" id="assignment-name-modal"/><br> <br>
-                                 <label for='assignment-date-modal'>Due Date</label> <br>
-                                 <input type="date" id="assignment-date-modal"/><br> <br>
+                                 <input class = "u-align-center" type="text" id="assignment-name-modal"/><br><br>
+                                 <label for='assignment-date-modal'>Due Date</label><br>
+                                 <input type="date" id="assignment-date-modal"/><br><br>
                                  <label for='assignment-submissions-modal'>Max # of Submissions</label><br>  
-                                 <input type="number" id="assignment-submissions-modal"/><br> <br>
+                                 <input type="number" id="assignment-submissions-modal"/><br><br>
+   
+
+
+                               <div class= "text-center modal-footer" style= "display:block;">
                                  <button onClick='showAddAssignmentModal(false)' class="btn btn-danger">Close</button>       
-                                 <button onClick='' class="btn btn-secondary">Add Assignment</button>                                                  
+                                 <button onClick='' class="btn btn-dark">Create</button>                                                
+                              </div>                                            
                               </div>
                               
+                           </div>
+                        </div>
+
+
+
+                           <div class="modal" id = "classSettings-Modal" tabindex="-1" role="dialog">
+
+                           <div class="modal-content">
+                              <div class="modal-body u-align-left">
+                                 <h5 class = "u-align-center"><b>Class Code: <span id = "classCodeSpan-Modal"></span></b></h5> <br>
+                                 <label for='edit-class-name-modal'>Class Name: </label>   
+                                 <input  class="form-control" type="text" id="edit-class-name-modal"/><br>
+                                 
+
+                                 <!-- CLASS ATTENDEES SECTION -->
+                                 <label for = "classAttendees-modal">Class Attendees</label>
+                                 <table id = "classAttendees-modal" class = "table classAttendees">
+                                    <thead>
+                                         <thead>
+                                             <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Action</th>
+                                             </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                 </table>
+
+                              <div class= "text-center modal-footer" style= "display:block;">
+                                 <button onClick='showClassSettingsModal(false)' class="btn btn-danger">Close</button>       
+                                 <button onClick='' class="btn btn-success">Save</button>                                                  
+                              </div>
+                              </div>
                            </div>
                         </div>
 
@@ -308,10 +352,8 @@
                                  <div class = "tab-header"> 
                                    <div class="tControls">  
                                     <a href="#" data-toggle="tooltip" data-placement="left" title="Add an Assignment" onclick="showAddAssignmentModal(true)"> <img style="height:30px;width:30px;" src="img/teacher/plus.png" class="image-button"></a>
-                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Class Reports" class=""> <img style="height:30px;width:30px;" src="img/teacher/report.png" class="image-button"></a>
-                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Class Settings" class=""> <img style="height:30px;width:30px;" src="img/teacher/settings.png" class="image-button"></a>
-                                    <h5 class = "text-dark" style= "">Class Points: <span>0</span></h5>
-                                    
+                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Class Settings" onclick = "showClassSettingsModal(true, {{this.classID}},'{{this.classCode}}')"> <img style="height:30px;width:30px;" src="img/teacher/settings.png" class="image-button"></a>
+                                   
                                     </div>
                                     
                                     </div>
