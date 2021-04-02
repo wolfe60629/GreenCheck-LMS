@@ -107,8 +107,9 @@ exports.getUserClassInformation = function (user_id) {
           dueDate = row['Due_Date'];
           maxSubmissions = row['Max_Submissions'];
           submissionCount = row['submission_count'];
+          pointsAssigned =row['points_assigned'];
           var ampm = dueDate?.getHours() >= 12 ? 'PM' : 'AM';
-          let formatted_date = dueDate?.getMonth() + "/" + dueDate?.getDate() + "/" + dueDate?.getFullYear() + " " + (dueDate?.getHours()%12 == 0 ? '12' : (dueDate?.getHours() === '12' ? '12' : dueDate?.getHours()%12)) + ":" + (dueDate?.getMinutes() < 10 ? "0" + dueDate?.getMinutes() : dueDate?.getMinutes()) + ampm ;
+          let formatted_date = dueDate?.getMonth()+1 + "/" + dueDate?.getDate() + "/" + dueDate?.getFullYear() + " " + (dueDate?.getHours()%12 == 0 ? '12' : (dueDate?.getHours() === '12' ? '12' : dueDate?.getHours()%12)) + ":" + (dueDate?.getMinutes() < 10 ? "0" + dueDate?.getMinutes() : dueDate?.getMinutes()) + ampm ;
               result = {  'classID' : classID,
                           'className' : className,
                           'classCode' : classCode,
@@ -116,7 +117,8 @@ exports.getUserClassInformation = function (user_id) {
                           'assignmentName' : assignmentName, 
                           'dueDate' : formatted_date, 
                           'maxSubmissions': maxSubmissions,
-                          'submissionCount' : submissionCount 
+                          'submissionCount' : submissionCount,
+                          'pointsAssigned' : pointsAssigned  
                         }; 
               assignments.push(result)
               deferred.resolve(assignments);
