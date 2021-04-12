@@ -160,6 +160,18 @@ app.post('/api', function(req, res, next) {
       });
           break;
 
+
+
+       case ("createAssignment"): 
+       funct.createNewAssignment(req.body.classID,req.body.assignmentName,req.body.dueDate,req.body.maxSubmissions)
+       .then(dbRes => { 
+         res.json({
+           'Status' : 'SUCCESS',
+           'Timestamp' : Date.now(),
+           'Students' : JSON.stringify(dbRes)
+         });
+       });
+       break;
       }
 
     }else if (user.isTeacher == null) { 

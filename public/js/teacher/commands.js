@@ -1,11 +1,17 @@
 // --------------------TEACHER MODAL CODE ------------------------------------ //
+function clearStorage() { 
+  window.sessionStorage.clear();
+}
+
 
 // Add on click listeners to hide modals
 window.onclick = function(event) {
   var addClassModal = document.getElementById("addClass-Modal");
   var addAssignmentModal = document.getElementById("addAssignment-Modal");
   var classSettingsModal = document.getElementById("classSettings-Modal");
-
+  var assignmentSubmissionsModal=document.getElementById("assignment-submissions-modal");
+  var assignmentDateModal = document.getElementById("assignment-date-modal");
+ 
   switch (event.target) { 
     case (addClassModal): 
       var className = document.getElementById("class-name-modal");
@@ -15,6 +21,8 @@ window.onclick = function(event) {
     case (addAssignmentModal):
       var assignmentName = document.getElementById("assignment-name-modal");
       assignmentName.value = "";
+      assignmentSubmissionsModal.value = "";
+      assignmentDateModal.value = "";
       event.target.style.display = 'none';
       break;
       case (classSettingsModal):
@@ -45,16 +53,20 @@ function showAddClassModal(isShown) {
     }
   }
 
-  function showClassSettingsModal(isShown, classID, classCode) { 
+  function showClassSettingsModal(isShown, classID, classCode, className) { 
     var modal = document.getElementById("classSettings-Modal");
     var classCodeSpan = document.getElementById("classCodeSpan-Modal");
+    var classNameInput = document.getElementById("edit-class-name-modal");
 
     if (classCode) { 
       classCodeSpan.innerText = classCode;
     }
     if (classID){ 
       getClassAttendees(classID)
-      }   
+    }  
+    if (className) { 
+      classNameInput.value = className;
+    } 
 
       if (isShown) { 
         modal.style.display = "block";
@@ -66,16 +78,22 @@ function showAddClassModal(isShown) {
     }
 
 
-  function showAddAssignmentModal(isShown) { 
+  function showAddAssignmentModal(isShown, classID) { 
     var modal = document.getElementById("addAssignment-Modal");
     var className = document.getElementById("assignment-name-modal");
-  
+    var cID = document.getElementById('assignment-id-modal');
+    var assignmentSubmissionsModal=document.getElementById("assignment-submissions-modal");
+    var assignmentDateModal = document.getElementById("assignment-date-modal");
+
+    cID.value = classID;
+
       if (isShown) { 
         modal.style.display = "block";
       }else { 
         modal.style.display = "none";
         className.value = "";
-        
+        assignmentSubmissionsModal.value = "";
+        assignmentDateModal.value = "";  
       }
     }
 
@@ -107,6 +125,12 @@ return result;
 
 function createNewClass (){ 
   className = document.getElementById('class-name-modal').value;
+
+if (!className) { 
+  alert("You Must Enter A Class Name"); 
+  return ""
+}
+
   createNewClassAsync(className).then (data => { 
     console.log(data);
     location.reload();
@@ -115,6 +139,52 @@ function createNewClass (){
 });
 
 showAddClassModal(false);
+return 0;
+};
+
+
+
+
+// --------------------- Add a New Assignment ---------------------------------
+async function createNewAssignmentAsync(classID, assignmentName, dueDate, maxSubmissions) { 
+  const sendData = {'command' : 'createAssignment', classID, assignmentName, dueDate, maxSubmissions}; 
+
+  //Send to API
+ let promise = new Promise((resolve, reject) => {
+
+  fetch('/api' , {
+    method: 'POST',
+    body: JSON.stringify(sendData),
+    headers: {'Content-Type' : 'application/JSON'}
+   })
+   .then(response => response.json())
+   .then(data => {
+     resolve(data);
+   })
+
+  
+});
+let result = await promise
+return result;
+}
+
+function createAssignmentClass (){ 
+  assignmentName = document.getElementById('assignment-name-modal').value;
+  dueDate = document.getElementById('assignment-date-modal').value;
+  maxSubmissions = document.getElementById('assignment-submissions-modal').value;
+  classID = document.getElementById('assignment-id-modal').value; 
+  if (!(assignmentName && dueDate && maxSubmissions && classID)) { 
+    alert("You must fill out the form.")
+    return "Blank Input"
+  }
+  createNewAssignmentAsync(classID, assignmentName, dueDate, maxSubmissions).then (data => { 
+    console.log(data);
+    location.reload();
+   return JSON.stringify(data.body);
+   
+});
+
+showAddAssignmentModal(false);
 return 0;
 };
 

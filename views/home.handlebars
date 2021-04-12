@@ -78,6 +78,13 @@
                </div>
             </div>
             <script>
+
+
+            if (window.sessionStorage.getItem('logoAnimated') != null) {
+            document.getElementById("wrapper-div").style.display = "none";
+            }
+
+
             var loader = document.getElementsByClassName("bodymovin");
             function loadBMAnimation(loader) {
             var animation = bodymovin.loadAnimation({
@@ -91,6 +98,7 @@
             for (var i = 0; i < loader.length; i++) {
             loadBMAnimation(loader[i]);
             }
+            window.sessionStorage.setItem('logoAnimated', 1);
             </script>
 
             <header class="u-clearfix u-header u-white u-header" id="sec-8537">
@@ -118,7 +126,7 @@
                      <div class="u-custom-menu u-nav-container">
                         <ul class="u-nav u-unstyled u-nav-1">
                            <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" onClick='showAddClassModal(true)' style="padding: 10px 20px;">Create New Class</a></li>
-                           <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/logout" style="padding: 10px 20px;">Logout</a></li>
+                           <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" onclick = "clearStorage()" href="/logout" style="padding: 10px 20px;">Logout</a></li>
                         </ul>
                      </div>
                      <div class="u-custom-menu u-nav-container-collapse">
@@ -127,7 +135,7 @@
                               <div class="u-menu-close"></div>
                               <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
                                  <li class="u-nav-item"><a class="u-button-style u-nav-link" href="#"  onClick='showAddClassModal(true)' style="padding: 10px 20px;">Create New Class</a></li>
-                                 <li class="u-nav-item"><a class="u-button-style u-nav-link" href="/logout" style="padding: 10px 20px;">Logout</a></li>
+                                 <li class="u-nav-item"><a class="u-button-style u-nav-link" onclick="clearStorage();" href="/logout" style="padding: 10px 20px;">Logout</a></li>
                               </ul>
                            </div>
                         </div>
@@ -269,10 +277,11 @@
                         <div class="modal" id = "addAssignment-Modal" tabindex="-1" role="dialog">
                            <div class="modal-content">
                               <div class="modal-body u-align-center">
+                                 <span style= "display:none;" id = "assignment-id-modal"></span>
                                  <label for='assignment-name-modal'>Assignment Name</label><br>
-                                 <input class = "u-align-center" type="text" id="assignment-name-modal"/><br><br>
+                                 <input class = "u-align-center" type="text" id="assignment-name-modal" /><br><br>
                                  <label for='assignment-date-modal'>Due Date</label><br>
-                                 <input type="date" id="assignment-date-modal"/><br><br>
+                                 <input type="datetime-local" id="assignment-date-modal"/><br><br>
                                  <label for='assignment-submissions-modal'>Max # of Submissions</label><br>  
                                  <input type="number" id="assignment-submissions-modal"/><br><br>
    
@@ -280,7 +289,7 @@
 
                                <div class= "text-center modal-footer" style= "display:block;">
                                  <button onClick='showAddAssignmentModal(false)' class="btn btn-danger">Close</button>       
-                                 <button onClick='' class="btn btn-dark">Create</button>                                                
+                                 <button onClick='createAssignmentClass()' class="btn btn-dark">Create</button>                                                
                               </div>                                            
                               </div>
                               
@@ -351,8 +360,8 @@
                                           {{/if}}
                                  <div class = "tab-header"> 
                                    <div class="tControls">  
-                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Add an Assignment" onclick="showAddAssignmentModal(true)"> <img style="height:30px;width:30px;" src="img/teacher/plus.png" class="image-button"></a>
-                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Class Settings" onclick = "showClassSettingsModal(true, {{this.classID}},'{{this.classCode}}')"> <img style="height:30px;width:30px;" src="img/teacher/settings.png" class="image-button"></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Add an Assignment" onclick="showAddAssignmentModal(true, {{this.classID}})"> <img style="height:30px;width:30px;" src="img/teacher/plus.png" class="image-button"></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Class Settings" onclick = "showClassSettingsModal(true, {{this.classID}},'{{this.classCode}}','{{this.className}}')"> <img style="height:30px;width:30px;" src="img/teacher/settings.png" class="image-button"></a>
                                    
                                     </div>
                                     
