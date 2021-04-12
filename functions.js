@@ -256,3 +256,33 @@ return deferred.promise;
 return deferred.promise;
 
 }
+
+/**************************************************
+ * Add Assignments into a Class
+ **************************************************/
+ exports.createNewAssignment = function (classID, assignmentName, dueDate, maxSubmissions) { 
+  var deferred = Q.defer();
+
+  //Connect To Database
+  const connection = mysql.createConnection( { 
+      host : databaseConfig.database.host,
+      database : databaseConfig.database.dbname,
+      user : databaseConfig.database.username,
+      password : databaseConfig.database.password
+  });
+
+  // Formulate Return Structure
+  var newAssignment = [];
+
+
+  //Query Database
+  sql = 'call createAssignment(\'' + assignmentName +'\', \'' + classID  +'\', \'' + dueDate  +'\', \'' + maxSubmissions + '\');'
+  console.log('Database Query - createAssignment(' + classID + ')');
+  query = connection.query(sql);
+  query.on('result', function(row) {
+  });
+  deferred.resolve("AddedAssignment");
+  connection.end();
+    return deferred.promise;
+
+}
