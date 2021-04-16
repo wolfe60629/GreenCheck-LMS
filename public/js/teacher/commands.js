@@ -376,7 +376,7 @@ function getAssignmentSubmissions (assignmentID){
       var studentCommandText = document.createElement("a");
       studentCommandText.onClick = "";
       studentCommandText.href = element.downloadLink;
-      studentCommandText.download = element.downloadLink.split('/')[4];
+      studentCommandText.download = '';
       studentCommandText.text = "Download Assignment";
       studentDownloadCell.appendChild(studentCommandText);
       
