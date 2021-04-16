@@ -77,6 +77,7 @@ app.use(session({secret: 'supernova', saveUninitialized: true, resave: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static('public'));
+app.use("/Files", express.static(__dirname + '/public/Files'));
 app.use(express.json());
 
 
@@ -179,7 +180,7 @@ app.post('/api', function(req, res, next) {
       switch(req.body.command) { 
         case ('submitAssignment'):
 
-        funct.submitAssignment(req.body.userID, req.body.assignmentID, req.body.document);
+        funct.submitAssignment(req.body.userID, req.body.assignmentID, req.body.document, req.body.documentName);
           res.json({
             'Status' : 'SUCCESS',
             'Timestamp' : Date.now()

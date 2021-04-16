@@ -9,9 +9,11 @@ window.onclick = function(event) {
   var addClassModal = document.getElementById("addClass-Modal");
   var addAssignmentModal = document.getElementById("addAssignment-Modal");
   var classSettingsModal = document.getElementById("classSettings-Modal");
-  var assignmentSubmissionsModal=document.getElementById("assignment-submissions-modal");
+  var allowedassignmentSubmissionsModal=document.getElementById("assignment-submissions-modal");
   var assignmentDateModal = document.getElementById("assignment-date-modal");
- 
+  var assignmentSettingsModal = document.getElementById('assignmentSettings-Modal');
+  var assignmentSubmissionsModal = document.getElementById('assignmentSubmissions-Modal');
+
   switch (event.target) { 
     case (addClassModal): 
       var className = document.getElementById("class-name-modal");
@@ -21,14 +23,19 @@ window.onclick = function(event) {
     case (addAssignmentModal):
       var assignmentName = document.getElementById("assignment-name-modal");
       assignmentName.value = "";
-      assignmentSubmissionsModal.value = "";
+      allowedassignmentSubmissionsModal.value = "";
       assignmentDateModal.value = "";
       event.target.style.display = 'none';
       break;
       case (classSettingsModal):
         event.target.style.display = 'none';
         break;
-
+      case (assignmentSettingsModal): 
+        event.target.style.display = 'none';
+        break;
+      case (assignmentSubmissionsModal): 
+        event.target.style.display = 'none';
+        break;
 
     default: 
     break;
@@ -52,6 +59,48 @@ function showAddClassModal(isShown) {
       
     }
   }
+  
+
+  function showAssignmentSubmissionsModal(isShown) { 
+    var modal = document.getElementById("assignmentSubmissions-Modal");
+
+      if (isShown) { 
+        modal.style.display = "block";
+      }else { 
+        modal.style.display = "none";
+       
+      }
+    }
+
+
+  function showAssignmentSettingsModal(isShown, currAsignmentName, currDueDate, currMaxSubmission) { 
+    var modal = document.getElementById("assignmentSettings-Modal");
+    var settingsAssignmentName = document.getElementById('assignmentSettings-name-modal');
+    var settingsDueDate = document.getElementById('assignmentSettings-date-modal');
+    var settingsMaxSubmissions = document.getElementById('assignmentSettings-submissions-modal');
+
+    if (currAsignmentName) { 
+      settingsAssignmentName.value = currAsignmentName;
+    }
+
+    if (currDueDate) { 
+      currDueDate += ' UTC'
+      currDueDate = new Date(currDueDate);
+      formattedDate = currDueDate.toISOString().replace('Z','')
+      settingsDueDate.value = formattedDate
+    }
+
+    if (currMaxSubmission) { 
+      settingsMaxSubmissions.value = currMaxSubmission;
+    }
+
+      if (isShown) { 
+        modal.style.display = "block";
+      }else { 
+        modal.style.display = "none";
+       
+      }
+    }
 
   function showClassSettingsModal(isShown, classID, classCode, className) { 
     var modal = document.getElementById("classSettings-Modal");

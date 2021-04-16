@@ -108,7 +108,7 @@ exports.getUserClassInformation = function (user_id) {
           maxSubmissions = row['Max_Submissions'];
           submissionCount = row['submission_count'];
           pointsAssigned =row['points_assigned'];
-          var ampm = dueDate?.getHours() >= 12 ? 'PM' : 'AM';
+          var ampm = dueDate?.getHours() >= 12 ? ' PM' : ' AM';
           let formatted_date = dueDate?.getMonth()+1 + "/" + dueDate?.getDate() + "/" + dueDate?.getFullYear() + " " + (dueDate?.getHours()%12 == 0 ? '12' : (dueDate?.getHours() === '12' ? '12' : dueDate?.getHours()%12)) + ":" + (dueDate?.getMinutes() < 10 ? "0" + dueDate?.getMinutes() : dueDate?.getMinutes()) + ampm ;
               result = {  'classID' : classID,
                           'className' : className,
@@ -138,7 +138,7 @@ return deferred.promise;
 /**************************************************
  * Submit Assignments From Student Account
  **************************************************/
- exports.submitAssignment = function (user_id, assignment_id, document) { 
+ exports.submitAssignment = function (user_id, assignment_id, document, documentName) { 
   //Connect To Database
   const connection = mysql.createConnection( { 
       host : databaseConfig.database.host,
@@ -149,7 +149,7 @@ return deferred.promise;
 
 
   //Query Database
-  sql = 'call submitAssignment(' + user_id + ',' + assignment_id + ',\'' + document + '\');'
+  sql = 'call submitAssignment(' + user_id + ',' + assignment_id + ',\'' + document + '\',\'' + documentName +'\');'
   query = connection.query(sql);  
   connection.end();
 

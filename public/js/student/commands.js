@@ -64,8 +64,8 @@ return 0;
 
 
 // --------------------- Submit an Assignment ---------------------------------
-async function submitStudentAssignmentAsync(userID,assignmentID,document) { 
-  const sendData = {'command' : 'submitAssignment', 'userID'  : userID, 'assignmentID' : assignmentID, 'document' : document}; 
+async function submitStudentAssignmentAsync(userID,assignmentID,document,documentName) { 
+  const sendData = {'command' : 'submitAssignment', 'userID'  : userID, 'assignmentID' : assignmentID, 'document' : document, 'documentName' : documentName}; 
 
   //Send to API
  let promise = new Promise((resolve, reject) => {
@@ -95,9 +95,9 @@ assignmentSubmissions = parseInt(document.getElementById("modalAssignmentSubmiss
 assignmentMaxSubmissions = parseInt(document.getElementById("modalMaxSubmissions").innerText);
 submissionCount = document.getElementById("submissioncount-"+assignmentID);
 fileInput = document.getElementById('file-input');
+fileName = fileInput.files.item(0).name;
 
-
-submitStudentAssignmentAsync(userID,assignmentID,fileContents).then (data => { 
+submitStudentAssignmentAsync(userID,assignmentID,fileContents,fileName).then (data => { 
     console.log(data);
   return JSON.stringify(data.body);
 });
