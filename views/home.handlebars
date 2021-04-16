@@ -421,7 +421,7 @@
                                                 <h5 class="u-text u-text-3">{{this.assignmentName}}</h5>
                                                 <h5 class="u-align-center u-text u-text-2">Due {{this.dueDate}}</h5>
                                                 <div class="assignment-menu u-align-right">
-                                                   <a onclick = 'showAssignmentSubmissionsModal(true)' class= ""><img src="/img/teacher/viewAssignment.png"></a>
+                                                   <a onclick = 'showAssignmentSubmissionsModal(true, "{{this.assignmentID}}")' class= ""><img src="/img/teacher/viewAssignment.png"></a>
                                                    <a onclick= 'showAssignmentSettingsModal(true, "{{this.assignmentName}}", "{{this.dueDate}}", "{{this.maxSubmissions}}")' class = ""><img src="/img/teacher/assignmentSettings.png"></a>
                                                 </div>
                                              </div>

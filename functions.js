@@ -72,6 +72,8 @@ exports.localAuth = function (username, password) {
   return deferred.promise;
 }
 
+
+
 /**************************************************
  * Get user classes and assignments from database
  **************************************************/
@@ -134,6 +136,64 @@ exports.getUserClassInformation = function (user_id) {
 return deferred.promise;
 
 }
+
+
+
+/**************************************************
+ * Get Assignment Submissions From Database
+ **************************************************/
+ exports.getAssignmentSubmissions = function (assignmentID) { 
+  var deferred = Q.defer();
+
+  //Connect To Database
+  const connection = mysql.createConnection( { 
+      host : databaseConfig.database.host,
+      database : databaseConfig.database.dbname,
+      user : databaseConfig.database.username,
+      password : databaseConfig.database.password
+  });
+
+  // Formulate Return Structure
+  var assignments = [];
+
+
+  //Query Database
+  sql = 'call getAssignmentSubmissions(\'' + assignmentID +'\');'
+  console.log('Database Query - getAssignmentSubmissions(' + assignmentID + ')');
+  dataRecivedNotNull = false;
+  query = connection.query(sql);
+  query.on('result', function(row) {
+      if(row.constructor.name == 'RowDataPacket') { 
+          //Grab the columns that get sent
+          dataRecivedNotNull = true;
+
+          downloadLink = row['URL'];
+          submissionID = row['Submission_ID'];
+          submissionTime = row['Submission_Time'];
+          fullName = row['Full_Name'];
+
+              result = {    downloadLink,
+                            submissionID,
+                            submissionTime,
+                            fullName  
+                        }; 
+
+                        
+              assignments.push(result)
+              deferred.resolve(assignments);
+          }else { 
+            // If no rows were returned from the database
+              if (!dataRecivedNotNull) { 
+                deferred.resolve(null);
+              }
+              deferred.resolve(false);
+          }
+  });
+  connection.end();
+return deferred.promise;
+
+}
+
 
 /**************************************************
  * Submit Assignments From Student Account

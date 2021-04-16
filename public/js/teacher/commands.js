@@ -61,9 +61,13 @@ function showAddClassModal(isShown) {
   }
   
 
-  function showAssignmentSubmissionsModal(isShown) { 
+  function showAssignmentSubmissionsModal(isShown, assignmentID) { 
     var modal = document.getElementById("assignmentSubmissions-Modal");
 
+    if (assignmentID) { 
+      getAssignmentSubmissions(assignmentID);
+    }
+    
       if (isShown) { 
         modal.style.display = "block";
       }else { 
@@ -317,3 +321,73 @@ return 0;
 
 
 
+// --------------------- Get Assignment Submissions ---------------------------------
+async function getAssignmentSubmissionsAsync(assignmentID) { 
+  const sendData = {'command' : 'getSubmissions', 'assignmentID' : assignmentID}; 
+
+  //Send to API
+ let promise = new Promise((resolve, reject) => {
+
+  fetch('/api' , {
+    method: 'POST',
+    body: JSON.stringify(sendData),
+    headers: {'Content-Type' : 'application/JSON'}
+   })
+   .then(response => response.json())
+   .then(data => {
+     resolve(data);
+   })
+
+  
+});
+let result = await promise
+return result;
+}
+
+function getAssignmentSubmissions (assignmentID){ 
+  getAssignmentSubmissionsAsync(assignmentID).then (data => { 
+    var tbodyRef = document.getElementById('assignmentSubmissionsList-modal').getElementsByTagName('tbody')[0];
+    tbodyRef.innerHTML = "";
+    i = 0;
+    JSON.parse(data.Submissions).forEach(element => {
+      i++;
+      var newRow = tbodyRef.insertRow();
+          var studentIDCell = newRow.insertCell();
+          var studentNameCell = newRow.insertCell();
+          var studentSubmittedCell = newRow.insertCell();
+          var studentDownloadCell = newRow.insertCell();
+
+      //Insert Number Into Cell
+      var studentNumberText = document.createTextNode(i);
+      studentIDCell.appendChild(studentNumberText);
+
+      //Insert Name Into Cell
+      var studentNameText = document.createTextNode(element.fullName);
+      studentNameCell.appendChild(studentNameText);
+
+
+      // Insert Submitted Time Into Cell
+
+      currDueDate = new Date(element.submissionTime);
+      var studentSubmitText = document.createTextNode(currDueDate.toLocaleString());
+      studentSubmittedCell.appendChild(studentSubmitText);
+
+      //Create Download Link
+      var studentCommandText = document.createElement("a");
+      studentCommandText.onClick = "";
+      studentCommandText.href = element.downloadLink;
+      studentCommandText.download = 'download';
+      studentCommandText.text = "Download Assignment";
+      studentDownloadCell.appendChild(studentCommandText);
+      
+      
+   
+
+    });
+
+    
+   return data.body;
+   
+});
+return 0;
+};

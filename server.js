@@ -77,7 +77,6 @@ app.use(session({secret: 'supernova', saveUninitialized: true, resave: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static('public'));
-app.use("/Files", express.static(__dirname + '/public/Files'));
 app.use(express.json());
 
 
@@ -150,7 +149,6 @@ app.post('/api', function(req, res, next) {
           });
         break;
       case ("getAttendees") : 
-      
       funct.getClassAttendees(req.body.classID)
       .then(dbRes => { 
         res.json({
@@ -158,21 +156,28 @@ app.post('/api', function(req, res, next) {
           'Timestamp' : Date.now(),
           'Students' : JSON.stringify(dbRes)
         });
-      });
+        });
           break;
-
-
-
        case ("createAssignment"): 
        funct.createNewAssignment(req.body.classID,req.body.assignmentName,req.body.dueDate,req.body.maxSubmissions)
        .then(dbRes => { 
          res.json({
            'Status' : 'SUCCESS',
-           'Timestamp' : Date.now(),
-           'Students' : JSON.stringify(dbRes)
+           'Timestamp' : Date.now()
          });
        });
        break;
+
+       case ('getSubmissions'):
+         funct.getAssignmentSubmissions(req.body.assignmentID)
+         .then(dbRes => { 
+          res.json({
+            'Status' : 'SUCCESS',
+            'Timestamp' : Date.now(),
+            'Submissions' : JSON.stringify(dbRes)
+          });
+        });
+         break;
       }
 
     }else if (user.isTeacher == null) { 
