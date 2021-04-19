@@ -7,7 +7,7 @@
 <head>
   <title>GreenCheck Login</title>
 </head>
-<h1 class= "text-center" style = "color:white;">GreenCheck LMS</h1>
+<h1 class= "text-center" style = "color:white;"></h1>
 
 
     {{#if error}}
@@ -25,11 +25,23 @@
  
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action="#">
-			<h1>Create Account</h1>
-			<input type="text" placeholder="Name" />
+		<form action="#" style = "display:inline-table;">
+			<h2>Create An Account</h2>
+			<input type="text" placeholder="Username" />
+			<input type="text" placeholder="First Name" />
+			<input type="text" placeholder="Last Name" />
 			<input type="email" placeholder="Email" />
 			<input type="password" placeholder="Password" />
+<br>
+<br>
+    <label class="radio-inline">
+      <input type="radio" name="accountType" checked> <b>Student</b>
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="accountType"> <b>Educator</b>
+    </label>
+<br>
+<br>
 			<button>Sign Up</button>
 		</form>
 	</div>

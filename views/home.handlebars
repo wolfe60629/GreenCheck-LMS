@@ -511,6 +511,9 @@
          </div>
       </div>
       <script>
+      if (window.sessionStorage.getItem('logoAnimated') != null) {
+         document.getElementById("wrapper-div").style.display = "none";
+       }
       var loader = document.getElementsByClassName("bodymovin");
       function loadBMAnimation(loader) {
       var animation = bodymovin.loadAnimation({
@@ -524,6 +527,7 @@
       for (var i = 0; i < loader.length; i++) {
       loadBMAnimation(loader[i]);
       }
+      window.sessionStorage.setItem('logoAnimated', 1);
       </script>
 
       <header class="u-clearfix u-header u-white u-header" id="sec-8537">
@@ -550,8 +554,8 @@
                </div>
                <div class="u-custom-menu u-nav-container">
                   <ul class="u-nav u-unstyled u-nav-1">
-                     <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" style="padding: 10px 20px;">Add a Class</a></li>
-                     <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/logout" style="padding: 10px 20px;">Logout</a></li>
+                     <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" onclick="showAddClassModal(true)" style="padding: 10px 20px;">Add a Class</a></li>
+                     <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" onclick="clearStorage();" href="/logout" style="padding: 10px 20px;">Logout</a></li>
                   </ul>
                </div>
                <div class="u-custom-menu u-nav-container-collapse">
@@ -559,8 +563,8 @@
                      <div class="u-sidenav-overflow">
                         <div class="u-menu-close"></div>
                         <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                           <li class="u-nav-item"><a class="u-button-style u-nav-link" href="" onclick='showAddClassModal()' style="padding: 10px 20px;">Add a Class</a></li>
-                           <li class="u-nav-item"><a class="u-button-style u-nav-link" href="/logout" style="padding: 10px 20px;">Logout</a></li>
+                           <li class="u-nav-item"><a class="u-button-style u-nav-link" onclick='showAddClassModal(true)' style="padding: 10px 20px;">Add a Class</a></li>
+                           <li class="u-nav-item"><a class="u-button-style u-nav-link"  onclick="clearStorage();" href="/logout" style="padding: 10px 20px;">Logout</a></li>
                         </ul>
                      </div>
                   </div>
@@ -607,7 +611,7 @@
             <div class="u-container-style u-grey-15 u-layout-cell u-size-52-lg u-size-52-md u-size-52-sm u-size-52-xs u-size-54-xl u-layout-cell-2">
                <div class="u-container-layout u-container-layout-2">
                   <img src="data:image/png;base64, {{user.profilepicture}}" alt="" class="u-align-center u-image u-image-default u-preserve-proportions u-image-1" data-image-width="1280" data-image-height="1280">
-                  <a href="#" class="u-border-0 u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-9 u-btn-1">Reedeem Avocados</a>
+                  <a onclick="showRedeemPointsModal(true)" class="u-border-0 u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-9 u-btn-1">Reedeem Avocados</a>
                   <div class="u-align-center u-clearfix u-custom-html u-custom-html-1">
                      <div class="progress" style="margin-bottom: 0px;">
                         <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
@@ -706,6 +710,93 @@
                         
                      </div>
                   </div>
+
+                        <div class="modal" id = "addClass-Modal" tabindex="-1" role="dialog">
+                           <div class="modal-content">
+         
+                              <div class="modal-body u-align-center">
+                                 <label for=''>Class Code: </label> <br>  
+                                 <input type="text" id="class-code-modal"/> <br>
+
+                                 
+                               <div class= "text-center modal-footer" style= "display:block;">
+                                 <button onClick='showAddClassModal(false)' class="btn btn-danger">Close</button>  
+                                 <button onClick='addClass({{user.userID}})' class="btn btn-dark">Add Class</button>                                           
+                              </div>                                                  
+                              </div>       
+                           </div>
+                        </div>
+
+                           <div class="modal" id = "redeem-points-Modal" tabindex="-1" role="dialog" style = "padding:0px;">
+                           <div class="modal-content"  style="width: 93%;">
+         
+                              <div class="modal-body u-align-center">
+
+                           <div class="card" style="width: 18rem;">
+                           <img class="card-img-top" src="" alt="Card image cap">
+                           <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                           </div>
+                           </div>
+
+                                                      <div class="card" style="width: 18rem;">
+                           <img class="card-img-top" src="" alt="Card image cap">
+                           <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                           </div>
+                           </div>
+                                                      <div class="card" style="width: 18rem;">
+                           <img class="card-img-top" src="" alt="Card image cap">
+                           <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                           </div>
+                           </div>
+                                                      <div class="card" style="width: 18rem;">
+                           <img class="card-img-top" src="" alt="Card image cap">
+                           <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                           </div>
+                           </div>
+                                                                                 <div class="card" style="width: 18rem;">
+                           <img class="card-img-top" src="" alt="Card image cap">
+                           <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                           </div>
+                           </div>
+                                                                                 <div class="card" style="width: 18rem;">
+                           <img class="card-img-top" src="" alt="Card image cap">
+                           <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                           </div>
+                           </div>
+                                                                                 <div class="card" style="width: 18rem;">
+                           <img class="card-img-top" src="" alt="Card image cap">
+                           <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                           </div>
+                           </div>
+                                 
+                               <div class= "text-center modal-footer" style= "display:block;">
+                                 <button onClick='showRedeemPointsModal(false)' class="btn btn-danger">Close</button>                                       
+                              </div>                                                  
+                              </div>       
+                           </div>
+                        </div>
+
                   <!--ADDING CLASS TABS-->
                   <div class="u-expanded-width-xs u-tab-links-align-center u-tabs u-tabs-1">
                      <ul class="u-spacing-0 u-tab-list u-unstyled" role="tablist" id = "classTabs">

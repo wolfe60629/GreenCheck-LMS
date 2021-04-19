@@ -346,3 +346,51 @@ return deferred.promise;
     return deferred.promise;
 
 }
+
+
+
+/*********************************************************************
+ * Add a Class To The Student Profile - Pending Teacher Confirmation 
+ *********************************************************************/
+
+ exports.addClassToPending = function (class_code, user_id) { 
+  var deferred = Q.defer();
+
+  //Connect To Database
+  const connection = mysql.createConnection( { 
+      host : databaseConfig.database.host,
+      database : databaseConfig.database.dbname,
+      user : databaseConfig.database.username,
+      password : databaseConfig.database.password
+  });
+
+  // Formulate Return Structure
+  var wasAdded = [];
+
+
+  //Query Database
+  sql = 'call addStudentClass(\'' + class_code + '\',' + user_id + ')';
+  console.log('Database Query - addStudentClass(\'' + class_code + '\',' + user_id + ')');
+  dataRecivedNotNull = false;
+  query = connection.query(sql);
+  query.on('result', function(row) {
+      if(row.constructor.name == 'RowDataPacket') { 
+          //Grab the columns that get sent
+          dataRecivedNotNull = true;
+          classAdded = row['correct'];
+
+              result = {classAdded}; 
+              wasAdded.push(result)
+              deferred.resolve(wasAdded);
+          }else { 
+            // If no rows were returned from the database
+              if (!dataRecivedNotNull) { 
+                deferred.resolve(null);
+              }
+              deferred.resolve(false);
+          }
+  });
+  connection.end();
+return deferred.promise;
+
+}

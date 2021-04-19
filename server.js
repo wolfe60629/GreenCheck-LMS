@@ -191,6 +191,20 @@ app.post('/api', function(req, res, next) {
             'Timestamp' : Date.now()
           });
           break; 
+
+
+          case ('addClass') : 
+          funct.addClassToPending(req.body.classCode, req.body.userID)
+          .then(data => { 
+            res.json({
+              'Status' : 'SUCCESS',
+              'Timestamp' : Date.now(),
+              'ClassAdded' : data
+            });
+          });
+
+
+          break;
       }
 
     }

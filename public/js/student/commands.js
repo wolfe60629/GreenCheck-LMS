@@ -1,12 +1,41 @@
+function clearStorage() { 
+  window.sessionStorage.clear();
+}
+
+
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-  var modal = document.getElementById("submitModal");
-  if (event.target == modal) {
-    modal.style.display = "none";
-    //location.reload(true);
+  var submitModal = document.getElementById("submitModal");
+  var addClassModal = document.getElementById("addClass-Modal");
+  var redeemPointsModal = document.getElementById('redeem-points-Modal');
+
+
+  switch (event.target) { 
+    case (addClassModal): 
+      var classCode = document.getElementById("class-code-modal");
+      classCode.value = "";
+      event.target.style.display = 'none';
+      break;
+
+      case (submitModal): 
+      event.target.style.display = 'none';
+      break;
+
+      case (redeemPointsModal): 
+      event.target.style.display = 'none';
+      break;
+   
+
+    default: 
+    break;
   }
 }
+
+
+
+
+
 function showAssignmentModal(isShown, assignmentID, assignmentName,maxSubmissions) { 
   var modal = document.getElementById("submitModal");
   var assignmentNameElement = document.getElementById("modalAssignmentName");
@@ -25,6 +54,32 @@ function showAssignmentModal(isShown, assignmentID, assignmentName,maxSubmission
     }else { 
       modal.style.display = "none";
       
+    }
+  }
+
+
+//Show the modals when function is ran
+function showAddClassModal(isShown) { 
+  var modal = document.getElementById("addClass-Modal");
+  var classCode = document.getElementById("class-code-modal");
+
+    if (isShown) { 
+      modal.style.display = "block";
+    }else { 
+      modal.style.display = "none";
+      classCode.value = "";
+      
+    }
+  }
+
+  //Show the modals when function is ran
+function showRedeemPointsModal(isShown) { 
+  var modal = document.getElementById("redeem-points-Modal");
+
+    if (isShown) { 
+      modal.style.display = "block";
+    }else { 
+      modal.style.display = "none";   
     }
   }
 
@@ -181,3 +236,47 @@ reader.readAsDataURL(evt.target.files[0]);
 }
 
 document.getElementById('file-input').addEventListener('change', handleFileSelect, false);
+
+
+
+// --------------------- Add a New Class ---------------------------------
+async function addClassAsync(classCode, userID) { 
+  const sendData = {'command' : 'addClass', 'classCode' : classCode, 'userID' : userID}; 
+
+  //Send to API
+ let promise = new Promise((resolve, reject) => {
+
+  fetch('/api' , {
+    method: 'POST',
+    body: JSON.stringify(sendData),
+    headers: {'Content-Type' : 'application/JSON'}
+   })
+   .then(response => response.json())
+   .then(data => {
+     resolve(data);
+   })
+
+  
+});
+let result = await promise
+return result;
+}
+
+function addClass (userID){ 
+  classCode = document.getElementById('class-code-modal').value;
+
+if (!classCode) { 
+  alert("Please Enter a Class Code"); 
+  return ""
+}
+
+addClassAsync(classCode,userID).then (data => { 
+    console.log(data);
+    location.reload();
+   return JSON.stringify(data.body);
+   
+});
+
+showAddClassModal(false);
+return 0;
+};
