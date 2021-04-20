@@ -8,6 +8,7 @@
     const session = require('express-session');
     const passport = require('passport');
     const LocalStrategy = require('passport-local');
+    const helmet = require('helmet');
     var https = require('https');
     var http = require('http');
     const fs = require('fs');
@@ -25,6 +26,18 @@
     const httpport = 80;
     const httpsport = 443;
     const funct  = require('./functions.js');
+
+
+    app.use(helmet.dnsPrefetchControl());
+    app.use(helmet.expectCt());
+    app.use(helmet.frameguard());
+    app.use(helmet.hidePoweredBy());
+    app.use(helmet.hsts());
+    app.use(helmet.ieNoOpen());
+    app.use(helmet.noSniff());
+    app.use(helmet.permittedCrossDomainPolicies());
+    app.use(helmet.referrerPolicy());
+    app.use(helmet.xssFilter());
 
 //We will be creating these two files shortly
 // var config = require('./config.js'), //config file contains all tokens and other private info
@@ -53,6 +66,7 @@ passport.use('local-signin', new LocalStrategy(
     });
   }
 ));
+
 
 // Passport session setup.
 passport.serializeUser(function(user, done) {
@@ -281,10 +295,26 @@ app.get('/login', function(req, res){
 });
 
 //sends the request through our local signup strategy, and if successful takes user to homepage, otherwise returns then to signin page
-app.post('/local-reg', passport.authenticate('local-signup', {
-  successRedirect: '/',
-  failureRedirect: '/login'
-  })
+app.post('/local-reg', function(req,res) { 
+
+  var username = req.body.username;
+  var password = req.body.password;
+  var firstname = req.body.firstname;
+  var lastname = req.body.lastname;
+  var email = req.body.email;
+  var teacherStatus = req.body.teacherStatus;
+
+  if (teacherStatus == '0') { 
+    teacherStatus = false;
+  } else if (teacherStatus == '1') {
+    teacherStatus = true;
+  }
+
+  console.log(req.body);
+
+  funct.localreg(username,firstname,lastname, email, password, teacherStatus);
+ res.redirect('/login');
+}
 );
 
 //sends the request through our local login/signin strategy, and if successful takes user to homepage, otherwise returns then to signin page

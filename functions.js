@@ -20,7 +20,7 @@ exports.localAuth = function (username, password) {
     });
 
     //Query Database
-    sql = 'call verifyuser(\'' + username + '\',\'' + password +'\');'
+    sql = 'call verifyuser(' + connection.escape(username) + ',' + connection.escape(password) + ')';
     console.log('Database Query - VerifyUser');
     query = connection.query(sql);
     query.on('result', function(row) {
@@ -73,6 +73,39 @@ exports.localAuth = function (username, password) {
 }
 
 
+/**************************************************
+ * Create a local registration method
+ **************************************************/
+ exports.localreg = function (username,firstname,lastname,email, password, teacherStatus) {
+  var deferred = Q.defer();
+
+    //Connect To Database
+    const connection = mysql.createConnection( { 
+        host : databaseConfig.database.host,
+        database : databaseConfig.database.dbname,
+        user : databaseConfig.database.username,
+        password : databaseConfig.database.password
+    });
+
+
+
+    //Add The New User To The Database 
+    profPic = null;
+    sql = 'call createUser(' + connection.escape(username) + ',' + connection.escape(password) + ',' + connection.escape(firstname) + ',' + connection.escape(lastname) + ',' + connection.escape(email) + ',' + connection.escape(teacherStatus) + ',' + profPic + ');';
+    console.log('Database Query - Create User');
+    query = connection.query(sql);
+    query.on('result', function(row) {
+        if(row.constructor.name == 'RowDataPacket') { 
+            //Grab the columns that get sent
+            success = row['success'];
+                result = {success}; 
+                deferred.resolve(result);
+            }  
+    });
+    connection.end();
+  return deferred.promise;
+}
+
 
 /**************************************************
  * Get user classes and assignments from database
@@ -93,8 +126,8 @@ exports.getUserClassInformation = function (user_id) {
 
 
   //Query Database
-  sql = 'call getClassInformation(\'' + user_id +'\');'
-  console.log('Database Query - getClassInformation(' + user_id + ')');
+  sql = 'call getClassInformation(' + connection.escape(user_id) + ');';
+  console.log('Database Query - getClassInformation');
   dataRecivedNotNull = false;
   query = connection.query(sql);
   query.on('result', function(row) {
@@ -158,8 +191,8 @@ return deferred.promise;
 
 
   //Query Database
-  sql = 'call getAssignmentSubmissions(\'' + assignmentID +'\');'
-  console.log('Database Query - getAssignmentSubmissions(' + assignmentID + ')');
+  sql = 'call getAssignmentSubmissions(' + connection.escape(assignmentID) + ');';
+  console.log('Database Query - getAssignmentSubmissions');
   dataRecivedNotNull = false;
   query = connection.query(sql);
   query.on('result', function(row) {
@@ -209,7 +242,8 @@ return deferred.promise;
 
 
   //Query Database
-  sql = 'call submitAssignment(' + user_id + ',' + assignment_id + ',\'' + document + '\',\'' + documentName +'\');'
+  console.log('Database Query - Submit Assignment');
+  sql = 'call submitAssignment(' + connection.escape(user_id) + ',' + connection.escape(assignment_id) + ',' + connection.escape(document) + ',' + connection.escape(documentName) + ');';
   query = connection.query(sql);  
   connection.end();
 
@@ -235,8 +269,8 @@ return deferred.promise;
 
 
   //Query Database
-  sql = 'call createClass(\'' + user_id +'\', \'' + className + '\');'
-  console.log('Database Query - CreateNewClass(' + className + ')');
+  sql = 'call createClass(' + connection.escape(user_id) + ',' + connection.escape(className) + ');';
+  console.log('Database Query - CreateNewClass');
   dataRecivedNotNull = false;
   query = connection.query(sql);
   query.on('result', function(row) {

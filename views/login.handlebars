@@ -25,20 +25,20 @@
  
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action="#" style = "display:inline-table;">
+		<form action="/local-reg" method = "POST" style = "display:inline-table;">
 			<h2>Create An Account</h2>
-			<input type="text" placeholder="Username" />
-			<input type="text" placeholder="First Name" />
-			<input type="text" placeholder="Last Name" />
-			<input type="email" placeholder="Email" />
-			<input type="password" placeholder="Password" />
+			<input type="text" name = 'username' id = 'signup-username' placeholder="Username" required/>
+			<input type="text" name = 'firstname' id = 'signup-firstname' placeholder="First Name" required/>
+			<input type="text" name = 'lastname' id = 'signup-lastname'placeholder="Last Name" required/>
+			<input type="email" name = 'email' id = 'signup-email' placeholder="Email" required/>
+			<input type="password" name = 'password' id = 'signup-password' placeholder="Password" required/>
 <br>
 <br>
     <label class="radio-inline">
-      <input type="radio" name="accountType" checked> <b>Student</b>
+      <input type="radio" name="teacherStatus" value = '0' checked> <b>Student</b>
     </label>
     <label class="radio-inline">
-      <input type="radio" name="accountType"> <b>Educator</b>
+      <input type="radio" name="teacherStatus" value = '1' > <b>Educator</b>
     </label>
 <br>
 <br>
@@ -48,8 +48,8 @@
 	<div class="form-container sign-in-container">
 		<form action="/login" method = 'POST'>
 			<h1>Sign in</h1>
-			<input type="username" name = "username" placeholder="Username" />
-			<input type="password" name = "password" placeholder="Password" />
+			<input type="username" name = "username" placeholder="Username" required/>
+			<input type="password" name = "password" placeholder="Password" required/>
 			<a href="#">Forgot your password?</a>
 			<button>Sign In</button>
 		</form>
