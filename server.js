@@ -260,9 +260,19 @@ app.post('/api', function(req, res, next) {
               'ClassAdded' : data
             });
           });
-
-
           break;
+
+          case ('getItems'):
+            funct.getItems(req.body.userID)
+            .then(dbRes => { 
+             res.json({
+               'Status' : 'SUCCESS',
+               'Timestamp' : Date.now(),
+               'Items' : dbRes
+             });
+           });
+            break;
+          
       }
 
     }

@@ -36,7 +36,8 @@ window.onclick = function(event) {
 
 
 
-function showAssignmentModal(isShown, assignmentID, assignmentName,maxSubmissions) { 
+function showAssignmentModal(isShown, assignmentID, assignmentName,maxSubmissions,points) { 
+  var pointsField = document.getElementById('modalPoints');
   var modal = document.getElementById("submitModal");
   var assignmentNameElement = document.getElementById("modalAssignmentName");
   var assignmentIDElement = document.getElementById("modalAssignmentID");
@@ -47,6 +48,7 @@ function showAssignmentModal(isShown, assignmentID, assignmentName,maxSubmission
   
     if (assignmentName && isShown) { 
       modal.style.display = "block";
+      pointsField.innerText = points
       assignmentNameElement.innerText = (assignmentName);
       assignmentIDElement.innerText = (assignmentID);
       maxSubmissionsElement.innerText = maxSubmissions;
@@ -278,5 +280,106 @@ addClassAsync(classCode,userID).then (data => {
 });
 
 showAddClassModal(false);
+return 0;
+};
+
+
+// --------------------- Get Redeemable Items ---------------------------------
+async function getItemsAsync(userID) { 
+  const sendData = {'command' : 'getItems', userID}; 
+
+  //Send to API
+ let promise = new Promise((resolve, reject) => {
+
+  fetch('/api' , {
+    method: 'POST',
+    body: JSON.stringify(sendData),
+    headers: {'Content-Type' : 'application/JSON'}
+   })
+   .then(response => response.json())
+   .then(data => {
+     resolve(data);
+   })
+
+  
+});
+let result = await promise
+return result;
+}
+
+function getItems (userID){ 
+  getItemsAsync(userID).then (data => {
+  console.log(data);
+  var itemsArr = data.Items;
+  console.log(itemsArr)
+  if (itemsArr){
+    modalBody = document.getElementById('redeem-points-modal-body');
+    modalBody.innerHTML = '';
+    itemsArr.forEach(item => { 
+
+    itemID = item.itemID;
+    itemName = item.itemName;
+    pointValue = item.pointValue;
+    itemDescription = item.itemDescription;
+    itemValue = item.itemValue;
+
+    card = document.createElement('div');
+    card.classList.add('card');
+    card.style = 'width: 18rem;';
+
+    //Item Image
+    itemImageElement = document.createElement('img');
+    itemImageElement.classList.add('card-img-top');
+    itemImageElement.src = "data:image/png;base64, " + itemValue;
+    itemImageElement.alt = 'Card image cap';
+    itemImageElement.style = 'height:200px;width:208px;';
+    card.appendChild(itemImageElement);
+
+    //Card Body
+    cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
+
+    //Item Name
+    itemNameElement = document.createElement('h5');
+    itemNameElement.classList.add('card-title');
+    itemNameElement.innerText = itemName;
+    cardBody.appendChild(itemNameElement);
+
+    //Item Amount
+    itemAmountElement = document.createElement('h6');
+    itemAmountElement.classList.add('card-title');
+    itemAmountElement.innerText = pointValue + ' Avocados';
+    itemAmountElement.style = 'color:green;'
+    cardBody.appendChild(itemAmountElement);
+
+    // Item Description
+    itemDescriptionElement = document.createElement('p');
+    itemDescriptionElement.classList.add('card-text');
+    itemDescriptionElement.innerText = itemDescription;
+    cardBody.appendChild(itemDescriptionElement);
+
+
+    // Item Action 
+    itemActionElement = document.createElement('a');
+    itemActionElement.className += 'btn btn-primary';
+    itemActionElement.innerText = 'Redeem Item';
+    itemActionElement.href = "#";
+    
+    cardBody.appendChild(itemActionElement);
+
+    // Append Body To Card
+    card.appendChild(cardBody);
+
+    //Append Card To Document
+    modalBody.appendChild(card);
+    });
+
+
+
+   return data.body;
+} else { 
+
+}
+});
 return 0;
 };

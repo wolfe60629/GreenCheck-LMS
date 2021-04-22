@@ -562,3 +562,58 @@ return deferred.promise;
 return deferred.promise;
 
 }
+
+
+/**************************************************
+ * Get Redeemable Items
+ **************************************************/
+ exports.getItems = function (userID) { 
+  var deferred = Q.defer();
+
+  //Connect To Database
+  const connection = mysql.createConnection( { 
+      host : databaseConfig.database.host,
+      database : databaseConfig.database.dbname,
+      user : databaseConfig.database.username,
+      password : databaseConfig.database.password
+  });
+
+  // Formulate Return Structure
+  var itemsArr = [];
+
+
+  //Query Database
+  sql = 'call getItems(' + connection.escape(userID) + ');';
+  console.log(sql);
+  dataRecivedNotNull = false;
+  query = connection.query(sql);
+  query.on('result', function(row) {
+      if(row.constructor.name == 'RowDataPacket') { 
+          //Grab the columns that get sent
+          dataRecivedNotNull = true;
+          itemID = row['item_id'];
+          itemName = row['item_name'];
+          pointValue = row['point_value'];
+          itemDescription = row['item_description'];
+          itemValue = row['Item_value'];
+    
+
+          let buff = new Buffer(itemValue);
+          itemValue = buff.toString('base64');
+
+              result = {itemID,itemName,pointValue,itemDescription,itemValue}; 
+              itemsArr.push(result);
+              
+          }else if(row.constructor.name == 'OkPacket') {
+            deferred.resolve(itemsArr);
+           } else { 
+            // If no rows were returned from the database
+              if (!dataRecivedNotNull) { 
+                deferred.resolve(null);
+              }
+          }
+  });
+  connection.end();
+return deferred.promise;
+
+}

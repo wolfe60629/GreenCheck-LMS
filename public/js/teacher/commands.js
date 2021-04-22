@@ -414,7 +414,7 @@ function getClassAttendees (classID){
   getClassAttendeesAsync(classID).then (data => { 
     var tbodyRef = document.getElementById('classAttendees-modal').getElementsByTagName('tbody')[0];
     tbodyRef.innerHTML = "";
-    if ((data.students)) { 
+    if ((data.Students != 'null')) { 
     JSON.parse(data.Students).forEach(element => {
     var newRow = tbodyRef.insertRow();
     var studentIDCell = newRow.insertCell();
@@ -458,7 +458,7 @@ function getClassAttendees (classID){
 
     });
   }
-    
+
    return data.body;
    
 });
@@ -568,6 +568,7 @@ function getWeeklySeeds (userID){
   getWeeklySeedsAsync(userID).then (data => { 
   var weeklySeedsArr = data.weeklySeeds;
   
+  if (weeklySeedsArr){
   weeklySeedsArr.forEach( seed => {
     var fullName = seed.fullName;
     var className = seed.className;
@@ -600,7 +601,20 @@ function getWeeklySeeds (userID){
     tableRow.appendChild(tableData);
   })
    return data.body;
-   
+} else { 
+    var sideBar = document.getElementById('weeklySeedsBody');
+    var tableRow = sideBar.insertRow();
+    var tableData = document.createElement('td');
+    tableData.classList.add("u-table-cell");
+
+    tableRow.style = 'height: 120px;';
+
+    // Add No Seeds
+    var boldedName = document.createElement('p');
+    boldedName.innerText = 'There Are No Weekly Seeds \n \n \n';
+    tableData.appendChild(boldedName);
+    tableRow.appendChild(tableData);
+}
 });
 return 0;
 };

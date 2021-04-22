@@ -374,6 +374,18 @@ getWeeklySeeds({{user.userID}})
                         </div>
 
 
+                        {{#if classes}}
+                        {{else}}
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <h4 class= 'text-center'>You have No Classes</h4>
+                        {{/if}}
+
                         <!--ADDING CLASS TABS-->
                         <div class="u-expanded-width-xs u-tab-links-align-center u-tabs u-tabs-1">
                            <ul class="u-spacing-0 u-tab-list u-unstyled" role="tablist" id = "classTabs">
@@ -391,6 +403,7 @@ getWeeklySeeds({{user.userID}})
                            </ul>
                            <!--ADDING TAB PAGES FOR CLASS-->
                            <div class="u-tab-content" id = "classTabsPanel">
+
                               {{#each classes}}
                               {{#if @first}} 
                               <div class="u-container-style u-tab-pane u-white u-tab-pane-1 active u-tab-active" id="tab-{{this.classID}}" role="tabpanel" aria-labelledby="link-tab-{{this.classID}}">
@@ -607,18 +620,87 @@ getWeeklySeeds({{user.userID}})
             <div class="u-container-style u-grey-15 u-layout-cell u-size-52-lg u-size-52-md u-size-52-sm u-size-52-xs u-size-54-xl u-layout-cell-2">
                <div class="u-container-layout u-container-layout-2">
                   <img src="data:image/png;base64, {{user.profilepicture}}" alt="" class="u-align-center u-image u-image-default u-preserve-proportions u-image-1" data-image-width="1280" data-image-height="1280">
-                  <a onclick="showRedeemPointsModal(true)" class="u-border-0 u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-9 u-btn-1">Reedeem Avocados</a>
+                  <a onclick="getItems({{user.userID}});showRedeemPointsModal(true);" class="u-border-0 u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-9 u-btn-1">Reedeem Avocados</a>
                   <div class="u-align-center u-clearfix u-custom-html u-custom-html-1">
-                     <div class="progress" style="margin-bottom: 0px;">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                           <span class="sr-only">70% Complete</span>
-                        </div>
-                     </div>
-                     <h6 class="u-text u-text-1">Level 3</h6>
+
+<div id="center">
+   <h4 id="title">Total Avocados:</h4>
+  <h4 id="tag"></h4>  
+  <h4 id="score">{{user.points}}</h4>
+
+</div>
                   </div>
                   
+<script>
+
+
+function go(){
+   score = parseInt(document.getElementById('score').innerText);
+   x = document.getElementById('modalPoints').innerText;
+   document.getElementById('tag').innerText = '+' + x;
+  $({score: 0}).animate({score: x},{
+    duration: 1000,
+    easing:"linear",
+    step: function(now, fx){
+      $("#score").html(score + Math.floor(now));
+    },
+    queue:false,
+    complete: function(now, fx){
+      score += x;
+    }
+  });
+  $("#tag").fadeIn({
+    duration:700,
+    easing:"linear",
+    step:function(now, fx){
+      $(this).css("top", -55 * now  +"px");
+    }
+  }).fadeOut({
+    duration:300,
+    step:function(now, fx){
+      $(this).css("top",-55 * ( 2 - now) + "px");
+    }
+  });
+
+}
+  
+</script>
+
                   <!-- SUBMISSION MODAL -->
                   <style>
+
+#center {
+   display: contents;
+  transform-style: preserve-3d;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+#score {
+  transform-style: preserve-3d;
+  line-height: 90px;
+}
+#tag {
+  transform-style: preserve-3d;
+  display: none;
+  position:absolute;
+  top: -55px;
+  left:50%;
+  transform: translateX(-50%);
+  line-height: 50px;
+}
+#title{
+  transform-style: preserve-3d;
+  position:absolute;
+  top:-25px;
+  left:50%;
+  transform: translateX(-50%);
+  line-height: 70px;
+  font-weight: bold;
+}
+  
+
                      body {font-family: Arial, Helvetica, sans-serif;}
                      /* The Modal (background) */
                      .modal {
@@ -690,6 +772,7 @@ getWeeklySeeds({{user.userID}})
                            </button>
                         </div>
                         <div class="modal-body" id="assignmentModalBody">
+                           <span style = 'display:none;' id = "modalPoints"> </span>
                            <p id = "modalMaxSubmissions" style='display:none'></p>
                            <p id = "modalAssignmentSubmissions" style='display:none'></p>
                            <p id = "modalAssignmentID" style = 'display:none;' ></p>
@@ -701,7 +784,7 @@ getWeeklySeeds({{user.userID}})
                            </div>
                         </div>
                         <div class="modal-footer">
-                           <button onClick='submitStudentAssignment({{user.userID}})' class="btn btn-primary">Submit Assignment</button>
+                           <button onClick='go();submitStudentAssignment({{user.userID}});' class="btn btn-primary">Submit Assignment</button>
                         </div>
                         
                      </div>
@@ -726,70 +809,13 @@ getWeeklySeeds({{user.userID}})
                            <div class="modal" id = "redeem-points-Modal" tabindex="-1" role="dialog" style = "padding:0px;">
                            <div class="modal-content"  style="width: 93%;">
          
-                              <div class="modal-body u-align-center">
-
-                           <div class="card" style="width: 18rem;">
-                           <img class="card-img-top" src="" alt="Card image cap">
-                           <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
-                           </div>
-                           </div>
-
-                                                      <div class="card" style="width: 18rem;">
-                           <img class="card-img-top" src="" alt="Card image cap">
-                           <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
-                           </div>
-                           </div>
-                                                      <div class="card" style="width: 18rem;">
-                           <img class="card-img-top" src="" alt="Card image cap">
-                           <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
-                           </div>
-                           </div>
-                                                      <div class="card" style="width: 18rem;">
-                           <img class="card-img-top" src="" alt="Card image cap">
-                           <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
-                           </div>
-                           </div>
-                                                                                 <div class="card" style="width: 18rem;">
-                           <img class="card-img-top" src="" alt="Card image cap">
-                           <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
-                           </div>
-                           </div>
-                                                                                 <div class="card" style="width: 18rem;">
-                           <img class="card-img-top" src="" alt="Card image cap">
-                           <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
-                           </div>
-                           </div>
-                                                                                 <div class="card" style="width: 18rem;">
-                           <img class="card-img-top" src="" alt="Card image cap">
-                           <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
-                           </div>
-                           </div>
+                              <div class="modal-body u-align-center" id = 'redeem-points-modal-body'>
                                  
+                                                
+                              </div> 
                                <div class= "text-center modal-footer" style= "display:block;">
                                  <button onClick='showRedeemPointsModal(false)' class="btn btn-danger">Close</button>                                       
-                              </div>                                                  
-                              </div>       
+                              </div>        
                            </div>
                         </div>
 
@@ -826,7 +852,7 @@ getWeeklySeeds({{user.userID}})
                                        <div class="u-container-layout u-container-layout-4">
                                           <h5 class="u-align-center u-text u-text-2">Due {{this.dueDate}} <br> Submitted: <span id = 'submissioncount-{{this.assignmentID}}'>{{this.submissionCount}}</span> / {{this.maxSubmissions}}</h5>
                                           <h5 class="u-text u-text-3">{{this.assignmentName}}<br>+{{this.pointsAssigned}} Avocados</h5>
-                                          <a onClick="showAssignmentModal(true,{{this.assignmentID}}, '{{this.assignmentName}}', '{{this.maxSubmissions}}')"  class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-radius-9 u-white u-btn-2">Submit</a>
+                                          <a onClick="showAssignmentModal(true,{{this.assignmentID}}, '{{this.assignmentName}}', '{{this.maxSubmissions}}' , {{this.pointsAssigned}})"  class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-radius-9 u-white u-btn-2">Submit</a>
                                        </div>
                                     </div>
                                     {{/if}}
