@@ -77,15 +77,21 @@ function showAddClassModal(isShown) {
     }
 
 
-  function showAssignmentSettingsModal(isShown, currAsignmentName, currDueDate, currMaxSubmission) { 
+  function showAssignmentSettingsModal(isShown, currAsignmentName, currDueDate, currMaxSubmission, assignmentID) { 
     var modal = document.getElementById("assignmentSettings-Modal");
     var settingsAssignmentName = document.getElementById('assignmentSettings-name-modal');
     var settingsDueDate = document.getElementById('assignmentSettings-date-modal');
     var settingsMaxSubmissions = document.getElementById('assignmentSettings-submissions-modal');
+    var setassignmentID = document.getElementById('assignmentSettings-id-modal'); 
 
     if (currAsignmentName) { 
       settingsAssignmentName.value = currAsignmentName;
     }
+
+    if (assignmentID) { 
+      setassignmentID.value = assignmentID;
+    }
+    
 
     if (currDueDate) { 
       currDueDate += ' UTC'
@@ -110,12 +116,14 @@ function showAddClassModal(isShown) {
     var modal = document.getElementById("classSettings-Modal");
     var classCodeSpan = document.getElementById("classCodeSpan-Modal");
     var classNameInput = document.getElementById("edit-class-name-modal");
+    var classIDInput = document.getElementById('classSettings-classID-modal');
 
     if (classCode) { 
       classCodeSpan.innerText = classCode;
     }
     if (classID){ 
-      getClassAttendees(classID)
+      classIDInput.value = classID;
+      getClassAttendees(classID);
     }  
     if (className) { 
       classNameInput.value = className;
@@ -242,6 +250,142 @@ return 0;
 };
 
 
+// --------------------- Edit Assignment ---------------------------------
+async function editAssignmentAsync(assignmentID, assignmentName, dueDate, maxSubmissions) { 
+  const sendData = {'command' : 'editAssignment', assignmentID, assignmentName, dueDate, maxSubmissions}; 
+
+  //Send to API
+ let promise = new Promise((resolve, reject) => {
+
+  fetch('/api' , {
+    method: 'POST',
+    body: JSON.stringify(sendData),
+    headers: {'Content-Type' : 'application/JSON'}
+   })
+   .then(response => response.json())
+   .then(data => {
+     resolve(data);
+   })
+
+  
+});
+let result = await promise
+return result;
+}
+
+function editAssignment(){ 
+  assignmentName = document.getElementById('assignmentSettings-name-modal').value;
+  dueDate = document.getElementById('assignmentSettings-date-modal').value;
+  maxSubmissions = document.getElementById('assignmentSettings-submissions-modal').value;
+  assignmentID = document.getElementById('assignmentSettings-id-modal').value; 
+
+  if (!(assignmentName && dueDate && maxSubmissions && assignmentID)) { 
+    alert("You must fill out the form.")
+    return "Blank Input"
+  }
+
+  editAssignmentAsync(assignmentID, assignmentName, dueDate, maxSubmissions).then (data => { 
+    console.log(data);
+    location.reload();
+   return JSON.stringify(data.body);
+   
+});
+
+showAssignmentSettingsModal(false);
+return 0;
+};
+
+
+
+
+// --------------------- Remove User From Class ---------------------------------
+async function removeUserFromClassAsync(userID, classID) { 
+  const sendData = {'command' : 'removeUserFromClass', userID, classID}; 
+
+  //Send to API
+ let promise = new Promise((resolve, reject) => {
+
+  fetch('/api' , {
+    method: 'POST',
+    body: JSON.stringify(sendData),
+    headers: {'Content-Type' : 'application/JSON'}
+   })
+   .then(response => response.json())
+   .then(data => {
+     resolve(data);
+   })
+
+  
+});
+let result = await promise
+return result;
+}
+
+function removeUserFromClass(userID, classID){ 
+  if (!(userID && classID)) { 
+    return "Blank Input"
+  }
+
+  removeUserFromClassAsync(userID, classID).then (data => { 
+    console.log(data);
+    //location.reload();
+   return JSON.stringify(data.body);
+   
+});
+
+showAssignmentSettingsModal(false);
+return 0;
+};
+
+
+
+// --------------------- Edit Class ---------------------------------
+async function editClassAsync(classID, className) { 
+  const sendData = {'command' : 'editClass', classID, className}; 
+
+  //Send to API
+ let promise = new Promise((resolve, reject) => {
+
+  fetch('/api' , {
+    method: 'POST',
+    body: JSON.stringify(sendData),
+    headers: {'Content-Type' : 'application/JSON'}
+   })
+   .then(response => response.json())
+   .then(data => {
+     resolve(data);
+   })
+
+  
+});
+let result = await promise
+return result;
+}
+
+function editClass(){ 
+className = document.getElementById('edit-class-name-modal').value;
+classID = document.getElementById('classSettings-classID-modal').value;
+
+
+  if (!(className && classID)) { 
+    return "Blank Input"
+  }
+
+  editClassAsync(classID, className).then (data => { 
+    console.log(data);
+    location.reload();
+   return JSON.stringify(data.body);
+   
+});
+
+showClassSettingsModal(false);
+return 0;
+};
+
+
+
+
+
 // --------------------- Get Class Attendees ---------------------------------
 async function getClassAttendeesAsync(classID) { 
   const sendData = {'command' : 'getAttendees', 'classID' : classID}; 
@@ -270,6 +414,7 @@ function getClassAttendees (classID){
   getClassAttendeesAsync(classID).then (data => { 
     var tbodyRef = document.getElementById('classAttendees-modal').getElementsByTagName('tbody')[0];
     tbodyRef.innerHTML = "";
+    if ((data.students)) { 
     JSON.parse(data.Students).forEach(element => {
     var newRow = tbodyRef.insertRow();
     var studentIDCell = newRow.insertCell();
@@ -284,8 +429,10 @@ function getClassAttendees (classID){
     if (element.isPending == "0") { 
       //If is a current student of the class
       var studentCommandText = document.createElement("a");
-      studentCommandText.onClick = "";
-      studentCommandText.href = "#";
+      studentCommandText.onclick = function () { 
+        removeUserFromClass(element.userID, classID);
+      }
+      studentCommandText.href = "";
       studentCommandText.text = "Remove";
       studentCommandCell.appendChild(studentCommandText);
     }else { 
@@ -310,7 +457,7 @@ function getClassAttendees (classID){
     }
 
     });
-
+  }
     
    return data.body;
    
@@ -386,6 +533,72 @@ function getAssignmentSubmissions (assignmentID){
     });
 
     
+   return data.body;
+   
+});
+return 0;
+};
+
+
+
+// --------------------- Get Weekly Seeds ---------------------------------
+async function getWeeklySeedsAsync(userID) { 
+  const sendData = {'command' : 'getWeeklySeeds', userID}; 
+
+  //Send to API
+ let promise = new Promise((resolve, reject) => {
+
+  fetch('/api' , {
+    method: 'POST',
+    body: JSON.stringify(sendData),
+    headers: {'Content-Type' : 'application/JSON'}
+   })
+   .then(response => response.json())
+   .then(data => {
+     resolve(data);
+   })
+
+  
+});
+let result = await promise
+return result;
+}
+
+function getWeeklySeeds (userID){ 
+  getWeeklySeedsAsync(userID).then (data => { 
+  var weeklySeedsArr = data.weeklySeeds;
+  
+  weeklySeedsArr.forEach( seed => {
+    var fullName = seed.fullName;
+    var className = seed.className;
+    var pointsEarned = seed.pointsEarned;
+    var sideBar = document.getElementById('weeklySeedsBody');
+    var tableRow = sideBar.insertRow();
+    var tableData = document.createElement('td');
+
+    tableData.classList.add("u-border-2");
+    tableData.classList.add("u-border-grey-dark-1");
+    tableData.classList.add("u-table-cell");
+    tableData.classList.add("u-table-cell-3");
+    tableRow.style = 'height: 120px;';
+
+    // Get Name And Add To Field
+    var boldedName = document.createElement('b');
+    boldedName.innerText = fullName + '\n';
+    tableData.appendChild(boldedName);
+
+    // Get Class And Add To Field
+    var italClass = document.createElement('i');
+    italClass.innerText = className + '\n';
+    tableData.appendChild(italClass);
+
+    // Get Points And Add To Field
+    var italPoints = document.createElement('i');
+    italPoints.innerText = pointsEarned + ' Avocados';
+    tableData.appendChild(italPoints);
+  
+    tableRow.appendChild(tableData);
+  })
    return data.body;
    
 });

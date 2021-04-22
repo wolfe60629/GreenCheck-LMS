@@ -182,6 +182,17 @@ app.post('/api', function(req, res, next) {
        });
        break;
 
+
+       case ('editAssignment'): 
+          funct.editAssignment(req.body.assignmentID,req.body.assignmentName,req.body.dueDate,req.body.maxSubmissions)
+          .then(dbRes => { 
+           res.json({
+            'Status' : 'SUCCESS',
+            'Timestamp' : Date.now()
+           });
+          });
+       break;
+
        case ('getSubmissions'):
          funct.getAssignmentSubmissions(req.body.assignmentID)
          .then(dbRes => { 
@@ -192,6 +203,39 @@ app.post('/api', function(req, res, next) {
           });
         });
          break;
+
+
+         case ('removeUserFromClass'):
+          funct.removeUserFromClass(req.body.userID, req.body.classID)
+          .then(dbRes => { 
+           res.json({
+             'Status' : 'SUCCESS',
+             'Timestamp' : Date.now()
+           });
+         });
+          break;
+
+          case ('editClass'):
+            funct.editClass(req.body.classID, req.body.className)
+            .then(dbRes => { 
+             res.json({
+               'Status' : 'SUCCESS',
+               'Timestamp' : Date.now()
+             });
+           });
+            break;
+
+            case ('getWeeklySeeds'):
+              funct.getWeeklySeeds(req.body.userID)
+              .then(dbRes => { 
+               res.json({
+                 'Status' : 'SUCCESS',
+                 'Timestamp' : Date.now(),
+                 'weeklySeeds' : dbRes
+               });
+             });
+              break;
+
       }
 
     }else if (user.isTeacher == null) { 

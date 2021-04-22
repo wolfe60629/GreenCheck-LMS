@@ -19,7 +19,7 @@
       <link rel="stylesheet" href="css/teacher/My-Profile.css" media="screen">
       <script class="u-script" type="text/javascript" src="js/teacher/jquery.js" defer=""></script>
       <script class="u-script" type="text/javascript" src="js/teacher/nicepage.js" defer=""></script>
-      <script type="text/javascript" src="js/teacher/commands.js" defer=""></script>
+      <script type="text/javascript" src="js/teacher/commands.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.0/lottie.js"> </script>
       <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -153,6 +153,7 @@
 
 
                <!-- Star Student Sidebar-->
+               
                   <div class="u-container-style u-grey-60 u-layout-cell u-size-6-xl u-size-8-lg u-size-8-md u-size-8-sm u-size-8-xs u-layout-cell-1">
                      <div class="u-container-layout u-container-layout-1">
                         <div class="u-expanded-width u-table u-table-responsive u-table-1">
@@ -160,30 +161,24 @@
                               <colgroup>
                                  <col width="100%">
                               </colgroup>
-                              <tbody class="u-align-center u-table-body ">
+                              <tbody id = 'weeklySeedsBody' class="u-align-center u-table-body ">
                                  <tr style="height: 45px;">
                                     <td class="u-table-cell u-table-cell-1">Weekly Seeds</td>
                                  </tr>
 
                                     <!-- Row that needs to be added everytime -->
-                                 <tr class= "" style="height: 120px;" id = "assignmentQueue-{{assignment.assignmentID}}">
-                                    <td class="u-border-2 u-border-grey-dark-1 u-table-cell u-table-cell-3"><b>Jeremy Wolfe</b><br><i>Social Studies</i><br><i>55 Avocados</i>
-                                    </td>
-                                 </tr>
-                                 
-                                  <tr class= "" style="height: 120px;" id = "assignmentQueue-{{assignment.assignmentID}}">
-                                    <td class="u-border-2 u-border-grey-dark-1 u-table-cell u-table-cell-3"><b>Mark Shake</b><br><i>Science</i><br><i>45 Avocados</i>
-                                    </td>
-                                 </tr>
-
+                  
                                    
                               </tbody>
                            </table>
                         </div>
                      </div>
                   </div>
+<script>
+//Load Top Preforming Students
+getWeeklySeeds({{user.userID}})
 
-
+</script>
 
 
                
@@ -311,8 +306,8 @@
 
 
                                <div class= "text-center modal-footer" style= "display:block;">
-                                 <button onClick='showAssignmentSettingsModal(false)' class="btn btn-danger">Close</button>       
-                                 <button onClick='' class="btn btn-dark">Save</button>                                                
+                                 <button onClick='showAssignmentSettingsModal(false);' class="btn btn-danger">Close</button>       
+                                 <button onClick='editAssignment();' class="btn btn-dark">Save</button>                                                
                               </div>                                            
                               </div>
                               
@@ -325,6 +320,7 @@
                            <div class="modal" id = "classSettings-Modal" tabindex="-1" role="dialog">
                            <div class="modal-content">
                               <div class="modal-body u-align-left">
+                                 <span style = 'display:none;' id = 'classSettings-classID-modal'> </span>
                                  <h5 class = "u-align-center"><b>Class Code: <span id = "classCodeSpan-Modal"></span></b></h5> <br>
                                  <label for='edit-class-name-modal'>Class Name: </label>   
                                  <input  class="form-control" type="text" id="edit-class-name-modal"/><br>
@@ -345,7 +341,7 @@
 
                               <div class= "text-center modal-footer" style= "display:block;">
                                  <button onClick='showClassSettingsModal(false)' class="btn btn-danger">Close</button>       
-                                 <button onClick='' class="btn btn-success">Save</button>                                                  
+                                 <button onClick='editClass();' class="btn btn-success">Save</button>                                                  
                               </div>
                               </div>
                            </div>
@@ -422,7 +418,7 @@
                                                 <h5 class="u-align-center u-text u-text-2">Due {{this.dueDate}}</h5>
                                                 <div class="assignment-menu u-align-right">
                                                    <a onclick = 'showAssignmentSubmissionsModal(true, "{{this.assignmentID}}")' class= ""><img src="/img/teacher/viewAssignment.png"></a>
-                                                   <a onclick= 'showAssignmentSettingsModal(true, "{{this.assignmentName}}", "{{this.dueDate}}", "{{this.maxSubmissions}}")' class = ""><img src="/img/teacher/assignmentSettings.png"></a>
+                                                   <a onclick= 'showAssignmentSettingsModal(true, "{{this.assignmentName}}", "{{this.dueDate}}", "{{this.maxSubmissions}}", "{{this.assignmentID}}")' class = ""><img src="/img/teacher/assignmentSettings.png"></a>
                                                 </div>
                                              </div>
                                           </div>

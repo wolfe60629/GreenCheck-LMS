@@ -21,7 +21,7 @@ exports.localAuth = function (username, password) {
 
     //Query Database
     sql = 'call verifyuser(' + connection.escape(username) + ',' + connection.escape(password) + ')';
-    console.log('Database Query - VerifyUser');
+    console.log(sql);
     query = connection.query(sql);
     query.on('result', function(row) {
         if(row.constructor.name == 'RowDataPacket') { 
@@ -92,7 +92,7 @@ exports.localAuth = function (username, password) {
     //Add The New User To The Database 
     profPic = null;
     sql = 'call createUser(' + connection.escape(username) + ',' + connection.escape(password) + ',' + connection.escape(firstname) + ',' + connection.escape(lastname) + ',' + connection.escape(email) + ',' + connection.escape(teacherStatus) + ',' + profPic + ');';
-    console.log('Database Query - Create User');
+    console.log(sql);
     query = connection.query(sql);
     query.on('result', function(row) {
         if(row.constructor.name == 'RowDataPacket') { 
@@ -127,7 +127,7 @@ exports.getUserClassInformation = function (user_id) {
 
   //Query Database
   sql = 'call getClassInformation(' + connection.escape(user_id) + ');';
-  console.log('Database Query - getClassInformation');
+  console.log(sql);
   dataRecivedNotNull = false;
   query = connection.query(sql);
   query.on('result', function(row) {
@@ -192,7 +192,7 @@ return deferred.promise;
 
   //Query Database
   sql = 'call getAssignmentSubmissions(' + connection.escape(assignmentID) + ');';
-  console.log('Database Query - getAssignmentSubmissions');
+  console.log(sql);
   dataRecivedNotNull = false;
   query = connection.query(sql);
   query.on('result', function(row) {
@@ -242,7 +242,7 @@ return deferred.promise;
 
 
   //Query Database
-  console.log('Database Query - Submit Assignment');
+  console.log(sql);
   sql = 'call submitAssignment(' + connection.escape(user_id) + ',' + connection.escape(assignment_id) + ',' + connection.escape(document) + ',' + connection.escape(documentName) + ');';
   query = connection.query(sql);  
   connection.end();
@@ -270,7 +270,7 @@ return deferred.promise;
 
   //Query Database
   sql = 'call createClass(' + connection.escape(user_id) + ',' + connection.escape(className) + ');';
-  console.log('Database Query - CreateNewClass');
+  console.log(sql);
   dataRecivedNotNull = false;
   query = connection.query(sql);
   query.on('result', function(row) {
@@ -320,8 +320,8 @@ return deferred.promise;
 
 
   //Query Database
-  sql = 'call getClassUsers(\'' + classID +'\');'
-  console.log('Database Query - getClassUsers(' + classID + ')');
+  sql = 'call getClassUsers(' + connection.escape(classID) + ');';
+  console.log(sql);
   dataRecivedNotNull = false;
   query = connection.query(sql);
   query.on('result', function(row) {
@@ -370,12 +370,43 @@ return deferred.promise;
 
 
   //Query Database
-  sql = 'call createAssignment(\'' + assignmentName +'\', \'' + classID  +'\', \'' + dueDate  +'\', \'' + maxSubmissions + '\');'
-  console.log('Database Query - createAssignment(' + classID + ')');
+  sql = 'call createAssignment(' + connection.escape(assignmentName) + ',' + connection.escape(classID) + ',' + connection.escape(dueDate) + ',' + connection.escape(maxSubmissions) + ');';
+  console.log(sql);
   query = connection.query(sql);
   query.on('result', function(row) {
   });
   deferred.resolve("AddedAssignment");
+  connection.end();
+    return deferred.promise;
+
+}
+
+
+/**************************************************
+ * Edit Assignments in a Class
+ **************************************************/
+ exports.editAssignment = function (assignmentID, assignmentName, dueDate, maxSubmissions) { 
+  var deferred = Q.defer();
+
+  //Connect To Database
+  const connection = mysql.createConnection( { 
+      host : databaseConfig.database.host,
+      database : databaseConfig.database.dbname,
+      user : databaseConfig.database.username,
+      password : databaseConfig.database.password
+  });
+
+  // Formulate Return Structure
+  var newAssignment = [];
+
+
+  //Query Database
+  sql = 'call editAssignment(' + connection.escape(assignmentID) + ',' + connection.escape(assignmentName) + ',' + connection.escape(dueDate) + ',' + connection.escape(maxSubmissions) + ');';
+  console.log(sql);
+  query = connection.query(sql);
+  query.on('result', function(row) {
+  });
+  deferred.resolve("Edited Assignment");
   connection.end();
     return deferred.promise;
 
@@ -416,6 +447,109 @@ return deferred.promise;
               result = {classAdded}; 
               wasAdded.push(result)
               deferred.resolve(wasAdded);
+          }else { 
+            // If no rows were returned from the database
+              if (!dataRecivedNotNull) { 
+                deferred.resolve(null);
+              }
+              deferred.resolve(false);
+          }
+  });
+  connection.end();
+return deferred.promise;
+
+}
+
+
+/**************************************************
+ * Remove User From Class
+ **************************************************/
+ exports.removeUserFromClass = function (userID, classID) { 
+  var deferred = Q.defer();
+
+  //Connect To Database
+  const connection = mysql.createConnection( { 
+      host : databaseConfig.database.host,
+      database : databaseConfig.database.dbname,
+      user : databaseConfig.database.username,
+      password : databaseConfig.database.password
+  });
+
+  //Query Database
+  sql = 'call removeUserFromClass(' + connection.escape(userID) + ','  + connection.escape(classID) + ');';
+  console.log(sql);
+  query = connection.query(sql);
+  query.on('result', function(row) {
+  });
+  deferred.resolve("Removed User");
+  connection.end();
+    return deferred.promise;
+
+}
+
+
+/**************************************************
+ * Edit Class
+ **************************************************/
+ exports.editClass = function (classID, className) { 
+  var deferred = Q.defer();
+
+  //Connect To Database
+  const connection = mysql.createConnection( { 
+      host : databaseConfig.database.host,
+      database : databaseConfig.database.dbname,
+      user : databaseConfig.database.username,
+      password : databaseConfig.database.password
+  });
+
+  //Query Database
+  sql = 'call editClass(' + connection.escape(classID) + ','  + connection.escape(className) + ');';
+  console.log(sql);
+  query = connection.query(sql);
+  query.on('result', function(row) {
+  });
+  deferred.resolve("Edited Class");
+  connection.end();
+    return deferred.promise;
+
+}
+
+
+/**************************************************
+ * Get Teacher Weekly Seeds
+ **************************************************/
+ exports.getWeeklySeeds = function (userID) { 
+  var deferred = Q.defer();
+
+  //Connect To Database
+  const connection = mysql.createConnection( { 
+      host : databaseConfig.database.host,
+      database : databaseConfig.database.dbname,
+      user : databaseConfig.database.username,
+      password : databaseConfig.database.password
+  });
+
+  // Formulate Return Structure
+  var students = [];
+
+
+  //Query Database
+  sql = 'call getWeeklySeeds(' + connection.escape(userID) + ');';
+  console.log(sql);
+  dataRecivedNotNull = false;
+  query = connection.query(sql);
+  query.on('result', function(row) {
+      if(row.constructor.name == 'RowDataPacket') { 
+          //Grab the columns that get sent
+          dataRecivedNotNull = true;
+          className = row['Class_Name'];
+          fullName = row['full_name'];
+          pointsEarned = row['class_points_earned'];
+    
+              result = {fullName,className,pointsEarned}; 
+              students.push(result)
+              
+              deferred.resolve(students);
           }else { 
             // If no rows were returned from the database
               if (!dataRecivedNotNull) { 
