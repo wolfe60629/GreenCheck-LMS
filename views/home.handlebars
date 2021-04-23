@@ -619,7 +619,7 @@ getWeeklySeeds({{user.userID}})
 
             <div class="u-container-style u-grey-15 u-layout-cell u-size-52-lg u-size-52-md u-size-52-sm u-size-52-xs u-size-54-xl u-layout-cell-2">
                <div class="u-container-layout u-container-layout-2">
-                  <img src="data:image/png;base64, {{user.profilepicture}}" alt="" class="u-align-center u-image u-image-default u-preserve-proportions u-image-1" data-image-width="1280" data-image-height="1280">
+                  <img id = 'profile-picture' src="data:image/png;base64, {{user.profilepicture}}" alt="" class="u-align-center u-image u-image-default u-preserve-proportions u-image-1" data-image-width="1280" data-image-height="1280">
                   <a onclick="getItems({{user.userID}});showRedeemPointsModal(true);" class="u-border-0 u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-9 u-btn-1">Reedeem Avocados</a>
                   <div class="u-align-center u-clearfix u-custom-html u-custom-html-1">
 
@@ -633,9 +633,23 @@ getWeeklySeeds({{user.userID}})
                   
 <script>
 
-
-function go(){
    score = parseInt(document.getElementById('score').innerText);
+   if (window.sessionStorage.getItem('score') == null) {
+      window.sessionStorage.setItem('score', score);
+   }else { 
+      document.getElementById('score').innerText = window.sessionStorage.getItem('score');
+   }
+
+   if (window.sessionStorage.getItem('profilepicture') == null) { 
+
+   }else { 
+      document.getElementById('profile-picture').src = window.sessionStorage.getItem('profilepicture');
+   }
+   
+   
+      
+function pointAdd(){
+
    x = document.getElementById('modalPoints').innerText;
    document.getElementById('tag').innerText = '+' + x;
   $({score: 0}).animate({score: x},{
@@ -646,7 +660,38 @@ function go(){
     },
     queue:false,
     complete: function(now, fx){
-      score += x;
+      score = parseInt(score) +  parseInt(x);
+      window.sessionStorage.setItem('score', score);
+    }
+  });
+  $("#tag").fadeIn({
+    duration:700,
+    easing:"linear",
+    step:function(now, fx){
+      $(this).css("top", -55 * now  +"px");
+    }
+  }).fadeOut({
+    duration:300,
+    step:function(now, fx){
+      $(this).css("top",-55 * ( 2 - now) + "px");
+    }
+  });
+
+}
+
+function pointSubtract(x){
+   document.getElementById('tag').innerText = '-' + x;
+
+  $({score: 0}).animate({score: x},{
+    duration: 1000,
+    easing:"linear",
+    step: function(now, fx){
+      $("#score").html(score - Math.floor(now));
+    },
+    queue:false,
+    complete: function(now, fx){
+      score = parseInt(score) -  parseInt(x);
+      window.sessionStorage.setItem('score', score);
     }
   });
   $("#tag").fadeIn({
@@ -784,7 +829,7 @@ function go(){
                            </div>
                         </div>
                         <div class="modal-footer">
-                           <button onClick='go();submitStudentAssignment({{user.userID}});' class="btn btn-primary">Submit Assignment</button>
+                           <button onClick='pointAdd();submitStudentAssignment({{user.userID}});' class="btn btn-primary">Submit Assignment</button>
                         </div>
                         
                      </div>

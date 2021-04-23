@@ -272,6 +272,17 @@ app.post('/api', function(req, res, next) {
              });
            });
             break;
+
+            case ('redeemItem'):
+              funct.redeemItem(req.body.userID, req.body.itemID)
+              .then(dbRes => { 
+               res.json({
+                 'Status' : 'SUCCESS',
+                 'Timestamp' : Date.now(),
+                 'profilePicture' : dbRes
+               });
+             });
+              break;
           
       }
 

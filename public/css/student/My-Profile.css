@@ -111,6 +111,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
   width: 208px;
   height: 156px;
   margin: 6px auto 0;
+  object-fit: contain;
 }
 
 .u-section-1 .u-btn-1 {

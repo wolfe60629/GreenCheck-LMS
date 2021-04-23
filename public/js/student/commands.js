@@ -311,7 +311,6 @@ function getItems (userID){
   getItemsAsync(userID).then (data => {
   console.log(data);
   var itemsArr = data.Items;
-  console.log(itemsArr)
   if (itemsArr){
     modalBody = document.getElementById('redeem-points-modal-body');
     modalBody.innerHTML = '';
@@ -364,7 +363,7 @@ function getItems (userID){
     itemActionElement.className += 'btn btn-primary';
     itemActionElement.innerText = 'Redeem Item';
     itemActionElement.href = "#";
-    
+    itemActionElement.setAttribute('onclick','if (canAfford(' + pointValue + ') == true) {redeemItem(' + userID + ',' + itemID + ');showRedeemPointsModal(false);pointSubtract(' + pointValue + ');} else {alert(\'You Cannot Afford This Item.\')}');
     cardBody.appendChild(itemActionElement);
 
     // Append Body To Card
@@ -383,3 +382,57 @@ function getItems (userID){
 });
 return 0;
 };
+
+function canAfford(pointValue) { 
+  currValue = sessionStorage.getItem('score');
+  if (parseInt(currValue) - pointValue >= 0) { 
+    return true;
+  }else { 
+    return false;
+  }
+}
+
+// --------------------- Redeem An Item ---------------------------------
+async function redeemItemAsync(userID,itemID) { 
+  const sendData = {'command' : 'redeemItem', userID, itemID}; 
+
+  //Send to API
+ let promise = new Promise((resolve, reject) => {
+
+  fetch('/api' , {
+    method: 'POST',
+    body: JSON.stringify(sendData),
+    headers: {'Content-Type' : 'application/JSON'}
+   })
+   .then(response => response.json())
+   .then(data => {
+     resolve(data);
+   })
+
+  
+});
+let result = await promise
+return result;
+}
+
+function redeemItem (userID,itemID){
+  redeemItemAsync(userID, itemID).then (data => {
+  var profilePicture = data.profilePicture[0].profilePicture;
+
+  if (profilePicture){
+    //get profile picture element
+    pictureElement = document.getElementById('profile-picture');
+    pictureElement.src = 'data:image/png;base64, ' + profilePicture;
+    window.sessionStorage.setItem('profilepicture', pictureElement.src);
+   return data.body;
+} else { 
+
+}
+});
+return 0;
+};
+
+
+
+
+

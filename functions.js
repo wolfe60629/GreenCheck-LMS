@@ -434,7 +434,8 @@ return deferred.promise;
 
 
   //Query Database
-  sql = 'call addStudentClass(\'' + class_code + '\',' + user_id + ')';
+  sql = 'call addStudentClass(' + connection.escape(class_code) + ',' + connection.escape(user_id) + ');';
+
   console.log('Database Query - addStudentClass(\'' + class_code + '\',' + user_id + ')');
   dataRecivedNotNull = false;
   query = connection.query(sql);
@@ -602,6 +603,56 @@ return deferred.promise;
           itemValue = buff.toString('base64');
 
               result = {itemID,itemName,pointValue,itemDescription,itemValue}; 
+              itemsArr.push(result);
+              
+          }else if(row.constructor.name == 'OkPacket') {
+            deferred.resolve(itemsArr);
+           } else { 
+            // If no rows were returned from the database
+              if (!dataRecivedNotNull) { 
+                deferred.resolve(null);
+              }
+          }
+  });
+  connection.end();
+return deferred.promise;
+
+}
+
+
+/**************************************************
+ * Redeeming an Item
+ **************************************************/
+ exports.redeemItem = function (userID,itemID) { 
+  var deferred = Q.defer();
+
+  //Connect To Database
+  const connection = mysql.createConnection( { 
+      host : databaseConfig.database.host,
+      database : databaseConfig.database.dbname,
+      user : databaseConfig.database.username,
+      password : databaseConfig.database.password
+  });
+
+  // Formulate Return Structure
+  var itemsArr = [];
+
+
+  //Query Database
+  sql = 'call redeemItem(' + connection.escape(userID) + ',' + connection.escape(itemID) +  ');';
+  console.log(sql);
+  dataRecivedNotNull = false;
+  query = connection.query(sql);
+  query.on('result', function(row) {
+      if(row.constructor.name == 'RowDataPacket') { 
+          //Grab the columns that get sent
+          dataRecivedNotNull = true;
+          profilePicture = row['profile_picture'];
+    
+          let buff = new Buffer(profilePicture);
+          profilePicture = buff.toString('base64');
+
+              result = {profilePicture}; 
               itemsArr.push(result);
               
           }else if(row.constructor.name == 'OkPacket') {
