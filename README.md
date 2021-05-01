@@ -1,6 +1,4 @@
 # GreenCheck Learning Management System
-## A new way to engage students in the classroom
-
 ![alt text](https://i.ibb.co/m65kj8c/Capture.png)
 
 
@@ -20,7 +18,7 @@ $ node configure
 $ npm start
 
 Go to `http://localhost:80`
-
+```
 
 ## 1 Abstract
 
