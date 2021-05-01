@@ -1,6 +1,4 @@
 # GreenCheck Learning Management System
-![alt text](https://i.ibb.co/m65kj8c/Capture.png)
-
 
 ## Built With
 * [NodeJS](https://expressjs.com)
