@@ -118,7 +118,7 @@ table is used to allow users to claim items from the item store.
 ```
 Figure 3.3 - ERD Diagram
 ```
-![alt text](blob:https://pasteboard.co/b441e8ff-8ce5-4770-a124-79dfa8df8588)
+![alt text](https://i.imgur.com/HZDOsLm.png)
 
 ## Conclusion/Future Work
 
